@@ -1,0 +1,9 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-mont: 'Montserrat';
+}
+
+:root {
+  --grid-padding: 30px;
+}
