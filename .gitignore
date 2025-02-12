@@ -25,3 +25,5 @@ logs
 
 #localhost pem files
 *.pem
+
+accesibility.md

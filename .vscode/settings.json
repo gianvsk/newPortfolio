@@ -15,6 +15,10 @@
   "files.associations": {
     "*.css": "tailwindcss"
   },
-  "tailwindCSS.emmetCompletions": true
+  "tailwindCSS.emmetCompletions": true,
+  "search.exclude": {
+    "**/node_modules": false,
+    "**/nuxt_modules": true
+  }
 }
 

@@ -1,18 +1,11 @@
 <script setup lang="ts">
   const { slug } = useRoute().params;
 
-  console.log(
-    'slug',
-    slug.length > 0 && Array.isArray(slug) ? slug.join('/') : 'ops'
-  );
-
   const story = await useAsyncStoryblok(
     /* slug && !(Array.isArray(slug)) ? slug : 'home' */
     'new-test',
     { version: 'draft' }
   );
-
-  console.log({ story });
 </script>
 
 <template>

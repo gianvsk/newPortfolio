@@ -1,5 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import tailwindcss from '@tailwindcss/vite';
+import path from 'path';
 
 export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
@@ -11,9 +12,15 @@ export default defineNuxtConfig({
     '@primevue/nuxt-module',
     '@storyblok/nuxt',
     '@nuxt/image',
-    '@tresjs/nuxt',
     '@nuxt/fonts',
+    'nuxt-svgo',
+    '@hypernym/nuxt-gsap',
   ],
+
+  plugins: [],
+  build: {
+    transpile: ['gsap'],
+  },
   components: [
     {
       path: '~/components',
@@ -27,7 +34,22 @@ export default defineNuxtConfig({
     },
   },
   vite: {
+    resolve: {
+      alias: {
+        '~': path.resolve(__dirname, './'), // Map '~' to the root of the project
+      },
+    },
     plugins: [tailwindcss()],
+  },
+  gsap: {
+    extraPlugins: {
+      scrollTrigger: true,
+      text: true,
+    },
+  },
+  svgo: {
+    autoImportPath: './assets/icons',
+    componentPrefix: 'Icons',
   },
   storyblok: {
     accessToken: process.env.STORYBLOK_ACCESS_TOKEN,
