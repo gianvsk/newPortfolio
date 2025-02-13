@@ -4,11 +4,27 @@
     resolve_relations: ['hero.contents', 'vertical-container.contents'],
   });
 
+  useHead({
+    title: 'GS Portfolio Homepage',
+    meta: [
+      {
+        name: 'description',
+        content:
+          'This is Gianvito Scandurra new portfolio homepage. You will find all the infos about the author, skills and projects.',
+      },
+    ],
+    htmlAttrs: {
+      lang: 'it',
+    },
+  });
+
   console.log({ story });
 
   const { $gsap } = useNuxtApp();
 
   onMounted(() => {
+    /*     const containerHeight = (document.querySelector('#vertical-slider') as HTMLElement)?.offsetHeight; */
+
     const sphereTl = $gsap.timeline();
 
     sphereTl.to('#vertical-slider', {
@@ -45,17 +61,17 @@
       ease: 'power1.in',
     });
 
-    // Generalized scroll animation for #testp elements
     const verticalSliderTl = $gsap.timeline();
-    const verticalSlideElements = $gsap.utils.toArray('#testp');
+    const verticalSlideElements = $gsap.utils.toArray('#vertical-slide');
 
     verticalSlideElements.forEach((el, i) => {
       verticalSliderTl.from(el as Element, {
         scrollTrigger: {
           trigger: el as Element,
-          start: `top+=${window.innerHeight * (i * 2)} bottom`,
+          start: `top+=${window.innerHeight * (i * 2)} top`,
           end: `top+=${window.innerHeight * (i * 2 + 2)} bottom`,
           scrub: true,
+          markers: true,
         },
         yPercent: 100,
       });
@@ -69,7 +85,6 @@
           start: `top+=${i > 0 ? window.innerHeight * (i * 2.1) : window.innerHeight * i} 20%`,
           end: `bottom+=${i > 0 ? window.innerHeight * (i * 2 + 1) : window.innerHeight * (i + 1)} bottom`,
           scrub: true,
-          markers: true,
         },
         color: $gsap.getProperty(
           (arr as Array<Element>)[arr.length - 1 - i].firstElementChild,
@@ -100,7 +115,6 @@
           start: `top+=${(i - 1) * window.innerWidth} top`,
           end: `bottom+=${i * window.innerWidth} bottom`,
           scrub: true,
-          markers: true,
         },
         xPercent: 100 * -i,
       });
@@ -114,12 +128,12 @@
       class="col-start-1 col-span-12 md:col-start-4 md:col-span-6 flex justify-center items-center h-[95vh]"
     >
       <template v-if="story">
-        <!--         <StoryblokComponent
-          v-for="(singleStory, index) in story.content.body"
+        <StoryblokComponent
+          v-for="singleStory in story.content.body[0].contents"
           :key="singleStory"
-          :blok="singleStory.contents[index].content"
+          :blok="singleStory.content"
           class="px-6 md:px-10 py-6 md:h-min-[90%]"
-        /> -->
+        />
       </template>
     </section>
 
@@ -140,15 +154,18 @@
       <div class="sticky z-40 top-0 md:top-20 left-0 py-2 right-0">
         <span id="experience" class="text-3xl">ESPERIENZE</span>
       </div>
-      <div id="testp" class="absolute inset-0 shrink-0">
+      <div id="vertical-slide" class="absolute inset-0 shrink-0">
         <div class="bg-white w-full h-full px-8 py-5 flex flex-col justify-end">
-          <div class="h-[80%] flex flex-col justify-between">
-            <span class="text-black shrink-0">Questa è una prova</span>
-            <span class="text-black shrink-0">Questa un'altra</span>
+          <div class="h-[90%] md:h-4/5 flex flex-col justify-between">
+            <StoryblokComponent
+              v-for="singleStory in story.content.body[1].contents"
+              :key="singleStory"
+              :blok="singleStory.content"
+            />
           </div>
         </div>
       </div>
-      <div id="testp" class="absolute inset-0 shrink-0">
+      <div id="vertical-slide" class="absolute inset-0 shrink-0">
         <div
           class="bg-gray-300 w-full h-full px-8 py-5 flex flex-col justify-end"
         >
@@ -158,7 +175,7 @@
           </div>
         </div>
       </div>
-      <div id="testp" class="absolute inset-0 shrink-0">
+      <div id="vertical-slide" class="absolute inset-0 shrink-0">
         <div
           class="bg-neutral-700 w-full h-full px-8 py-5 flex flex-col justify-end"
         >
@@ -168,7 +185,7 @@
           </div>
         </div>
       </div>
-      <div id="testp" class="absolute inset-0 shrink-0">
+      <div id="vertical-slide" class="absolute inset-0 shrink-0">
         <div
           class="bg-neutral-900 w-full h-full px-8 py-5 flex flex-col justify-end"
         >

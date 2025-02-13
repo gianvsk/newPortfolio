@@ -3,27 +3,7 @@
 
   const props = defineProps<CardProps>();
 
-  /* const p = ref(); */
-
-  const { $gsap } = useNuxtApp();
-
-  /*   const l = $gsap.timeline();
-  onMounted(() => {
-    if (p.value && c.value) {
-      l.to(c.value, {
-        x: 500,
-        duration: 5,
-        lazy: true,
-        scrollTrigger: {
-          trigger: document.body.querySelector('#ciao'),
-          start: 'top+=400 top+=100',
-          end: 'bottom center+=200',
-          markers: true,
-          scrub: true,
-        },
-      });
-    }
-  }); */
+  const { $gsap } = await useNuxtApp();
 
   const tl = $gsap.timeline();
 
@@ -55,30 +35,47 @@
 </script>
 
 <template>
-  <div ref="p" class="py-4 flex flex-col justify-center gap-2 overflow-hidden">
-    <h1 id="first-text" class="text-white text-5xl font-bold showing-up-text">
+  <div
+    ref="p"
+    class="py-4 flex flex-col justify-center items-center gap-2 overflow-hidden text-center"
+  >
+    <div
+      class="relative w-32 h-32 border rounded-full flex justify-center items-center group"
+    >
+      <NuxtPicture
+        v-if="blok.image?.filename"
+        :src="blok.image?.filename"
+        :alt="blok.image?.alt"
+        class="w-full h-full border overflow-hidden rounded-full object-cover aspect-square"
+        :img-attrs="{
+          class:
+            'w-full h-full group-hover:scale-[3] group-hover:translate-x-4 group-hover:-translate-y-10 duration-300 z-2',
+        }"
+        fit="cover"
+        preload
+      />
+      <div
+        class="absolute inset-0 border rounded-full border-white zoom-image"
+      />
+    </div>
+    <h1 id="first-text" class="text-white text-3xl font-bold showing-up-text">
       {{ blok.title }}
     </h1>
-    <!-- <span id="second-text" class="text-white text-lg font-medium" /> -->
     <h2 class="text-white text-2xl showing-up-text">{{ blok.subtitle }}</h2>
     <div class="mt-6 flex flex-col">
-      <!--       <NuxtPicture
-        :src="`${blok.image.filename}/m/1000x800/`"
-        :alt="blok.image.alt"
-        sizes="100vw sm:25vw md:25vw"
-        layout="responsive"
-        class="max-w-full aspect-[6/7] shadow-lg self-center object-cover"
-        fit="inside"
-        loading="lazy"
-        format="avif,webp"
-        :img-attrs="{ class: 'img w-full h-full object-cover' }"
-      /> -->
       <h3
         id="hero-description"
         class="text-md text-white font-mont font-bold min-h-[250px]"
-      >
-        <!-- {{ blok.description }} -->
-      </h3>
+      />
     </div>
   </div>
 </template>
+
+<style lang="scss" scoped>
+  .zoom-image {
+    transition: all 0.3s ease-in;
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
+</style>
