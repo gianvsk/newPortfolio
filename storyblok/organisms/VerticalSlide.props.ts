@@ -5,7 +5,7 @@ export type VerticalSlideProps = {
     paragraph?: string;
     image?: any[];
     icons?: string[];
-    bgColor?: string;
+    bgColor: string;
   };
   isSingleImage?: boolean;
 };

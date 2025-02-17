@@ -100,7 +100,7 @@
     });
 
     verticalSlideElements.forEach((el, i, arr) => {
-      verticalSliderTl.from('#experience', { opacity: 0 });
+      verticalSliderTl.from('#experience', { opacity: 0.5 });
       verticalSliderTl.to('#experience', {
         scrollTrigger: {
           trigger: el as Element,
@@ -142,9 +142,6 @@
       });
     });
   });
-
-  console.log('story', story.value.content.body);
-  console.log('p', story.value.content.body[1].contents);
 </script>
 
 <template>
@@ -152,14 +149,14 @@
     <section
       class="col-start-1 col-span-12 md:col-start-4 md:col-span-6 flex justify-center items-center h-[95vh]"
     >
-      <div v-if="story">
+      <template v-if="story">
         <StoryblokComponent
           v-for="singleStory in story.content.body[0].contents"
           :key="singleStory"
           :blok="singleStory.content"
           class="px-6 md:px-10 py-6 md:h-min-[90%]"
         />
-      </div>
+      </template>
     </section>
 
     <section
@@ -180,12 +177,13 @@
         <span id="experience" class="text-3xl">ESPERIENZE</span>
       </div>
 
-      <StoryblokComponent
+      <div
         v-for="(singleStory, index) in story.content.body[1].contents"
-        :key="singleStory.content._uid"
-        :blok="singleStory.content"
-        :class="`z-[${index + 1}]`"
-      />
+        :key="singleStory"
+        :class="`z-[${index + 1}] absolute inset-0 shrink-0 flex flex-col justify-end`"
+      >
+        <StoryblokComponent :blok="singleStory.content" />
+      </div>
     </section>
     <section
       class="col-start-1 col-span-12 bg-black h-screen flex items-center"

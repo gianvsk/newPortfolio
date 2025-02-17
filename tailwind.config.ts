@@ -1,15 +1,20 @@
+import animation from './configs/tailwind/animation';
 import fontFamily from './configs/tailwind/fontFamily';
+import { join } from 'path';
 
-/** @type {import('tailwindcss').Config} */
+const resolve = (p: string) => join(__dirname, p);
+
 export default {
   content: [
-    './my-nuxt-app/components/**/*.{ts,vue}',
-    './my-nuxt-app/layouts/*.{ts,vue}',
-    './my-nuxt-app/pages/**/*.{ts,vue}',
+    resolve('storyblok/**/*.vue'),
+    resolve('~/components/**/*.vue'),
+    resolve('~/layouts/**/*.vue'),
+    resolve('~/pages/**/*.vue'),
   ],
   theme: {
     extend: {
       fontFamily,
+      animation,
     },
   },
   plugins: [],

@@ -3,19 +3,21 @@
 
   const props = defineProps<VerticalSlideProps>();
 
-  const currentBgColor = computed(() =>
-    props.blok.bgColor ? `bg-${props.blok.bgColor}` : ''
-  );
+  const bgColor = ref('');
 
-  console.log('props', currentBgColor);
+  /*   const currentBgColor = computed(() =>
+    props.blok.bgColor ? `bg-${props.blok.bgColor}` : ''
+  ); */
+
+  console.log(props.blok.bgColor);
+
+  onMounted(() => {
+    bgColor.value = `bg-${props.blok.bgColor}`;
+  });
 </script>
 
 <template>
-  <div
-    id="vertical-slide"
-    class="absolute inset-0 shrink-0 flex flex-col justify-end"
-    :class="currentBgColor"
-  >
+  <div id="vertical-slide" :class="bgColor">
     <div class="w-full h-[90%] md:h-4/5 px-8 py-5">
       <div class="grid grid-cols-2 grid-rows-2 gap-6 h-full w-full py-6 px-18">
         <div
