@@ -18,12 +18,22 @@
     },
   });
 
-  console.log({ story });
-
   const { $gsap } = useNuxtApp();
 
   onMounted(() => {
     /*     const containerHeight = (document.querySelector('#vertical-slider') as HTMLElement)?.offsetHeight; */
+
+    $gsap.to('#navbar', {
+      scrollTrigger: {
+        trigger: document.body,
+        start: 'top top',
+        end: `bottom+=${window.innerHeight / 4} 90%`,
+        scrub: true,
+      },
+      background: 'black',
+      color: 'white',
+      borderColor: 'text-white/50',
+    });
 
     const sphereTl = $gsap.timeline();
 
@@ -64,30 +74,42 @@
     const verticalSliderTl = $gsap.timeline();
     const verticalSlideElements = $gsap.utils.toArray('#vertical-slide');
 
-    verticalSlideElements.forEach((el, i) => {
-      verticalSliderTl.from(el as Element, {
-        scrollTrigger: {
-          trigger: el as Element,
-          start: `top+=${window.innerHeight * (i * 2)} top`,
-          end: `top+=${window.innerHeight * (i * 2 + 2)} bottom`,
-          scrub: true,
-          markers: true,
-        },
-        yPercent: 100,
-      });
+    verticalSlideElements.forEach((el, i, arr) => {
+      verticalSliderTl
+        .from(el as Element, {
+          scrollTrigger: {
+            trigger: el as Element,
+            start: `top+=${window.innerHeight * (i * 2)} top`,
+            end: `top+=${window.innerHeight * (i * 2 + 2)} bottom`,
+            scrub: true,
+          },
+          yPercent: 100,
+        })
+        .to(el as Element, {
+          scrollTrigger: {
+            trigger: el as Element,
+            start: `top+=${window.innerHeight * (i * 2)} top`,
+            end: `top+=${window.innerHeight * (i * 2 + 2)} bottom`,
+            scrub: true,
+          },
+          color: $gsap.getProperty(
+            (arr as Array<Element>)[arr.length - 1 - i],
+            'background-color'
+          ),
+        });
     });
 
     verticalSlideElements.forEach((el, i, arr) => {
-      $gsap.from('#experience', { opacity: 0 });
-      $gsap.to('#experience', {
+      verticalSliderTl.from('#experience', { opacity: 0 });
+      verticalSliderTl.to('#experience', {
         scrollTrigger: {
           trigger: el as Element,
-          start: `top+=${i > 0 ? window.innerHeight * (i * 2.1) : window.innerHeight * i} 20%`,
-          end: `bottom+=${i > 0 ? window.innerHeight * (i * 2 + 1) : window.innerHeight * (i + 1)} bottom`,
+          start: `top+=${i > 0 ? window.innerHeight * (i * 2) : window.innerHeight * i} 20%`,
+          end: `bottom+=${i > 0 ? window.innerHeight * (i * 2 + 0.5) : window.innerHeight * (i + 1)} bottom`,
           scrub: true,
         },
         color: $gsap.getProperty(
-          (arr as Array<Element>)[arr.length - 1 - i].firstElementChild,
+          (arr as Array<Element>)[arr.length - 1 - i],
           'background-color'
         ),
         opacity: 1,
@@ -98,9 +120,9 @@
     const horizontalSliderTl = $gsap.timeline();
     const horizontalSlideElements = $gsap.utils.toArray('#testl');
 
-    horizontalSliderTl.to('#testk', {
+    horizontalSliderTl.to('#horizontal-slider', {
       scrollTrigger: {
-        trigger: '#testk',
+        trigger: '#horizontal-slider',
         start: 'top top',
         end: `top+=${window.innerWidth * 4} bottom`,
         scrub: true,
@@ -120,6 +142,9 @@
       });
     });
   });
+
+  console.log('story', story.value.content.body);
+  console.log('p', story.value.content.body[1].contents);
 </script>
 
 <template>
@@ -127,14 +152,14 @@
     <section
       class="col-start-1 col-span-12 md:col-start-4 md:col-span-6 flex justify-center items-center h-[95vh]"
     >
-      <template v-if="story">
+      <div v-if="story">
         <StoryblokComponent
           v-for="singleStory in story.content.body[0].contents"
           :key="singleStory"
           :blok="singleStory.content"
           class="px-6 md:px-10 py-6 md:h-min-[90%]"
         />
-      </template>
+      </div>
     </section>
 
     <section
@@ -151,50 +176,16 @@
         />
       </div>
       <!-- Horizontal scrolling section -->
-      <div class="sticky z-40 top-0 md:top-20 left-0 py-2 right-0">
+      <div class="sticky z-40 top-0 md:top-20 left-0 py-2 right-0 pl-[71px]">
         <span id="experience" class="text-3xl">ESPERIENZE</span>
       </div>
-      <div id="vertical-slide" class="absolute inset-0 shrink-0">
-        <div class="bg-white w-full h-full px-8 py-5 flex flex-col justify-end">
-          <div class="h-[90%] md:h-4/5 flex flex-col justify-between">
-            <StoryblokComponent
-              v-for="singleStory in story.content.body[1].contents"
-              :key="singleStory"
-              :blok="singleStory.content"
-            />
-          </div>
-        </div>
-      </div>
-      <div id="vertical-slide" class="absolute inset-0 shrink-0">
-        <div
-          class="bg-gray-300 w-full h-full px-8 py-5 flex flex-col justify-end"
-        >
-          <div class="h-[80%] flex flex-col justify-between">
-            <span class="text-black shrink-0">Questa è una prova</span>
-            <span class="text-black shrink-0">Questa un'altra</span>
-          </div>
-        </div>
-      </div>
-      <div id="vertical-slide" class="absolute inset-0 shrink-0">
-        <div
-          class="bg-neutral-700 w-full h-full px-8 py-5 flex flex-col justify-end"
-        >
-          <div class="h-[80%] flex flex-col justify-between">
-            <span class="text-white shrink-0">Questa è una prova</span>
-            <span class="text-white shrink-0">Questa un'altra</span>
-          </div>
-        </div>
-      </div>
-      <div id="vertical-slide" class="absolute inset-0 shrink-0">
-        <div
-          class="bg-neutral-900 w-full h-full px-8 py-5 flex flex-col justify-end"
-        >
-          <div class="h-[80%] flex flex-col justify-between">
-            <span class="text-white shrink-0">Questa è una prova</span>
-            <span class="text-white shrink-0">Questa un'altra</span>
-          </div>
-        </div>
-      </div>
+
+      <StoryblokComponent
+        v-for="(singleStory, index) in story.content.body[1].contents"
+        :key="singleStory.content._uid"
+        :blok="singleStory.content"
+        :class="`z-[${index + 1}]`"
+      />
     </section>
     <section
       class="col-start-1 col-span-12 bg-black h-screen flex items-center"
@@ -202,7 +193,7 @@
       <div class="text-5xl text-white">CIAO</div>
     </section>
     <section
-      id="testk"
+      id="horizontal-slider"
       class="col-start-1 col-span-12 h-screen overflow-x-scroll flex flex-nowrap bg-black"
     >
       <!-- Horizontal scrolling section -->

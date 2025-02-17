@@ -27,20 +27,24 @@
 </script>
 
 <template>
-  <header>
-    <ul class="gap-8 hidden md:flex">
+  <header
+    id="navbar"
+    class="w-max h-min border border-white box-shadow-light rounded-full px-2 py-5"
+  >
+    <ul class="gap-8 hidden md:flex md:flex-col md:items-center md:flex-">
       <li
         v-for="link in blok.links"
         :key="link.content.link._uid"
         class="text-white"
       >
-        <StoryblokComponent :blok="link.content" />
+        <StoryblokComponent :blok="{ ...link.content, showOnlyIcon: true }" />
       </li>
     </ul>
     <div class="flex md:hidden gap-8 items-center justify-between z-[9999]">
       <div />
       <button
         class="flex relative before:border-2 before:border-white px-[2px] before:rounded-md before:content-[''] before:absolute before:inset-0 before:opacity-0 before:duration-300 hover:before:opacity-100 cursor-pointer"
+        aria-label="navigation-menu"
         @click="openModal"
       >
         <IconsBurgherMenu class="w-8 h-8 text-white" :font-controlled="false" />
@@ -67,6 +71,7 @@
           </div>
           <button
             class="border-2 rounded-full border-gray-400 p-1 hover:border-white hover:animate-small-rotation cursor-pointer"
+            aria-label="close-navigation-menu"
             @click="closeModal"
           >
             <IconsClose
@@ -82,3 +87,10 @@
     </div>
   </header>
 </template>
+
+<style scoped lang="scss">
+  .box-shadow-light {
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+  }
+</style>

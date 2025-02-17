@@ -38,7 +38,7 @@ onUnmounted(() => {
     <div class="flex flex-col col-start-1 col-span-12">
       <div
         v-if="story"
-        class="flex flex-col justify-center w-full px-8 py-4 fixed top-0 left-0 right-0 z-[9999] bg-transparent"
+        class="flex items-center px-8 py-4 fixed top-0 left-0 bottom-0 z-[9999] bg-transparent"
       >
         <StoryblokComponent :blok="story.content" />
       </div>
@@ -59,7 +59,7 @@ onUnmounted(() => {
       transform: translate(50px, 50px);
     }
     100% {
-      transfrom: translateY(300px);
+      transform: translateY(300px);
     }
   }
 </style>

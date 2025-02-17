@@ -13,5 +13,6 @@ export type Link = {
     linktype: 'url';
     url: string;
   };
+  icon: string;
   _editable: string;
-};
+} & { showOnlyIcon?: boolean };
