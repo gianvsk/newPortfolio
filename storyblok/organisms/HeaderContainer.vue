@@ -29,7 +29,7 @@
 <template>
   <header
     id="navbar"
-    class="w-max h-min border border-white box-shadow-light rounded-full px-2 py-5"
+    class="w-max h-min border border-white box-shadow-light rounded-full px-3 py-5"
   >
     <ul class="gap-8 hidden md:flex md:flex-col md:items-center md:flex-">
       <li

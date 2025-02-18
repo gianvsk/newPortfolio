@@ -100,13 +100,14 @@
     });
 
     verticalSlideElements.forEach((el, i, arr) => {
-      verticalSliderTl.from('#experience', { opacity: 0.5 });
+      verticalSliderTl.from('#experience', { opacity: 0 });
       verticalSliderTl.to('#experience', {
         scrollTrigger: {
           trigger: el as Element,
-          start: `top+=${i > 0 ? window.innerHeight * (i * 2) : window.innerHeight * i} 20%`,
-          end: `bottom+=${i > 0 ? window.innerHeight * (i * 2 + 0.5) : window.innerHeight * (i + 1)} bottom`,
+          start: `top+=${i > 0 ? window.innerHeight * (i * 2) : window.innerHeight * i} top`,
+          end: `bottom+=${i > 0 ? window.innerHeight * (i * 2 + 0.5) : window.innerHeight * (i + 1)} 80%`,
           scrub: true,
+          markers: true,
         },
         color: $gsap.getProperty(
           (arr as Array<Element>)[arr.length - 1 - i],
@@ -177,13 +178,12 @@
         <span id="experience" class="text-3xl">ESPERIENZE</span>
       </div>
 
-      <div
+      <StoryblokComponent
         v-for="(singleStory, index) in story.content.body[1].contents"
         :key="singleStory"
-        :class="`z-[${index + 1}] absolute inset-0 shrink-0 flex flex-col justify-end`"
-      >
-        <StoryblokComponent :blok="singleStory.content" />
-      </div>
+        :blok="singleStory.content"
+        :class="`z-[${index + 1}]`"
+      />
     </section>
     <section
       class="col-start-1 col-span-12 bg-black h-screen flex items-center"

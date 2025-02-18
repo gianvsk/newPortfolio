@@ -3,23 +3,35 @@
 
   const props = defineProps<VerticalSlideProps>();
 
-  const bgColor = ref('');
+  const bg = ref<HTMLElement>();
 
-  /*   const currentBgColor = computed(() =>
-    props.blok.bgColor ? `bg-${props.blok.bgColor}` : ''
-  ); */
+  const bgColor: Record<string, string> = {
+    'neutral-900': 'bg-neutral-900',
+    'red-600': 'bg-gray-900',
+    'neutral-300': 'bg-neutral-300',
+    white: 'bg-white',
+  };
 
-  console.log(props.blok.bgColor);
+  const k = `text-${props.blok.bgColor}`;
 
   onMounted(() => {
-    bgColor.value = `bg-${props.blok.bgColor}`;
+    if (props.blok.bgColor) {
+      bg.value?.classList.add(k);
+    }
   });
 </script>
 
 <template>
-  <div id="vertical-slide" :class="bgColor">
-    <div class="w-full h-[90%] md:h-4/5 px-8 py-5">
-      <div class="grid grid-cols-2 grid-rows-2 gap-6 h-full w-full py-6 px-18">
+  <div
+    id="vertical-slide"
+    ref="bg"
+    class="absolute inset-0 shrink-0 flex flex-col justify-end"
+    :class="`${bgColor[props.blok.bgColor]}`"
+  >
+    <div class="w-full h-[90%] md:h-4/5">
+      <div
+        class="grid grid-cols-2 grid-rows-2 gap-6 w-full py-10 px-[101.6px] h-full"
+      >
         <div
           class="col-start-1 row-start-1 col-span-1 row-span-1 md:col-span-1 md:row-span-1"
         >
