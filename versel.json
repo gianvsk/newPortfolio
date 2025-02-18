@@ -1,14 +1,12 @@
 {
   "build": {
-    "env": {
-      "NODE_ENV": "production"
-    },
-    "dist": ".output/public"
+    "src": "nuxt.config.js",
+    "use": "@vercel/node"
   },
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "/.output/server/index.mjs"
+      "dest": "/"
     }
   ]
 }
