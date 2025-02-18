@@ -27,3 +27,5 @@ logs
 *.pem
 
 accesibility.md
+
+.wrangler

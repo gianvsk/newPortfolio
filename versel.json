@@ -2,12 +2,13 @@
   "build": {
     "env": {
       "NODE_ENV": "production"
-    }
+    },
+    "dist": ".output/public"
   },
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "/"
+      "dest": "/.output/server/index.mjs"
     }
   ]
 }
