@@ -36,7 +36,9 @@ export default defineNuxtConfig({
   },
 
   storyblok: {
-    accessToken: process.env.STORYBLOK_ACCESS_TOKEN,
+    accessToken: process.env.iS_PRODUCTION
+      ? process.env.STORYBLOK_ACCESS_TOKEN_PUBLIC
+      : process.env.STORYBLOK_ACCESS_TOKEN,
     bridge: true,
     devtools: true,
   },
@@ -46,3 +48,4 @@ export default defineNuxtConfig({
   },
   compatibilityDate: '2025-02-17',
 });
+
