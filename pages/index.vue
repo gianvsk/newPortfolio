@@ -4,6 +4,8 @@
     resolve_relations: ['hero.contents', 'vertical-container.contents'],
   });
 
+  console.log({ story });
+
   useHead({
     title: 'GS Portfolio Homepage',
     meta: [
@@ -100,24 +102,26 @@
     });
 
     verticalSlideElements.forEach((el, i, arr) => {
-      verticalSliderTl.from('#experience', { opacity: 0 });
+      verticalSliderTl.from('#experience', {
+        opacity: 0,
+        text: '',
+      });
       verticalSliderTl.to('#experience', {
         scrollTrigger: {
           trigger: el as Element,
           start: `top+=${i > 0 ? window.innerHeight * (i * 2) : window.innerHeight * i} top`,
           end: `bottom+=${i > 0 ? window.innerHeight * (i * 2 + 0.5) : window.innerHeight * (i + 1)} 80%`,
           scrub: true,
-          markers: true,
         },
         color: $gsap.getProperty(
           (arr as Array<Element>)[arr.length - 1 - i],
           'background-color'
         ),
+        text: story.value.content.body[1].contents[i].content.title ?? '',
         opacity: 1,
       });
     });
 
-    // Horizontal scroll and animation for #testl sections
     const horizontalSliderTl = $gsap.timeline();
     const horizontalSlideElements = $gsap.utils.toArray('#testl');
 
@@ -128,6 +132,7 @@
         end: `top+=${window.innerWidth * 4} bottom`,
         scrub: true,
         pin: true,
+        snap: 1 / (horizontalSlideElements.length - 1),
       },
     });
 
@@ -173,9 +178,9 @@
           class="h-10 w-10 border border-transparent rounded-full bg-white"
         />
       </div>
-      <!-- Horizontal scrolling section -->
-      <div class="sticky z-40 top-0 md:top-20 left-0 py-2 right-0 pl-[71px]">
-        <span id="experience" class="text-3xl">ESPERIENZE</span>
+
+      <div class="sticky z-40 top-0 md:top-12 left-0 py-2 right-0 pl-[68.5px]">
+        <h2 id="experience" class="text-4xl uppercase" />
       </div>
 
       <StoryblokComponent

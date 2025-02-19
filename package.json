@@ -17,6 +17,7 @@
     "@nuxthub/core": "0.8.14",
     "@nuxtjs/tailwindcss": "^6.13.1",
     "@storyblok/nuxt": "^6.2.2",
+    "@storyblok/vue": "^8.1.10",
     "@studio-freight/lenis": "^1.0.42",
     "@typescript-eslint/eslint-plugin": "^8.22.0",
     "@typescript-eslint/parser": "^8.22.0",

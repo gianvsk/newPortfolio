@@ -29,7 +29,7 @@
 <template>
   <header
     id="navbar"
-    class="w-max h-min border border-white box-shadow-light rounded-full px-3 py-5"
+    class="w-max h-min border border-transparent box-shadow-light rounded-full px-3 py-8"
   >
     <ul class="gap-8 hidden md:flex md:flex-col md:items-center md:flex-">
       <li
@@ -90,7 +90,7 @@
 
 <style scoped lang="scss">
   .box-shadow-light {
-    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 3px rgba(255, 255, 255, 1);
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
   }
 </style>
