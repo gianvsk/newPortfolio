@@ -4,8 +4,6 @@
     resolve_relations: ['hero.contents', 'vertical-container.contents'],
   });
 
-  console.log({ story });
-
   useHead({
     title: 'GS Portfolio Homepage',
     meta: [

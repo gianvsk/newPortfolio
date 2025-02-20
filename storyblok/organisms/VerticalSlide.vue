@@ -5,8 +5,6 @@
 
   const props = defineProps<VerticalSlideProps>();
 
-  console.log('damn', props.blok.secondaryRichText);
-
   const resolvers = {
     [BlockTypes.COMPONENT]: (node: StoryblokRichTextNode<VNode>) => {
       if (node?.attrs?.body) {
@@ -63,23 +61,11 @@
           v-if="blok.secondaryRichText?.content"
           class="col-start-2 row-start-1 col-span-1 row-span-2"
         >
-          <!--           <NuxtImg
-            :src="blok.images[0].filename"
-            class="w-[50%] h-full object-cover object-bottom"
-            :alt="blok.images[0].alt"
-          /> -->
-          <!-- <StoryblokRichText
-            :doc="blok.secondaryRichText"
-            class="col-start-2 row-start-2 col-span-1 row-span-1"
-          /> -->
           <StoryblokRichText
             :doc="blok.secondaryRichText"
             :resolvers="resolvers"
           />
         </div>
-        <!-- <div v-else class="col-start-2 row-start-1 col-span-1 row-span-1">
-          <span>{{ blok.paragraph }}</span>
-        </div> -->
       </div>
     </div>
   </div>
