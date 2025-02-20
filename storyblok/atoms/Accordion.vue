@@ -12,12 +12,20 @@
 
 <template>
   <div class="w-full relative">
-    <button
-      class="w-full flex justify-between cursor-pointer py-4 px-5 bg-white shadow-zinc-900 border-neutral-900"
-      @click="toggleAccordion"
+    <div
+      class="w-full flex justify-between py-4 px-5 bg-white shadow-zinc-900 border-neutral-900"
     >
       <span>{{ blok.text }}</span>
-    </button>
+      <button
+        class="w-6 h-6 duration-300 transition-all"
+        :class="{
+          '-rotate-180': open,
+        }"
+        @click="toggleAccordion"
+      >
+        <IconsArrowDown class="w-full h-full" :font-controlled="false" />
+      </button>
+    </div>
     <Transition name="accordion">
       <div v-if="open" class="relative top-full h-auto right-0 w-full">
         <div class="px-5 py-4">
@@ -32,8 +40,8 @@
   .accordion-enter-active,
   .accordion-leave-active {
     transition:
-      max-height 1s ease,
-      opacity 1s ease;
+      max-height 0.3s ease,
+      opacity 0.3s ease;
     max-height: 150px;
   }
 
