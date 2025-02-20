@@ -37,4 +37,4 @@ jobs:
         uses: nuxt-hub/action@v1
         id: deploy
         with:
-          project-key: new-portfolio-rjgm
+          project-key: gianvito-sc-por-ikz9
