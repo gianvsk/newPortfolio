@@ -41,7 +41,7 @@
       scrollTrigger: {
         trigger: '#vertical-slider',
         start: 'top top',
-        end: `bottom+=${window.innerHeight * 9} bottom`,
+        end: `bottom+=${window.innerHeight * 2} bottom`,
         scrub: true,
         pin: true,
       },
@@ -51,12 +51,15 @@
       scrollTrigger: {
         trigger: '#vertical-slider',
         start: 'top top',
-        end: `bottom+=${window.innerHeight / 2} bottom`,
+        end: `bottom+=${window.innerHeight * 2} bottom`,
         scrub: true,
       },
       scale: 0.5,
+      onReverse: () => {
+        $gsap.set('#sphere-container', { opacity: 1, scale: 1, zIndex: 1 });
+      },
       onComplete: () => {
-        $gsap.set('#sphere-container', { display: 'none' });
+        $gsap.set('#sphere-container', { scale: 0 });
       },
     });
 
@@ -64,60 +67,80 @@
       scrollTrigger: {
         trigger: '#sphere-container',
         start: 'top top',
-        end: `bottom+=${window.innerHeight / 2} bottom`,
+        end: `bottom+=${window.innerHeight * 2} bottom`,
         scrub: true,
       },
       scale: 50,
       ease: 'power1.in',
+      onReverse: () => {
+        $gsap.set('#sphere', { opacity: 1, scale: 1, zIndex: 1 });
+      },
+      onComplete: () => {
+        $gsap.set('#sphere', { scale: 0 });
+      },
     });
 
     const verticalSliderTl = $gsap.timeline();
-    const verticalSlideElements = $gsap.utils.toArray('#vertical-slide');
+    const verticalSlideElements: Array<Element> =
+      $gsap.utils.toArray('#vertical-slide');
+
+    verticalSliderTl.from('#vertical-slider-container', {
+      scrollTrigger: {
+        trigger: '#vertical-slider-container',
+        start: `top top`,
+        end: `bottom+=${window.innerHeight * (verticalSlideElements.length + 1)} bottom`,
+        scrub: true,
+        pin: true,
+      },
+    });
 
     verticalSlideElements.forEach((el, i, arr) => {
-      verticalSliderTl
-        .from(el as Element, {
+      verticalSliderTl.fromTo(
+        el as Element,
+        { yPercent: 100 },
+        {
           scrollTrigger: {
             trigger: el as Element,
-            start: `top+=${window.innerHeight * (i * 2)} top`,
-            end: `top+=${window.innerHeight * (i * 2 + 2)} bottom`,
+            start: `top+=${window.innerHeight * i} top`,
+            end: `top+=${window.innerHeight * (i + 2)} bottom`,
             scrub: true,
-          },
-          yPercent: 100,
-        })
-        .to(el as Element, {
-          scrollTrigger: {
-            trigger: el as Element,
-            start: `top+=${window.innerHeight * (i * 2)} top`,
-            end: `top+=${window.innerHeight * (i * 2 + 2)} bottom`,
-            scrub: true,
+            snap: {
+              snapTo: 1 / 1,
+            },
           },
           color: $gsap.getProperty(
             (arr as Array<Element>)[arr.length - 1 - i],
             'background-color'
           ),
-        });
+          yPercent: 0,
+        }
+      );
     });
 
     verticalSlideElements.forEach((el, i, arr) => {
-      verticalSliderTl.from('#experience', {
-        opacity: 0,
-        text: '',
-      });
-      verticalSliderTl.to('#experience', {
-        scrollTrigger: {
-          trigger: el as Element,
-          start: `top+=${i > 0 ? window.innerHeight * (i * 2) : window.innerHeight * i} top`,
-          end: `bottom+=${i > 0 ? window.innerHeight * (i * 2 + 0.5) : window.innerHeight * (i + 1)} 80%`,
-          scrub: true,
-        },
-        color: $gsap.getProperty(
-          (arr as Array<Element>)[arr.length - 1 - i],
-          'background-color'
-        ),
-        text: story.value.content.body[1].contents[i].content.title ?? '',
-        opacity: 1,
-      });
+      verticalSliderTl
+        .from('#experience', {
+          color: $gsap.getProperty(el as Element, 'background-color'),
+          text:
+            i > 0
+              ? story.value.content.body[1].contents[i - 1].content.title
+              : story.value.content.body[1].contents[i].content.title,
+        })
+        .to('#experience', {
+          scrollTrigger: {
+            trigger: el as Element,
+            start: `top+=${window.innerHeight * i} top`,
+            end: `bottom+=${window.innerHeight * (i + 1)} bottom`,
+            scrub: true,
+            toggleActions: 'play none reverse none',
+            markers: true,
+          },
+          color: $gsap.getProperty(
+            (arr as Array<Element>)[arr.length - 1 - i],
+            'background-color'
+          ),
+          text: story.value.content.body[1].contents[i].content.title,
+        });
     });
 
     const horizontalSliderTl = $gsap.timeline();
@@ -130,7 +153,7 @@
         end: `top+=${window.innerWidth * 4} bottom`,
         scrub: true,
         pin: true,
-        snap: 1 / (horizontalSlideElements.length - 1),
+        snap: 1 / horizontalSlideElements.length,
       },
     });
 
@@ -146,21 +169,23 @@
       });
     });
   });
+
+  const verticalSlides = computed(
+    () => story.value?.content.body[1].contents ?? []
+  );
 </script>
 
 <template>
-  <div class="col-span-12 grid grid-cols-12 bg-black">
+  <div class="col-span-12 grid grid-cols-12">
     <section
-      class="col-start-1 col-span-12 md:col-start-4 md:col-span-6 flex justify-center items-center h-[95vh]"
+      class="col-start-1 col-span-12 bg-black flex justify-center items-center h-[95vh]"
     >
-      <template v-if="story">
-        <StoryblokComponent
-          v-for="singleStory in story.content.body[0].contents"
-          :key="singleStory"
-          :blok="singleStory.content"
-          class="px-6 md:px-10 py-6 md:h-min-[90%]"
-        />
-      </template>
+      <StoryblokComponent
+        v-for="singleStory in story.content.body[0].contents"
+        :key="singleStory"
+        :blok="singleStory.content"
+        class="px-6 md:px-10 py-6 md:h-min-[90%] max-w-[60%]"
+      />
     </section>
 
     <section
@@ -176,17 +201,24 @@
           class="h-10 w-10 border border-transparent rounded-full bg-white"
         />
       </div>
+    </section>
 
-      <div class="sticky z-40 top-0 md:top-12 left-0 py-2 right-0 pl-[68.5px]">
+    <section id="vertical-slider-container" class="col-start-1 col-span-12">
+      <div
+        class="absolute z-40 top-0 md:top-12 left-0 py-2 right-0 pl-0 md:pl-[68.5px]"
+      >
         <h2 id="experience" class="text-4xl uppercase" />
       </div>
 
-      <StoryblokComponent
-        v-for="(singleStory, index) in story.content.body[1].contents"
-        :key="singleStory"
-        :blok="singleStory.content"
-        :class="`z-[${index + 1}]`"
-      />
+      <div class="relative w-full h-screen bg-white">
+        <StoryblokComponent
+          v-for="(singleStory, index) in verticalSlides"
+          :key="singleStory"
+          :blok="singleStory.content"
+          class="absolute inset-0"
+          :class="`z-[${verticalSlides.length - index}]`"
+        />
+      </div>
     </section>
     <section
       class="col-start-1 col-span-12 bg-black h-screen flex items-center"
