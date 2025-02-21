@@ -5,8 +5,6 @@
 
   const props = defineProps<VerticalSlideProps>();
 
-  console.log({ props });
-
   const resolver = {
     [BlockTypes.UL_LIST]: (node: StoryblokRichTextNode<VNode>) => {
       const content = node?.content || [];
