@@ -19,10 +19,6 @@
         duration: 6,
         text: { value: props.blok.description ?? '' },
         ease: 'power1.out',
-        repeat: -1,
-        repeatDelay: 1,
-        yoyo: true,
-        yoyoEase: 'power1.in',
       });
       tl.to('#second-text', {
         duration: 4,
@@ -71,7 +67,7 @@
     <div class="mt-6 flex flex-col">
       <h3
         id="hero-description"
-        class="text-md text-white font-mont font-bold min-h-[250px]"
+        class="text-md text-white font-mont font-bold min-h-[150px]"
       />
     </div>
   </div>

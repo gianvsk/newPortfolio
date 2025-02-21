@@ -29,9 +29,9 @@
 <template>
   <header
     id="navbar"
-    class="w-max h-min border border-transparent box-shadow-light rounded-full px-3 py-8"
+    class="hidden md:block w-max h-min border border-transparent box-shadow-light rounded-full px-3 py-8"
   >
-    <ul class="gap-8 hidden md:flex md:flex-col md:items-center md:flex-">
+    <ul class="gap-12 hidden md:flex md:flex-col md:items-center md:flex-">
       <li
         v-for="link in blok.links"
         :key="link.content.link._uid"
@@ -40,7 +40,8 @@
         <StoryblokComponent :blok="{ ...link.content, showOnlyIcon: true }" />
       </li>
     </ul>
-    <div class="flex md:hidden gap-8 items-center justify-between z-[9999]">
+    <!-- mobile menu hidden at the moment, use flex when edit this -->
+    <div class="hidden gap-8 items-center justify-between z-[9999]">
       <div />
       <button
         class="flex relative before:border-2 before:border-white px-[2px] before:rounded-md before:content-[''] before:absolute before:inset-0 before:opacity-0 before:duration-300 hover:before:opacity-100 cursor-pointer"
