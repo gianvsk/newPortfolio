@@ -11,6 +11,6 @@ export type VerticalSlideProps = {
     bgColor: string;
     mainRichText?: StoryblokRichTextDocumentNode;
     secondaryRichText?: StoryblokRichTextDocumentNode;
+    isSingleImage?: boolean;
   };
-  isSingleImage?: boolean;
 };
