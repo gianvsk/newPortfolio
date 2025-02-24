@@ -1,8 +1,12 @@
 <script setup lang="ts">
+  import { useAnimation } from '~/composables/useAnimation';
+
   const story = await useAsyncStoryblok('homepage', {
     version: 'draft',
     resolve_relations: ['hero.contents', 'vertical-container.contents'],
   });
+
+  const { homepageAnimations } = useAnimation();
 
   useHead({
     title: 'GS Portfolio Homepage',
@@ -18,156 +22,8 @@
     },
   });
 
-  const { $gsap } = useNuxtApp();
-
   onMounted(() => {
-    /*     const containerHeight = (document.querySelector('#vertical-slider') as HTMLElement)?.offsetHeight; */
-
-    $gsap.to('#navbar', {
-      scrollTrigger: {
-        trigger: document.body,
-        start: 'top top',
-        end: `bottom+=${window.innerHeight / 4} 90%`,
-        scrub: true,
-      },
-      background: 'black',
-      color: 'white',
-      borderColor: 'text-white/50',
-    });
-
-    const sphereTl = $gsap.timeline();
-
-    sphereTl.to('#vertical-slider', {
-      scrollTrigger: {
-        trigger: '#vertical-slider',
-        start: 'top top',
-        end: `bottom+=${window.innerHeight * 2} bottom`,
-        scrub: true,
-        pin: true,
-      },
-    });
-
-    sphereTl.to('#sphere-container', {
-      scrollTrigger: {
-        trigger: '#vertical-slider',
-        start: 'top top',
-        end: `bottom+=${window.innerHeight * 2} bottom`,
-        scrub: true,
-      },
-      scale: 0.5,
-      onReverse: () => {
-        $gsap.set('#sphere-container', { opacity: 1, scale: 1, zIndex: 1 });
-      },
-      onComplete: () => {
-        $gsap.set('#sphere-container', { scale: 0 });
-      },
-    });
-
-    sphereTl.to('#sphere', {
-      scrollTrigger: {
-        trigger: '#sphere-container',
-        start: 'top top',
-        end: `bottom+=${window.innerHeight * 2} bottom`,
-        scrub: true,
-      },
-      scale: 50,
-      ease: 'power1.in',
-      onReverse: () => {
-        $gsap.set('#sphere', { opacity: 1, scale: 1, zIndex: 1 });
-      },
-      onComplete: () => {
-        $gsap.set('#sphere', { scale: 0 });
-      },
-    });
-
-    const verticalSliderTl = $gsap.timeline();
-    const verticalSlideElements: Array<Element> =
-      $gsap.utils.toArray('#vertical-slide');
-
-    verticalSliderTl.from('#vertical-slider-container', {
-      scrollTrigger: {
-        trigger: '#vertical-slider-container',
-        start: `top top`,
-        end: `bottom+=${window.innerHeight * (verticalSlideElements.length + 1)} bottom`,
-        scrub: true,
-        pin: true,
-      },
-    });
-
-    verticalSlideElements.forEach((el, i, arr) => {
-      verticalSliderTl.fromTo(
-        el as Element,
-        { yPercent: 100 },
-        {
-          scrollTrigger: {
-            trigger: el as Element,
-            start: `top+=${window.innerHeight * i} top`,
-            end: `top+=${window.innerHeight * (i + 2)} bottom`,
-            scrub: true,
-            snap: {
-              snapTo: 1 / 1,
-            },
-          },
-          color: $gsap.getProperty(
-            (arr as Array<Element>)[arr.length - 1 - i],
-            'background-color'
-          ),
-          yPercent: 0,
-        }
-      );
-    });
-
-    verticalSlideElements.forEach((el, i, arr) => {
-      verticalSliderTl
-        .from('#experience', {
-          color: $gsap.getProperty(el as Element, 'background-color'),
-          text:
-            i > 0
-              ? story.value.content.body[1].contents[i - 1].content.title
-              : story.value.content.body[1].contents[i].content.title,
-        })
-        .to('#experience', {
-          scrollTrigger: {
-            trigger: el as Element,
-            start: `top+=${window.innerHeight * i} top`,
-            end: `bottom+=${window.innerHeight * (i + 1)} bottom`,
-            scrub: true,
-            toggleActions: 'play none reverse none',
-            markers: true,
-          },
-          color: $gsap.getProperty(
-            (arr as Array<Element>)[arr.length - 1 - i],
-            'background-color'
-          ),
-          text: story.value.content.body[1].contents[i].content.title,
-        });
-    });
-
-    const horizontalSliderTl = $gsap.timeline();
-    const horizontalSlideElements = $gsap.utils.toArray('#testl');
-
-    horizontalSliderTl.to('#horizontal-slider', {
-      scrollTrigger: {
-        trigger: '#horizontal-slider',
-        start: 'top top',
-        end: `top+=${window.innerWidth * 4} bottom`,
-        scrub: true,
-        pin: true,
-        snap: 1 / horizontalSlideElements.length,
-      },
-    });
-
-    horizontalSlideElements.forEach((el, i) => {
-      horizontalSliderTl.to(el as Element, {
-        scrollTrigger: {
-          trigger: el as Element,
-          start: `top+=${(i - 1) * window.innerWidth} top`,
-          end: `bottom+=${i * window.innerWidth} bottom`,
-          scrub: true,
-        },
-        xPercent: 100 * -i,
-      });
-    });
+    homepageAnimations(story.value);
   });
 
   const verticalSlides = computed(
@@ -190,7 +46,7 @@
 
     <section
       id="vertical-slider"
-      class="col-start-1 col-span-12 h-screen relative bg-white pt-6 px-8 overflow-hidden"
+      class="col-start-1 col-span-12 h-screen relative bg-white pt-6 px-4 md:px-8 overflow-hidden"
     >
       <div
         id="sphere-container"
@@ -205,7 +61,7 @@
 
     <section id="vertical-slider-container" class="col-start-1 col-span-12">
       <div
-        class="absolute z-40 top-0 md:top-12 left-0 py-2 right-0 pl-0 md:pl-[68.5px]"
+        class="absolute z-40 top-6 pl-6 md:top-12 left-0 py-2 right-0 md:pl-[68.5px]"
       >
         <h2 id="experience" class="text-4xl uppercase" />
       </div>

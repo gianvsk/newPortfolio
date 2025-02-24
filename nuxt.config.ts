@@ -47,6 +47,11 @@ export default defineNuxtConfig({
   hub: {
     ai: true,
   },
+  nitro: {
+    experimental: {
+      openAPI: true,
+    },
+  },
   compatibilityDate: '2025-02-17',
 });
 

@@ -53,7 +53,7 @@
   >
     <div class="w-full h-[90%] md:h-4/5">
       <div
-        class="flex md:grid md:grid-cols-2 md:grid-rows-2 gap-x-10 md:gap-y-6 w-full md:py-10 px-8 md:px-[101.6px] h-full"
+        class="flex flex-col gap-4 md:grid md:grid-cols-2 md:grid-rows-2 gap-x-10 md:gap-y-6 w-full md:py-10 px-6 md:px-[101.6px] h-full"
       >
         <div
           class="rich-text md:col-start-1 md:row-start-1 md:col-span-1 md:row-span-1"
@@ -75,7 +75,11 @@
         <div class="md:col-start-2 md:row-start-1 md:col-span-1 md:row-span-2">
           <!-- add :resolvers="resolvers" if need to, it was made to render Storyblok Accordions in this case -->
           <StoryblokRichText
-            v-if="blok.secondaryRichText?.content && !blok?.isSingleImage"
+            v-if="
+              blok.secondaryRichText?.content &&
+              !blok?.isSingleImage &&
+              !blok?.isIconsBlock
+            "
             :doc="blok.secondaryRichText"
             :resolvers="resolver"
             class="rich-text"
@@ -85,10 +89,11 @@
             :src="blok.images[0]?.filename"
             class="w-50% h-full object-cover"
           />
+          <div v-else-if="blok.isIconsBlock && blok.icons">
+            <pre>CIao{{ blok.icons }}</pre>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </template>
-
-<style lang="scss" scoped></style>
