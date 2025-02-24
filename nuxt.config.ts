@@ -44,10 +44,18 @@ export default defineNuxtConfig({
     bridge: true,
     devtools: true,
   },
+
+  image: {
+    storyblok: {
+      baseURL: 'https://a.storyblok.com',
+    },
+  },
+
   nitro: {
     experimental: {
       openAPI: true,
     },
+    compressPublicAssets: true,
   },
   compatibilityDate: '2025-02-17',
 });

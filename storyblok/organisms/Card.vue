@@ -52,6 +52,7 @@
         }"
         fit="cover"
         preload
+        provider="storyblok"
       />
       <div
         class="hidden md:block absolute inset-0 border rounded-full border-white zoom-image"

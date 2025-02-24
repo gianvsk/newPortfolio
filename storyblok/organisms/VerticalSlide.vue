@@ -88,6 +88,7 @@
             v-else-if="blok?.isSingleImage && blok.images"
             :src="blok.images[0]?.filename"
             class="w-50% h-full object-cover"
+            provider="storyblok"
           />
           <div v-else-if="blok.isIconsBlock && blok.icons">
             <pre>CIao{{ blok.icons }}</pre>
