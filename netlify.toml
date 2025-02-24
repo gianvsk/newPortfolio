@@ -1,7 +1,5 @@
 [build]
-base = "/"
-publish = ".output"
-command = "npx nuxt build"
+command = "bun run build"
 
 [build.environment]
 NODE_VERSION = "18"
