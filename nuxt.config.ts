@@ -2,7 +2,6 @@ export default defineNuxtConfig({
   devtools: { enabled: false },
 
   modules: [
-    '@nuxthub/core',
     '@nuxtjs/tailwindcss',
     '@nuxt/eslint',
     '@storyblok/nuxt',
@@ -11,6 +10,8 @@ export default defineNuxtConfig({
     'nuxt-svgo',
     '@hypernym/nuxt-gsap',
   ],
+
+  ssr: true,
 
   build: {
     transpile: ['gsap'],
@@ -42,10 +43,6 @@ export default defineNuxtConfig({
         : process.env.STORYBLOK_ACCESS_TOKEN,
     bridge: true,
     devtools: true,
-  },
-
-  hub: {
-    ai: true,
   },
   nitro: {
     experimental: {
