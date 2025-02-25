@@ -6,8 +6,8 @@ export type VerticalSlideProps = {
     subtitle: string;
     paragraph?: string;
     subparagraph: string;
-    images?: any[];
-    icons?: string[];
+    image?: any;
+    icons?: any[];
     bgColor: string;
     mainRichText?: StoryblokRichTextDocumentNode;
     secondaryRichText?: StoryblokRichTextDocumentNode;

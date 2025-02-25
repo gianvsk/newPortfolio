@@ -48,6 +48,7 @@
 <template>
   <div
     id="vertical-slide"
+    v-editable="blok"
     class="shrink-0 flex flex-col justify-end"
     :class="`${bgColor[props.blok.bgColor]}`"
   >
@@ -85,14 +86,15 @@
             class="rich-text"
           />
           <NuxtImg
-            v-else-if="blok?.isSingleImage && blok.images"
-            :src="blok.images[0]?.filename"
+            v-else-if="blok?.isSingleImage && blok?.image"
+            :src="blok.image?.filename"
             class="w-50% h-full object-cover"
             provider="storyblok"
           />
-          <div v-else-if="blok.isIconsBlock && blok.icons">
-            <pre>CIao{{ blok.icons }}</pre>
-          </div>
+          <StoryblokComponent
+            v-else-if="blok.isIconsBlock && blok.icons"
+            :blok="blok.icons?.[0]"
+          />
         </div>
       </div>
     </div>
