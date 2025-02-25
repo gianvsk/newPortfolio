@@ -87,7 +87,7 @@
     >
       <!-- Horizontal scrolling section -->
       <div
-        id="testl"
+        id="horizontal-slide"
         class="w-screen h-full bg-amber-300 flex items-center justify-center shrink-0"
       >
         <div class="bg-black px-8 py-5">
@@ -95,7 +95,7 @@
         </div>
       </div>
       <div
-        id="testl"
+        id="horizontal-slide"
         class="w-screen h-full bg-blue-300 flex items-center justify-center shrink-0"
       >
         <div class="bg-black px-8 py-5">
@@ -103,7 +103,7 @@
         </div>
       </div>
       <div
-        id="testl"
+        id="horizontal-slide"
         class="w-screen h-full bg-red-300 flex items-center justify-center shrink-0"
       >
         <div class="bg-black px-8 py-5">
@@ -111,7 +111,7 @@
         </div>
       </div>
       <div
-        id="testl"
+        id="horizontal-slide"
         class="w-screen h-full bg-amber-300 flex items-center justify-center shrink-0"
       >
         <div class="bg-black px-8 py-5">

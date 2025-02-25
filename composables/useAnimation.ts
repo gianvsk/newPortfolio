@@ -236,16 +236,18 @@ export const useAnimation = () => {
     });
 
     const horizontalSliderTl = $gsap.timeline();
-    const horizontalSlideElements = $gsap.utils.toArray('#testl');
+    const horizontalSlideElements = $gsap.utils.toArray('#horizontal-slide');
+
+    // snap uses horizontalSlideElements.length - 1 because top slide start from top+= i * - 1, a slide behind
 
     horizontalSliderTl.to('#horizontal-slider', {
       scrollTrigger: {
         trigger: '#horizontal-slider',
         start: 'top top',
-        end: `top+=${window.innerWidth * 4} bottom`,
+        end: `top+=${window.innerWidth * horizontalSlideElements.length} bottom`,
         scrub: true,
         pin: true,
-        snap: 1 / horizontalSlideElements.length,
+        snap: 1 / (horizontalSlideElements.length - 1),
       },
     });
 
