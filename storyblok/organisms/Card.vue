@@ -45,11 +45,11 @@
         :src="`${blok.image?.filename}/m/600x400`"
         :alt="blok.image?.alt"
         class="w-full h-full border overflow-hidden rounded-full object-cover"
-        provider="storyblok"
         :img-attrs="{
           class:
             'w-full h-full scale-[3] -translate-y-10 translate-x-4 md:translate-y-0 object-center aspect-square md:translate-x-0 md:scale-100 md:group-hover:scale-[3] md:group-hover:translate-x-4 md:group-hover:-translate-y-10 md:duration-300 z-2',
         }"
+        format="webp"
         fit="cover"
         preload
       />
