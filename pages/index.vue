@@ -46,11 +46,11 @@
 
     <section
       id="vertical-slider"
-      class="col-start-1 col-span-12 h-screen relative bg-white pt-6 px-4 md:px-8 overflow-hidden"
+      class="col-start-1 col-span-12 h-screen relative bg-white pt-6 px-4 md:px-8"
     >
       <div
         id="sphere-container"
-        class="absolute inset-0 flex w-full justify-center items-center h-screen z-50 bg-black overflow-hidden"
+        class="absolute inset-0 flex w-full justify-center items-center z-50 bg-black overflow-hidden"
       >
         <div
           id="sphere"
@@ -61,18 +61,17 @@
 
     <section id="vertical-slider-container" class="col-start-1 col-span-12">
       <div
-        class="absolute z-40 top-6 pl-6 md:top-12 left-0 py-2 right-0 md:pl-[68.5px]"
+        class="absolute z-40 top-6 pl-6 md:top-12 left-0 py-2 right-0 md:pl-[101.6px]"
       >
         <h2 id="experience" class="text-4xl uppercase" />
       </div>
 
-      <div class="relative w-full h-screen bg-white">
+      <div class="relative w-full h-screen bg-white flex">
         <StoryblokComponent
-          v-for="(singleStory, index) in verticalSlides"
+          v-for="singleStory in verticalSlides"
           :key="singleStory"
           :blok="singleStory.content"
-          class="absolute inset-0"
-          :class="`z-[${verticalSlides.length - index}]`"
+          class="absolute inset-0 w-full h-full"
         />
       </div>
     </section>
@@ -83,7 +82,7 @@
     </section>
     <section
       id="horizontal-slider"
-      class="col-start-1 col-span-12 h-screen overflow-x-scroll flex flex-nowrap bg-black"
+      class="col-start-1 col-span-12 h-screen overflow-x-scroll flex flex-nowrap bg-white"
     >
       <!-- Horizontal scrolling section -->
       <div
