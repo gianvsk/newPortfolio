@@ -2,6 +2,25 @@
   import type { IconsBlockProps } from './AssetsContainer.props';
 
   defineProps<IconsBlockProps>();
+
+  const { $gsap } = useNuxtApp();
+
+  const animation = $gsap.timeline();
+
+  onMounted(() => {
+    animation.from('#iconText', {
+      opacity: 0,
+      x: -40,
+      duration: 0.5,
+      ease: 'power1.out',
+    });
+  });
+
+  const setIconText = (asset: string) => {
+    $gsap.set('#iconText', { text: asset });
+
+    animation.restart();
+  };
 </script>
 
 <template>
@@ -9,13 +28,21 @@
     <span class="text-center text-xl font-mont font-semibold">
       {{ blok.frontendText }}
     </span>
+    <div class="h-7 flex justify-center">
+      <span
+        id="iconText"
+        class="text-center text-lg font-mont font-semibold uppercase"
+      />
+    </div>
     <div class="p-5 flex gap-4 flex-wrap">
       <div
         v-for="asset in blok.frontendIcons"
         :key="asset"
         class="relative group"
+        @mouseenter="() => setIconText(asset)"
+        @mouseleave="() => setIconText('')"
       >
-        <button
+        <div
           class="p-3 relative shadow-lg rounded-full duration-300 group-hover:scale-125"
         >
           <component
@@ -24,11 +51,6 @@
             :font-controlled="false"
             filled
           />
-        </button>
-        <div
-          class="absolute top-0 min-w-full w-max h-8 flex justify-center rounded-sm items-center bg-neutral-900 transition-all duration-200 group-hover:-translate-y-10 p-2 opacity-0 group-hover:opacity-100 group-hover:shadow-lg group-hover:z-[15] z-[9]"
-        >
-          <span class="text-white font-medium text-sm">{{ asset }}</span>
         </div>
       </div>
     </div>
@@ -36,23 +58,20 @@
       {{ blok.servicesText }}
     </span>
     <div class="p-5 flex gap-4 flex-wrap">
-      <button
+      <div
         v-for="asset in blok.servicesIcons"
         :key="asset"
         class="p-3 shadow-lg rounded-full relative group hover:scale-125"
+        @mouseenter="() => setIconText(asset)"
+        @mouseleave="() => setIconText('')"
       >
-        <div
-          class="absolute inset-0 transition-transform group-hover:-translate-y-10 p-2 opacity-0 group-hover:opacity-100 group-hover:z-[15] z-[9]"
-        >
-          <span>{{ asset }}</span>
-        </div>
         <component
           :is="`Icons${asset}`"
           class="h-8 w-8 relative z-[10]"
           :font-controlled="false"
           filled
         />
-      </button>
+      </div>
     </div>
   </div>
 </template>
