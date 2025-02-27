@@ -133,7 +133,7 @@ export const useAnimation = () => {
       scrollTrigger: {
         trigger: '#vertical-slider',
         start: 'top top',
-        end: `bottom+=${window.innerHeight * 2} bottom`,
+        end: `bottom+=${window.innerHeight} bottom`,
         scrub: true,
         pin: true,
       },
@@ -143,7 +143,7 @@ export const useAnimation = () => {
       scrollTrigger: {
         trigger: '#vertical-slider',
         start: 'top top',
-        end: `bottom+=${window.innerHeight * 2} bottom`,
+        end: `bottom+=${window.innerHeight * 0.5} bottom`,
         scrub: true,
       },
       scale: 0.5,
@@ -151,7 +151,7 @@ export const useAnimation = () => {
         $gsap.set('#sphere-container', { opacity: 1, scale: 1, zIndex: 1 });
       },
       onComplete: () => {
-        $gsap.set('#sphere-container', { scale: 0 });
+        $gsap.set('#sphere-container', { scale: 0, zIndex: -10 });
       },
     });
 
@@ -159,7 +159,7 @@ export const useAnimation = () => {
       scrollTrigger: {
         trigger: '#sphere-container',
         start: 'top top',
-        end: `bottom+=${window.innerHeight * 2} bottom`,
+        end: `bottom+=${window.innerHeight * 0.5} bottom`,
         scrub: true,
       },
       scale: 50,
@@ -168,7 +168,7 @@ export const useAnimation = () => {
         $gsap.set('#sphere', { opacity: 1, scale: 1, zIndex: 1 });
       },
       onComplete: () => {
-        $gsap.set('#sphere', { scale: 0 });
+        $gsap.set('#sphere', { scale: 0, zIndex: -10 });
       },
     });
 
@@ -180,26 +180,24 @@ export const useAnimation = () => {
       scrollTrigger: {
         trigger: '#vertical-slider-container',
         start: `top top`,
-        end: `bottom+=${window.innerHeight * (verticalSlideElements.length + 1)} bottom`,
+        end: `bottom+=${window.innerHeight * verticalSlideElements.length} bottom`,
         scrub: true,
         pin: true,
+        snap: { snapTo: 1 / verticalSlideElements.length, duration: 2 },
       },
     });
 
     verticalSlideElements.forEach((el, i, arr) => {
       verticalSliderTl.fromTo(
         el as Element,
-        { yPercent: 100 },
+        { yPercent: 100, zIndex: i + 5 },
         {
           scrollTrigger: {
             trigger: el as Element,
-            start: `top+=${window.innerHeight * i} top`,
-            end: `top+=${window.innerHeight * (i + 2)} bottom`,
+            start: `top+=${window.innerHeight * (i - 1)} top`,
+            end: `bottom+=${window.innerHeight * i} bottom`,
             scrub: true,
-            snap: {
-              snapTo: 1 / 1,
-              duration: 1,
-            },
+            markers: true,
           },
           color: $gsap.getProperty(
             (arr as Array<Element>)[arr.length - 1 - i],
@@ -222,8 +220,8 @@ export const useAnimation = () => {
         .to('#experience', {
           scrollTrigger: {
             trigger: el as Element,
-            start: `top+=${window.innerHeight * i} top`,
-            end: `bottom+=${window.innerHeight * (i + 1)} bottom`,
+            start: `top+=${window.innerHeight * (i - 1)} top`,
+            end: `bottom+=${window.innerHeight * i} bottom`,
             scrub: true,
             toggleActions: 'play none reverse none',
           },
@@ -260,6 +258,7 @@ export const useAnimation = () => {
           scrub: true,
         },
         xPercent: 100 * -i,
+        scale: 0.8,
       });
     });
   };

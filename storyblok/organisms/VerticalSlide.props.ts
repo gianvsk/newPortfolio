@@ -13,5 +13,6 @@ export type VerticalSlideProps = {
     secondaryRichText?: StoryblokRichTextDocumentNode;
     isSingleImage?: boolean;
     isIconsBlock?: boolean;
+    isReverseColumns?: boolean;
   };
 };

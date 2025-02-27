@@ -57,23 +57,33 @@
         class="flex flex-col gap-4 md:grid md:grid-cols-2 md:grid-rows-2 gap-x-10 md:gap-y-6 w-full md:py-10 px-6 md:px-[101.6px] h-full"
       >
         <div
-          class="rich-text md:col-start-1 md:row-start-1 md:col-span-1 md:row-span-1"
+          class="rich-text md:row-start-1 md:col-span-1 md:row-span-1"
+          :class="[blok.isReverseColumns ? 'md:col-start-2' : 'md:col-start-1']"
         >
           <StoryblokRichText
             v-if="blok.mainRichText"
             :doc="blok.mainRichText"
-            class="col-start-2 row-start-2 col-span-1 row-span-1"
+            class="col-span-1 row-span-1"
+            :class="[
+              blok.isReverseColumns
+                ? 'col-start-1 md:row-start-1'
+                : 'col-start-2 md:row-start-2',
+            ]"
           />
         </div>
 
         <div
-          class="md:col-start-1 md:row-start-2 md:col-span-1 md:row-span-1 flex items-end"
+          class="md:row-start-2 md:col-span-1 md:row-span-1 flex items-end"
+          :class="[blok.isReverseColumns ? 'md:col-start-2' : 'md:col-start-1']"
         >
           <span>
             {{ blok.paragraph }}
           </span>
         </div>
-        <div class="md:col-start-2 md:row-start-1 md:col-span-1 md:row-span-2">
+        <div
+          class="md:row-start-1 md:col-span-1 md:row-span-2"
+          :class="[blok.isReverseColumns ? 'md:col-start-1' : 'md:col-start-2']"
+        >
           <!-- add :resolvers="resolvers" if need to, it was made to render Storyblok Accordions in this case -->
           <StoryblokRichText
             v-if="
