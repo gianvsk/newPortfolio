@@ -247,6 +247,7 @@ export const useAnimation = () => {
         pin: true,
         snap: 1 / (horizontalSlideElements.length - 1),
       },
+      x: 15 * -horizontalSlideElements.length,
     });
 
     horizontalSlideElements.forEach((el, i) => {
@@ -257,7 +258,8 @@ export const useAnimation = () => {
           end: `bottom+=${i * window.innerWidth} bottom`,
           scrub: true,
         },
-        xPercent: 100 * -i,
+        xPercent: 100 * -i + i * 2.5,
+        y: i * 10,
         scale: 0.8,
       });
     });
