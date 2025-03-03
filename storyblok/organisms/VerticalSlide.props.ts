@@ -8,11 +8,13 @@ export type VerticalSlideProps = {
     subparagraph: string;
     image?: any;
     icons?: any[];
+    textColor: string;
     bgColor: string;
     mainRichText?: StoryblokRichTextDocumentNode;
     secondaryRichText?: StoryblokRichTextDocumentNode;
     isSingleImage?: boolean;
     isIconsBlock?: boolean;
     isReverseColumns?: boolean;
+    isResolverActive?: boolean;
   };
 };
