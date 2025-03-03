@@ -187,10 +187,15 @@ export const useAnimation = () => {
       },
     });
 
-    verticalSlideElements.forEach((el, i, arr) => {
+    verticalSlideElements.forEach((el, i) => {
+      const nextColor = el.getAttribute('data-color');
+
       verticalSliderTl.fromTo(
         el as Element,
-        { yPercent: 100, zIndex: i + 5 },
+        {
+          yPercent: 100,
+          zIndex: i + 5,
+        },
         {
           scrollTrigger: {
             trigger: el as Element,
@@ -199,25 +204,20 @@ export const useAnimation = () => {
             scrub: true,
             markers: true,
           },
-          color: $gsap.getProperty(
-            (arr as Array<Element>)[arr.length - 1 - i],
-            'background-color'
-          ),
           yPercent: 0,
+          color: nextColor ?? '',
         }
       );
-    });
 
-    verticalSlideElements.forEach((el, i, arr) => {
-      verticalSliderTl
-        .from('#experience', {
-          color: $gsap.getProperty(el as Element, 'background-color'),
+      verticalSliderTl.fromTo(
+        '#experience',
+        {
           text:
             i > 0
               ? story.content.body[1].contents?.[i - 1]?.content.title
               : story.content.body[1].contents?.[i].content.title,
-        })
-        .to('#experience', {
+        },
+        {
           scrollTrigger: {
             trigger: el as Element,
             start: `top+=${window.innerHeight * (i - 1)} top`,
@@ -225,12 +225,10 @@ export const useAnimation = () => {
             scrub: true,
             toggleActions: 'play none reverse none',
           },
-          color: $gsap.getProperty(
-            (arr as Array<Element>)[arr.length - 1 - i],
-            'background-color'
-          ),
+          color: nextColor ?? '',
           text: story.content.body[1].contents?.[i].content.title,
-        });
+        }
+      );
     });
 
     const horizontalSliderTl = $gsap.timeline();
