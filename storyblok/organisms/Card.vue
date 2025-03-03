@@ -34,7 +34,6 @@
 
 <template>
   <div
-    ref="p"
     class="py-4 flex flex-col justify-center items-center gap-2 overflow-hidden text-center"
   >
     <div

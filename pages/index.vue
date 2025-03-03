@@ -61,7 +61,7 @@
 
     <section id="vertical-slider-container" class="col-start-1 col-span-12">
       <div
-        class="absolute z-40 top-6 pl-6 md:top-12 left-0 py-2 right-0 md:pl-[101.6px]"
+        class="absolute z-40 top-6 pl-6 md:top-12 left-0 py-2 right-0 lg:pl-[101.6px]"
       >
         <h2 id="experience" class="text-4xl uppercase" />
       </div>
@@ -125,4 +125,3 @@
     </section>
   </div>
 </template>
-

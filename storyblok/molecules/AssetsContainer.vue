@@ -25,14 +25,11 @@
 
 <template>
   <div class="flex flex-col gap-5 h-full">
-    <span class="text-center text-xl font-mont font-semibold">
+    <span class="text-xl font-mont font-semibold">
       {{ blok.frontendText }}
     </span>
     <div class="h-7 flex justify-center">
-      <span
-        id="iconText"
-        class="text-center text-lg font-mont font-semibold uppercase"
-      />
+      <span id="iconText" class="text-lg font-mont font-semibold uppercase" />
     </div>
     <div class="p-5 flex gap-4 flex-wrap">
       <div
@@ -54,7 +51,7 @@
         </div>
       </div>
     </div>
-    <span class="text-center text-xl font-mont font-semibold">
+    <span class="text-xl font-mont font-semibold">
       {{ blok.servicesText }}
     </span>
     <div class="p-5 flex gap-4 flex-wrap">
