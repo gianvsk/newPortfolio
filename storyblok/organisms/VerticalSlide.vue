@@ -5,8 +5,8 @@
   const props = defineProps<VerticalSlideProps>();
 
   const headingStyle = {
-    h3: 'text-lg md:text-2xl font-bold font-mont mb-4',
-    h4: 'text-md md:text-lg font-bold font-mont mb-4',
+    h3: 'text-lg lg:text-xl xl:text-2xl 3xl:text-4xl font-bold font-mont mb-3 xl:mb-4 2xl:mb-8',
+    h4: 'text-md lg:text-lg xl:text-xl 3xl:text-2xl font-bold font-mont mb-3 xl:mb-4 2xl:mb-8',
   };
 
   const setListResolver = (node: StoryblokRichTextNode<VNode>) => {
@@ -22,20 +22,25 @@
               ? {
                   tag: 'span',
                   innerHTML: paragraph.text,
-                  class: 'text-sm font-bold mr-1 min-w-[100px]',
+                  class: 'font-bold mr-1 min-w-[80px] lg:min-w-[80px]',
                 }
               : {
                   tag: 'span',
                   innerHTML: paragraph.text,
-                  class: 'text-sm',
                 };
           });
 
-          return h('p', { class: 'inline-flex' }, [
-            innerHTML?.map(paragraph =>
-              h(paragraph.tag, { ...paragraph, tag: '' })
-            ),
-          ]);
+          return h(
+            'p',
+            {
+              class: 'inline-flex text-xs md:text-sm lg:text-md 3xl:text-xl',
+            },
+            [
+              innerHTML?.map(paragraph =>
+                h(paragraph.tag, { ...paragraph, tag: '' })
+              ),
+            ]
+          );
         }
       );
 
@@ -44,22 +49,32 @@
 
     return h(
       'ul',
-      { class: 'pl-5 list-disc flex flex-col gap-4 mb-8' },
+      {
+        class:
+          'pl-5 list-disc flex flex-col gap-2 xl:gap-4 2xl:gap-6 mb-4 xl:mb-6 3xl:mb-12',
+      },
       listItems
     );
   };
 
   const paragraphOnlyResolver = {
     [BlockTypes.PARAGRAPH]: (node: StoryblokRichTextNode<VNode>) => {
-      return h('p', { class: 'mb-4 text-sm' }, [
-        node.content?.map(paragraph =>
-          h(
-            'span',
-            { class: paragraph?.marks ? 'font-bold' : '' },
-            paragraph.text
-          )
-        ),
-      ]);
+      return h(
+        'p',
+        {
+          class:
+            'mb-2 xl:mb-4 2xl:mb-10 text-xs md:text-sm lg:text-md 3xl:text-xl',
+        },
+        [
+          node.content?.map(paragraph =>
+            h(
+              'span',
+              { class: paragraph?.marks ? 'font-bold' : '' },
+              paragraph.text
+            )
+          ),
+        ]
+      );
     },
     [BlockTypes.HEADING]: (node: StoryblokRichTextNode<VNode>) => {
       const currentHeadingClass = `h${node.attrs?.level.toString()}`;
@@ -77,6 +92,17 @@
   const resolver = {
     [BlockTypes.UL_LIST]: (node: StoryblokRichTextNode<VNode>) => {
       return setListResolver(node);
+    },
+    [BlockTypes.PARAGRAPH]: (node: StoryblokRichTextNode<VNode>) => {
+      return h('p', { class: 'text-xs md:text-sm lg:text-md 3xl:text-xl' }, [
+        node.content?.map(paragraph =>
+          h(
+            'span',
+            { class: paragraph?.marks ? 'font-bold' : '' },
+            paragraph.text
+          )
+        ),
+      ]);
     },
     [BlockTypes.HEADING]: (node: StoryblokRichTextNode<VNode>) => {
       const currentHeadingClass = `h${node.attrs?.level.toString()}`;
@@ -109,34 +135,27 @@
   <div
     id="vertical-slide"
     v-editable="blok"
-    class="shrink-0 flex flex-col justify-end"
+    class="flex flex-col justify-end py-5 md:py-0"
     :class="`${bgColor[props.blok.bgColor]}`"
     :data-color="dataColor"
   >
-    <div class="w-full h-[95%] md:h-[85%]">
+    <div
+      class="w-full h-[80dvh] md:h-[82.5%] lg:h-[85%] 2xl:h-4/5 overflow-scroll md:overflow-hidden"
+    >
       <div
-        class="flex flex-col gap-4 md:grid md:grid-cols-2 md:grid-rows-2 gap-x-10 md:gap-y-6 w-full md:py-10 px-6 md:px-[101.6px] h-full overflow-hidden"
+        class="gap-4 px-6 w-full h-full md:flex md:px-5 md:gap-6 md:gap-y-6 lg:gap-x-10 md:pb-6 lg:px-10 xl:px-[101.6px]"
+        :class="{ 'flex-row-reverse': blok.isReverseColumns }"
       >
-        <div
-          class="rich-text md:row-start-1 md:col-span-1 md:row-span-1"
-          :class="[blok.isReverseColumns ? 'md:col-start-2' : 'md:col-start-1']"
-        >
+        <!-- Over 768px resolution, gsap will apply text color on the children elements, not the class -->
+        <div class="md:flex-1">
           <StoryblokRichText
             v-if="blok.mainRichText"
             :doc="blok.mainRichText"
             :resolvers="currentResolver"
-            class="col-span-1 row-span-1"
-            :class="[
-              blok.isReverseColumns
-                ? 'col-start-1 md:row-start-1'
-                : 'col-start-2 md:row-start-2',
-            ]"
           />
         </div>
-        <div
-          class="md:row-start-1 md:col-span-1 md:row-span-2"
-          :class="[blok.isReverseColumns ? 'md:col-start-1' : 'md:col-start-2']"
-        >
+        <!-- Over 768px resolution, gsap will apply text color on the children elements, not the class -->
+        <div class="md:flex-1">
           <!-- add :resolvers="resolvers" if need to, it was made to render Storyblok Accordions in this case -->
           <StoryblokRichText
             v-if="
@@ -146,7 +165,6 @@
             "
             :doc="blok.secondaryRichText"
             :resolvers="currentResolver"
-            class="rich-text"
           />
           <NuxtImg
             v-else-if="blok?.isSingleImage && blok?.image"

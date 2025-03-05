@@ -1,5 +1,6 @@
 import animation from './configs/tailwind/animation';
 import fontFamily from './configs/tailwind/fontFamily';
+import screens from './configs/tailwind/screens';
 import { join } from 'path';
 
 const resolve = (p: string) => join(__dirname, p);
@@ -15,6 +16,7 @@ export default {
     extend: {
       fontFamily,
       animation,
+      screens,
     },
   },
   plugins: [],

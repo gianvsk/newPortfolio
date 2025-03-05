@@ -40,11 +40,11 @@
         @mouseleave="() => setIconText('')"
       >
         <div
-          class="p-3 relative shadow-lg rounded-full duration-300 group-hover:scale-125"
+          class="p-2 xl:p-3 relative shadow-lg rounded-full duration-300 group-hover:scale-125"
         >
           <component
             :is="`Icons${asset}`"
-            class="h-8 w-8 relative z-[10]"
+            class="w-6 h-6 xl:h-8 xl:w-8 relative z-[10]"
             :font-controlled="false"
             filled
           />
@@ -58,13 +58,13 @@
       <div
         v-for="asset in blok.servicesIcons"
         :key="asset"
-        class="p-3 shadow-lg rounded-full relative group hover:scale-125"
+        class="p-2 xl:p-3 shadow-lg rounded-full relative group hover:scale-125"
         @mouseenter="() => setIconText(asset)"
         @mouseleave="() => setIconText('')"
       >
         <component
           :is="`Icons${asset}`"
-          class="h-8 w-8 relative z-[10]"
+          class="w-6 h-6 xl:h-8 xl:w-8 relative z-[10]"
           :font-controlled="false"
           filled
         />

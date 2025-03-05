@@ -61,17 +61,20 @@
 
     <section id="vertical-slider-container" class="col-start-1 col-span-12">
       <div
-        class="absolute z-40 top-6 pl-6 md:top-12 left-0 py-2 right-0 lg:pl-[101.6px]"
+        class="absolute z-40 top-6 pl-6 md:top-8 lg:top-6 left-0 py-2 right-0 lg:pl-10 xl:pl-[101.6px] xl:top-8 2xl:top-14 3xl:top-20"
       >
-        <h2 id="experience" class="text-4xl uppercase" />
+        <h2
+          id="experience"
+          class="text-4xl 2xl:text-4xl 3xl:text-6xl uppercase opacity-0 md:max-w-[80%] lg:max-w-none"
+        />
       </div>
 
-      <div class="relative w-full h-screen bg-white flex">
+      <div class="relative w-full h-screen overflow-visible">
         <StoryblokComponent
           v-for="singleStory in verticalSlides"
           :key="singleStory"
           :blok="singleStory.content"
-          class="absolute inset-0 w-full h-full"
+          class="absolute inset-0"
         />
       </div>
     </section>
@@ -84,7 +87,6 @@
       id="horizontal-slider"
       class="col-start-1 col-span-12 h-screen overflow-x-scroll flex flex-nowrap bg-white"
     >
-      <!-- Horizontal scrolling section -->
       <div
         id="horizontal-slide"
         class="w-screen h-full bg-amber-300 flex items-center justify-center shrink-0"

@@ -115,18 +115,6 @@ interface StoryblokStory {
 export const useAnimation = () => {
   const { $gsap } = useNuxtApp();
   const homepageAnimations = (story: any) => {
-    $gsap.to('#navbar', {
-      scrollTrigger: {
-        trigger: document.body,
-        start: 'top top',
-        end: `bottom+=${window.innerHeight / 4} 90%`,
-        scrub: true,
-      },
-      background: 'black',
-      color: 'white',
-      borderColor: 'text-white/50',
-    });
-
     const sphereTl = $gsap.timeline();
 
     sphereTl.to('#vertical-slider', {
@@ -171,65 +159,160 @@ export const useAnimation = () => {
         $gsap.set('#sphere', { scale: 0, zIndex: -10 });
       },
     });
+    if (window.innerWidth < 767) {
+      const verticalSliderTl = $gsap.timeline();
+      const verticalSlideElements: Array<Element> =
+        $gsap.utils.toArray('#vertical-slide');
 
-    const verticalSliderTl = $gsap.timeline();
-    const verticalSlideElements: Array<Element> =
-      $gsap.utils.toArray('#vertical-slide');
+      const verticalAnimationEnd = verticalSlideElements
+        .map(el => (el as HTMLElement).offsetHeight)
+        .reduce((value, acc) => (acc < value ? (acc = value) : acc), 0);
+      console.log(verticalAnimationEnd);
 
-    verticalSliderTl.from('#vertical-slider-container', {
-      scrollTrigger: {
-        trigger: '#vertical-slider-container',
-        start: `top top`,
-        end: `bottom+=${window.innerHeight * verticalSlideElements.length} bottom`,
-        scrub: true,
-        pin: true,
-        snap: { snapTo: 1 / verticalSlideElements.length, duration: 2 },
-      },
-    });
-
-    verticalSlideElements.forEach((el, i) => {
-      const nextColor = el.getAttribute('data-color');
-
-      verticalSliderTl.fromTo(
-        el as Element,
-        {
-          yPercent: 100,
-          zIndex: i + 5,
-        },
-        {
-          scrollTrigger: {
-            trigger: el as Element,
-            start: `top+=${window.innerHeight * (i - 1)} top`,
-            end: `bottom+=${window.innerHeight * i} bottom`,
-            scrub: true,
-            markers: true,
+      verticalSliderTl.from('#vertical-slider-container', {
+        scrollTrigger: {
+          trigger: '#vertical-slider-container',
+          start: `top top`,
+          end: `bottom+=${verticalAnimationEnd * verticalSlideElements.length} bottom`,
+          scrub: true,
+          pin: true,
+          markers: {
+            startColor: 'blue',
+            endColor: 'yellow',
           },
-          yPercent: 0,
-          color: nextColor ?? '',
-        }
-      );
-
-      verticalSliderTl.fromTo(
-        '#experience',
-        {
-          text:
-            i > 0
-              ? story.content.body[1].contents?.[i - 1]?.content.title
-              : story.content.body[1].contents?.[i].content.title,
         },
-        {
-          scrollTrigger: {
-            trigger: el as Element,
-            start: `top+=${window.innerHeight * (i - 1)} top`,
-            end: `bottom+=${window.innerHeight * i} bottom`,
-            scrub: true,
+      });
+
+      verticalSlideElements.forEach((el, i) => {
+        const nextColor = el.getAttribute('data-color');
+
+        const elementHeight = (el as HTMLElement).offsetHeight;
+
+        verticalSliderTl.fromTo(
+          el as Element,
+          {
+            yPercent: 100,
+            zIndex: i + 5,
+          },
+          {
+            scrollTrigger: {
+              trigger: el as Element,
+              start: `top+=${elementHeight * (i - 1)} top`,
+              end: `bottom+=${elementHeight * i} bottom`,
+              scrub: true,
+              markers: true,
+            },
+            yPercent: 0,
+            color: nextColor ?? '',
             toggleActions: 'play none reverse none',
+          }
+        );
+
+        verticalSliderTl.fromTo(
+          '#experience',
+          {
+            text:
+              i > 0
+                ? story.content.body[1].contents?.[i - 1]?.content.title
+                : story.content.body[1].contents?.[i].content.title,
           },
-          color: nextColor ?? '',
-          text: story.content.body[1].contents?.[i].content.title,
-        }
-      );
-    });
+          {
+            scrollTrigger: {
+              trigger: el as Element,
+              start: `top+=${elementHeight * (i - 1)} top`,
+              end: `bottom+=${elementHeight * i} bottom`,
+              scrub: true,
+              toggleActions: 'play none reverse none',
+            },
+            color: nextColor ?? '',
+            text: story.content.body[1].contents?.[i].content.title,
+            opacity: 1,
+          }
+        );
+      });
+    } else {
+      const slideHeight = $gsap.getProperty(
+        '#vertical-slide',
+        'height'
+      ) as number;
+
+      $gsap.to('#navbar', {
+        scrollTrigger: {
+          trigger: document.body,
+          start: 'top top',
+          end: `bottom 90%`,
+          scrub: true,
+        },
+        background: 'black',
+        color: 'white',
+        borderColor: 'text-white/50',
+      });
+
+      const verticalSliderTl = $gsap.timeline();
+      const verticalSlideElements: Array<Element> =
+        $gsap.utils.toArray('#vertical-slide');
+
+      console.log('slide', slideHeight);
+
+      verticalSliderTl.from('#vertical-slider-container', {
+        scrollTrigger: {
+          trigger: '#vertical-slider-container',
+          start: `top top`,
+          end: `bottom+=${slideHeight * 5} bottom`,
+          scrub: true,
+          pin: true,
+          markers: {
+            startColor: 'blue',
+            endColor: 'yellow',
+          },
+          snap: { snapTo: 1 / verticalSlideElements.length, duration: 2 },
+        },
+      });
+
+      verticalSlideElements.forEach((el, i) => {
+        const nextColor = el.getAttribute('data-color');
+
+        verticalSliderTl.fromTo(
+          el as Element,
+          {
+            yPercent: 100,
+            zIndex: i + 5,
+          },
+          {
+            scrollTrigger: {
+              trigger: el as Element,
+              start: `top+=${slideHeight * (i - 1)} top`,
+              end: `bottom+=${slideHeight * i} bottom`,
+              scrub: true,
+              markers: true,
+            },
+            yPercent: 0,
+            color: nextColor ?? '',
+          }
+        );
+
+        verticalSliderTl.fromTo(
+          '#experience',
+          {
+            text:
+              i > 0
+                ? story.content.body[1].contents?.[i - 1]?.content.title
+                : story.content.body[1].contents?.[i].content.title,
+          },
+          {
+            scrollTrigger: {
+              trigger: el as Element,
+              start: `top+=${slideHeight * (i - 1)} top`,
+              end: `bottom+=${slideHeight * i} bottom`,
+              scrub: true,
+            },
+            color: nextColor ?? '',
+            text: story.content.body[1].contents?.[i].content.title,
+            opacity: 1,
+          }
+        );
+      });
+    }
 
     const horizontalSliderTl = $gsap.timeline();
     const horizontalSlideElements = $gsap.utils.toArray('#horizontal-slide');
