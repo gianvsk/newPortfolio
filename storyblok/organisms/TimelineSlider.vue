@@ -1,9 +1,7 @@
 <script setup lang="ts">
-  const props = defineProps<{
-    blok: any;
-  }>();
+  import type { TimelineSliderProps } from './TimelineSlider.props';
 
-  console.log('blok', props.blok);
+  defineProps<TimelineSliderProps>();
 </script>
 
 <template>
@@ -13,7 +11,7 @@
   >
     <div class="w-4/5 flex flex-col items-start gap-8">
       <span class="text-2xl uppercase font-mont font-medium">
-        {{ blok?.title }}
+        {{ blok.title }}
       </span>
       <svg
         ref="svg"
@@ -68,29 +66,29 @@
         <div
           v-for="blok in blok?.contents"
           id="career-section"
-          :key="blok._uid"
+          :key="blok.id"
           class="shrink-0 h-full w-full flex justify-between items-start gap-8 py-6"
         >
-          <article class="flex gap-16">
+          <article v-if="blok.content" class="flex gap-16">
             <div class="flex flex-col">
               <span
                 id="experience-text"
                 class="text-md font-light text-neutral-500 font-mont"
               >
-                {{ blok?.content?.subtitle }}
+                {{ blok.content.subtitle }}
               </span>
               <span
                 id="experience-text"
                 class="text-2xl text-neutral-900 font-semibold font-mont mt-1 whitespace-nowrap"
               >
-                {{ blok?.content?.title }}
+                {{ blok.content.title }}
               </span>
             </div>
             <p
               id="experience-text"
               class="text-md text-slate-800 mt-3 font-medium"
             >
-              {{ blok?.content?.description }}
+              {{ blok.content.description }}
             </p>
           </article>
         </div>
