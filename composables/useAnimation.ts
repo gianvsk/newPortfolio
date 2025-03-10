@@ -1,3 +1,5 @@
+import { CSSRulePlugin } from 'gsap/all';
+
 interface Link {
   id: string;
   url: string;
@@ -114,6 +116,8 @@ interface StoryblokStory {
 
 export const useAnimation = () => {
   const { $gsap } = useNuxtApp();
+  $gsap.registerPlugin(CSSRulePlugin);
+
   const homepageAnimations = (story: any) => {
     const sphereTl = $gsap.timeline();
 
@@ -167,7 +171,6 @@ export const useAnimation = () => {
       const verticalAnimationEnd = verticalSlideElements
         .map(el => (el as HTMLElement).offsetHeight)
         .reduce((value, acc) => (acc < value ? (acc = value) : acc), 0);
-      console.log(verticalAnimationEnd);
 
       verticalSliderTl.from('#vertical-slider-container', {
         scrollTrigger: {
@@ -176,10 +179,6 @@ export const useAnimation = () => {
           end: `bottom+=${verticalAnimationEnd * verticalSlideElements.length} bottom`,
           scrub: true,
           pin: true,
-          markers: {
-            startColor: 'blue',
-            endColor: 'yellow',
-          },
         },
       });
 
@@ -200,7 +199,6 @@ export const useAnimation = () => {
               start: `top+=${elementHeight * (i - 1)} top`,
               end: `bottom+=${elementHeight * i} bottom`,
               scrub: true,
-              markers: true,
             },
             yPercent: 0,
             color: nextColor ?? '',
@@ -252,8 +250,6 @@ export const useAnimation = () => {
       const verticalSlideElements: Array<Element> =
         $gsap.utils.toArray('#vertical-slide');
 
-      console.log('slide', slideHeight);
-
       verticalSliderTl.from('#vertical-slider-container', {
         scrollTrigger: {
           trigger: '#vertical-slider-container',
@@ -261,10 +257,6 @@ export const useAnimation = () => {
           end: `bottom+=${slideHeight * 5} bottom`,
           scrub: true,
           pin: true,
-          markers: {
-            startColor: 'blue',
-            endColor: 'yellow',
-          },
           snap: { snapTo: 1 / verticalSlideElements.length, duration: 2 },
         },
       });
@@ -284,7 +276,6 @@ export const useAnimation = () => {
               start: `top+=${slideHeight * (i - 1)} top`,
               end: `bottom+=${slideHeight * i} bottom`,
               scrub: true,
-              markers: true,
             },
             yPercent: 0,
             color: nextColor ?? '',
@@ -313,6 +304,67 @@ export const useAnimation = () => {
         );
       });
     }
+
+    const experienceSlides = <Array<HTMLElement>>(
+      $gsap.utils.toArray('#career-section')
+    );
+
+    const experienceSlideWidth = $gsap.getProperty(
+      '#career-section',
+      'width'
+    ) as number;
+
+    $gsap.to('#career', {
+      scrollTrigger: {
+        trigger: '#career',
+        start: 'top top',
+        end: `top+=${experienceSlideWidth * experienceSlides.length * 3} bottom`,
+        pin: true,
+        scrub: true,
+      },
+      ease: 'none',
+    });
+
+    experienceSlides.forEach((el, i) => {
+      const experienceTween = $gsap.to(el, {
+        scrollTrigger: {
+          trigger: el,
+          start: `top+=${i * experienceSlideWidth * 2} top`,
+          end: `bottom+=${experienceSlideWidth * experienceSlides.length * 2.5} bottom`,
+          scrub: true,
+        },
+        ease: 'none',
+        xPercent: -100 * (experienceSlides.length - 1),
+      });
+
+      const texts = el.querySelectorAll('#experience-text');
+
+      $gsap.from(texts, {
+        opacity: 0,
+        y: -130,
+        ease: 'elastic.out',
+        duration: 2,
+        stagger: 0.3,
+        scrollTrigger: {
+          trigger: el,
+          containerAnimation: experienceTween,
+          start: 'left center+=30%',
+          end: 'center right-=30%',
+          toggleActions: 'play none reverse none',
+        },
+      });
+    });
+
+    $gsap.to('#maskRect', {
+      attr: { width: 520 },
+      scrollTrigger: {
+        trigger: '#career',
+        start: `top left`,
+        end: `bottom+=${experienceSlideWidth * experienceSlides.length * 2.5} bottom`,
+        markers: true,
+        scrub: 1,
+      },
+    });
 
     const horizontalSliderTl = $gsap.timeline();
     const horizontalSlideElements = $gsap.utils.toArray('#horizontal-slide');

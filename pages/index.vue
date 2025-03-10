@@ -3,7 +3,11 @@
 
   const story = await useAsyncStoryblok('homepage', {
     version: 'draft',
-    resolve_relations: ['hero.contents', 'vertical-container.contents'],
+    resolve_relations: [
+      'hero.contents',
+      'vertical-container.contents',
+      'timeline-slider.contents',
+    ],
   });
 
   const { homepageAnimations } = useAnimation();
@@ -29,6 +33,15 @@
   const verticalSlides = computed(
     () => story.value?.content.body[1].contents ?? []
   );
+
+  const timelineSlides = computed(
+    () =>
+      story.value?.content.body.find(
+        el => el?.component === 'timeline-slider'
+      ) ?? []
+  );
+
+  console.log('timeline', timelineSlides.value);
 </script>
 
 <template>
@@ -78,18 +91,16 @@
         />
       </div>
     </section>
-    <section
-      class="col-start-1 col-span-12 bg-black h-screen flex items-center"
-    >
-      <div class="text-5xl text-white">CIAO</div>
-    </section>
+
+    <StoryblokComponent v-if="timelineSlides" :blok="timelineSlides" />
+
     <section
       id="horizontal-slider"
       class="col-start-1 col-span-12 h-screen overflow-x-scroll flex flex-nowrap bg-white"
     >
       <div
         id="horizontal-slide"
-        class="w-screen h-full bg-amber-300 flex items-center justify-center shrink-0"
+        class="w-full h-full bg-amber-300 flex items-center justify-center shrink-0"
       >
         <div class="bg-black px-8 py-5">
           <h4 class="text-white text-5xl">QUESTO E' UN TEST</h4>
