@@ -36,6 +36,10 @@ export default defineNuxtConfig({
     componentPrefix: 'Icons',
   },
 
+  vite: {
+    optimizeDeps: { include: ['gsap'] },
+  },
+
   storyblok: {
     accessToken:
       process.env.iS_PRODUCTION === 'true'
