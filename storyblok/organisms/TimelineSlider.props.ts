@@ -1,6 +1,8 @@
 export type TimelineSliderProps = {
   blok: {
     title: string;
+    subtitle?: string;
+    isDarkTheme?: boolean;
     contents: TimelineContent[];
   } & ContentType;
 };
