@@ -1,10 +1,11 @@
 import { CSSRulePlugin } from 'gsap/all';
+import type { ISbStoryData } from '@storyblok/vue';
 
 export const useAnimation = () => {
   const { $gsap } = useNuxtApp();
   $gsap.registerPlugin(CSSRulePlugin);
 
-  const homepageAnimations = (story: PageStoryContent) => {
+  const homepageAnimations = (story: ISbStoryData) => {
     const sphereTl = $gsap.timeline();
 
     sphereTl.to('#vertical-slider', {

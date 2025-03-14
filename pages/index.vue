@@ -37,11 +37,15 @@
   const timelineSlides = computed(
     () =>
       story.value?.content.body.find(
-        el => el?.component === 'timeline-slider'
+        (story: StoryContent) => story?.component === 'timeline-slider'
       ) ?? []
   );
 
-  console.log('timeline', timelineSlides.value);
+  console.log('story', story);
+
+  const horizontalSlides = computed(
+    () => story.value?.content.body[3].contents ?? []
+  );
 </script>
 
 <template>
@@ -85,6 +89,7 @@
       <div class="relative w-full h-screen overflow-visible">
         <StoryblokComponent
           v-for="singleStory in verticalSlides"
+          id="vertical-slide"
           :key="singleStory"
           :blok="singleStory.content"
           class="absolute inset-0"
@@ -92,49 +97,58 @@
       </div>
     </section>
 
-    <StoryblokComponent v-if="timelineSlides" :blok="timelineSlides" />
+    <section id="career" class="col-start-1 col-span-12">
+      <StoryblokComponent v-if="timelineSlides" :blok="timelineSlides" />
+    </section>
 
     <section
       id="horizontal-slider"
-      class="col-start-1 col-span-12 h-screen overflow-x-scroll flex flex-nowrap bg-white"
+      class="col-start-1 col-span-12 grid grid-cols-12 gap-8 bg-white px-10"
     >
-      <div
-        id="horizontal-slide"
-        class="w-full h-full bg-amber-300 flex items-center justify-center shrink-0"
+      <!-- <div
+        id="test"
+        class="col-span-4 relative aspect-square flex items-center justify-center shrink-0 bg-blue-300"
+        @mouseenter="createNewElement"
+        @mousemove="setChildElement"
+        @mouseleave="removeChildElement"
       >
-        <div class="bg-black px-8 py-5">
-          <h4 class="text-white text-5xl">QUESTO E' UN TEST</h4>
-        </div>
+        <span v-show="k">CIAO</span>
       </div>
       <div
-        id="horizontal-slide"
-        class="w-screen h-full bg-blue-300 flex items-center justify-center shrink-0"
+        id="test"
+        class="col-span-4 relative aspect-square flex items-center justify-center shrink-0 bg-blue-300"
+        @mouseenter="createNewElement"
+        @mousemove="setChildElement"
+        @mouseleave="removeChildElement"
       >
-        <div class="bg-black px-8 py-5">
-          <h4 class="text-white text-5xl">QUESTO E' UN TEST</h4>
-        </div>
+        <span v-show="k">CIAO</span>
       </div>
       <div
-        id="horizontal-slide"
-        class="w-screen h-full bg-red-300 flex items-center justify-center shrink-0"
+        id="test"
+        class="col-span-4 relative aspect-square flex items-center justify-center shrink-0 bg-blue-300"
+        @mouseenter="createNewElement"
+        @mousemove="setChildElement"
+        @mouseleave="removeChildElement"
       >
-        <div class="bg-black px-8 py-5">
-          <h4 class="text-white text-5xl">QUESTO E' UN TEST</h4>
-        </div>
-      </div>
-      <div
+        <span v-show="k">CIAO</span>
+      </div> -->
+      <!--       <StoryblokComponent
+        v-for="singleStory in horizontalSlides"
         id="horizontal-slide"
-        class="w-screen h-full bg-amber-300 flex items-center justify-center shrink-0"
-      >
-        <div class="bg-black px-8 py-5">
-          <h4 class="text-white text-5xl">QUESTO E' UN TEST</h4>
-        </div>
-      </div>
+        :key="singleStory"
+        :blok="singleStory.content"
+        class="col-span-6 w-full h-full flex items-center justify-center shrink-0"
+      />
+      <StoryblokComponent
+        v-for="singleStory in horizontalSlides"
+        id="horizontal-slide"
+        :key="singleStory"
+        :blok="singleStory.content"
+        class="col-span-6 aspect-square flex items-center justify-center shrink-0"
+      /> -->
     </section>
     <section
       class="col-start-1 col-span-12 bg-white h-screen flex items-center"
-    >
-      <div class="text-5xl text-black">CIAO</div>
-    </section>
+    />
   </div>
 </template>
