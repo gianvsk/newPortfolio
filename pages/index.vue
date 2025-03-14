@@ -31,20 +31,24 @@
   });
 
   const verticalSlides = computed(
-    () => story.value?.content.body[1].contents ?? []
+    () =>
+      story.value?.content.body.find((story: ContentType) => {
+        return story?.id === 'vertical-slider-container';
+      }).contents ?? []
   );
 
   const timelineSlides = computed(
     () =>
       story.value?.content.body.find(
-        (story: StoryContent) => story?.component === 'timeline-slider'
+        (story: ContentType) => story?.id === 'timeline-slider'
       ) ?? []
   );
 
-  console.log('story', story);
-
   const horizontalSlides = computed(
-    () => story.value?.content.body[3].contents ?? []
+    () =>
+      story.value?.content.body.find(
+        (story: ContentType) => story?.id === 'horizontal-slider-container'
+      ).contents ?? []
   );
 </script>
 
