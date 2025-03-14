@@ -1,124 +1,10 @@
 import { CSSRulePlugin } from 'gsap/all';
 
-interface Link {
-  id: string;
-  url: string;
-  linktype: string;
-  fieldtype: string;
-  cached_url: string;
-}
-
-interface Image {
-  id: number;
-  alt: string;
-  name: string;
-  focus: string;
-  title: string;
-  source: string;
-  filename: string;
-  copyright: string;
-  fieldtype: string;
-  meta_data: {
-    alt: string;
-    title: string;
-    source: string;
-    copyright: string;
-  };
-  is_external_url: boolean;
-}
-
-interface RichTextContent {
-  type: string;
-  content?: Array<{
-    type: string;
-    text?: string;
-    marks?: Array<{ type: string }>;
-    content?: Array<{ type: string; text: string }>;
-  }>;
-}
-
-interface Content {
-  _uid: string;
-  icon?: string;
-  link?: Link;
-  label?: string;
-  component: string;
-  _editable?: string;
-  image?: Image;
-  theme?: boolean;
-  title?: string;
-  subtitle?: string;
-  description?: string;
-  icons?: string[];
-  bgColor?: string;
-  paragraph?: string;
-  mainRichText?: RichTextContent;
-  subparagraph?: string;
-  isSingleImage?: boolean;
-  secondaryRichText?: RichTextContent;
-}
-
-interface Story {
-  name: string;
-  created_at: string;
-  published_at: string | null;
-  updated_at: string;
-  id: number;
-  uuid: string;
-  content: Content;
-  slug: string;
-  full_slug: string;
-  sort_by_date: null;
-  position: number;
-  tag_list: string[];
-  is_startpage: boolean;
-  parent_id: number | null;
-  meta_data: null;
-  group_id: string;
-  first_published_at: string | null;
-  release_id: null;
-  lang: string;
-  path: string | null;
-  alternates: any[];
-  default_full_slug: null;
-  translated_slugs: null;
-  _stopResolving?: boolean;
-}
-
-interface BodyItem {
-  _uid: string;
-  contents?: Story[];
-  component: string;
-  _editable?: string;
-}
-
-interface PageContent {
-  _uid: string;
-  body: BodyItem[];
-  component: string;
-  _editable?: string;
-}
-
-interface PageStory extends Story {
-  content: PageContent;
-}
-
-interface ObjectType {
-  [key: string]: PageStory;
-}
-
-interface StoryblokStory {
-  _object: ObjectType;
-  _key: string;
-  __v_isRef: boolean;
-  _value: PageStory;
-}
-
 export const useAnimation = () => {
   const { $gsap } = useNuxtApp();
   $gsap.registerPlugin(CSSRulePlugin);
 
-  const homepageAnimations = (story: any) => {
+  const homepageAnimations = (story: PageStoryContent) => {
     const sphereTl = $gsap.timeline();
 
     sphereTl.to('#vertical-slider', {
@@ -318,23 +204,29 @@ export const useAnimation = () => {
       scrollTrigger: {
         trigger: '#career',
         start: 'top top',
-        end: `top+=${experienceSlideWidth * experienceSlides.length * 3} bottom`,
+        end: `top+=${experienceSlideWidth * experienceSlides.length * 3.2} bottom`,
         pin: true,
         scrub: true,
       },
       ease: 'none',
     });
 
-    experienceSlides.forEach((el, i) => {
+    // xPercent = 100vw * (slidesNumber) - slidesGap * (slidesNumber - 1)
+    // (sliderNumber - 1) because, example: between 3 slides, gap will be shown only 2 times, not 3
+
+    experienceSlides.forEach(el => {
       const experienceTween = $gsap.to(el, {
         scrollTrigger: {
           trigger: el,
-          start: `top+=${i * experienceSlideWidth * 2} top`,
-          end: `bottom+=${experienceSlideWidth * experienceSlides.length * 2.5} bottom`,
+          start: `top top`,
+          end: `bottom+=${experienceSlideWidth * experienceSlides.length * 3} bottom`,
           scrub: true,
+          markers: true,
         },
         ease: 'none',
-        xPercent: -100 * (experienceSlides.length - 1),
+        scrub: 3,
+        xPercent:
+          -100 * experienceSlides.length - 50 * (experienceSlides.length - 1),
       });
 
       const texts = el.querySelectorAll('#experience-text');
@@ -358,15 +250,15 @@ export const useAnimation = () => {
     $gsap.to('#maskRect', {
       attr: { width: 520 },
       scrollTrigger: {
-        trigger: '#career',
+        trigger: '#career-sections',
         start: `top left`,
-        end: `bottom+=${experienceSlideWidth * experienceSlides.length * 2.5} bottom`,
-        markers: true,
+        end: `bottom+=${experienceSlideWidth * experienceSlides.length * 3} bottom`,
         scrub: 1,
       },
+      ease: 'none',
     });
 
-    const horizontalSliderTl = $gsap.timeline();
+    /*     const horizontalSliderTl = $gsap.timeline();
     const horizontalSlideElements = $gsap.utils.toArray('#horizontal-slide');
 
     // snap uses horizontalSlideElements.length - 1 because top slide start from top+= i * - 1, a slide behind
@@ -395,7 +287,7 @@ export const useAnimation = () => {
         y: i * 10,
         scale: 0.8,
       });
-    });
+    }); */
   };
 
   return { homepageAnimations };
