@@ -7,7 +7,7 @@ declare global {
     first_published_at: string | null;
     full_slug: string;
     group_id: string;
-    id: number;
+    id: number | string;
     is_startpage: boolean;
     lang: string;
     meta_data: null | Record<string, unknown>;
@@ -33,6 +33,7 @@ declare global {
     _uid: string;
     component: string;
     _editable: string;
+    id?: string;
   };
 
   interface Link {

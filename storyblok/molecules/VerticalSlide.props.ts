@@ -6,7 +6,7 @@ export type VerticalSlideProps = {
     subtitle: string;
     paragraph?: string;
     subparagraph: string;
-    image?: any;
+    image?: Image;
     icons?: any[];
     textColor: string;
     bgColor: string;
