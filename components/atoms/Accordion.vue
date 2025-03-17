@@ -11,14 +11,14 @@
 </script>
 
 <template>
-  <div class="w-full relative">
+  <div class="w-full h-full relative">
     <div
       class="w-full flex justify-between px-5 shadow-zinc-900"
-      :class="[blok?.size === 'sm' ? 'pb-2' : 'py-4']"
+      :class="[size === 'sm' ? 'pb-2' : 'py-4']"
     >
-      <span>{{ blok.text }}</span>
+      <span>{{ text }}</span>
       <button
-        class="w-6 h-6 duration-300 transition-all shrink-0"
+        class="md:hidden w-6 h-6 duration-300 transition-all shrink-0"
         :class="{
           '-rotate-180': open,
         }"
@@ -31,9 +31,9 @@
       <div
         v-if="open"
         class="absolute top-[calc(100%+1px)] h-auto right-0 w-full border-t border-white px-5"
-        :class="[blok?.size === 'sm' ? 'pt-2' : 'py-4']"
+        :class="[size === 'sm' ? 'pt-2' : 'py-4']"
       >
-        <span>{{ blok.subtext }}</span>
+        <span>{{ subtext }}</span>
       </div>
     </Transition>
   </div>
