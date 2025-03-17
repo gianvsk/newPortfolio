@@ -7,6 +7,7 @@
       'hero.contents',
       'vertical-container.contents',
       'timeline-slider.contents',
+      'cards-container.contents',
     ],
   });
 
@@ -30,25 +31,26 @@
     homepageAnimations(story.value);
   });
 
-  const verticalSlides = computed(
+  const verticalSlides = computed<StoryblokContent[]>(
     () =>
       story.value?.content.body.find((story: ContentType) => {
         return story?.id === 'vertical-slider-container';
-      }).contents ?? []
+      }).contents
   );
 
-  const timelineSlides = computed(
-    () =>
-      story.value?.content.body.find(
-        (story: ContentType) => story?.id === 'timeline-slider'
-      ) ?? []
+  const timelineSlides = computed(() =>
+    story.value?.content.body.find(
+      (story: ContentType) => story?.id === 'timeline-slider'
+    )
   );
 
-  const horizontalSlides = computed(
-    () =>
-      story.value?.content.body.find(
-        (story: ContentType) => story?.id === 'horizontal-slider-container'
-      ).contents ?? []
+  const projectCards = computed<StoryblokContent[]>(() =>
+    story.value?.content.body
+      .find((story: ContentType) => story?.id === 'project-cards-container')
+      .contents.map((el: ContentType, index: number) => ({
+        ...el,
+        position: index % 2 === 0 ? 'left' : 'right',
+      }))
   );
 </script>
 
@@ -90,66 +92,37 @@
         />
       </div>
 
-      <div class="relative w-full h-screen overflow-visible">
+      <div
+        v-if="verticalSlides"
+        class="relative w-full h-screen overflow-visible"
+      >
         <StoryblokComponent
           v-for="singleStory in verticalSlides"
           id="vertical-slide"
-          :key="singleStory"
+          :key="singleStory.content._uid"
           :blok="singleStory.content"
           class="absolute inset-0"
         />
       </div>
     </section>
 
-    <section id="career" class="col-start-1 col-span-12">
-      <StoryblokComponent v-if="timelineSlides" :blok="timelineSlides" />
+    <section v-if="timelineSlides" id="career" class="col-start-1 col-span-12">
+      <StoryblokComponent :blok="timelineSlides" />
     </section>
 
     <section
-      id="horizontal-slider"
-      class="col-start-1 col-span-12 grid grid-cols-12 gap-8 bg-white px-10"
+      class="col-start-1 col-span-12 grid grid-cols-12 gap-8 bg-neutral-900 px-10"
     >
-      <!-- <div
-        id="test"
-        class="col-span-4 relative aspect-square flex items-center justify-center shrink-0 bg-blue-300"
-        @mouseenter="createNewElement"
-        @mousemove="setChildElement"
-        @mouseleave="removeChildElement"
-      >
-        <span v-show="k">CIAO</span>
-      </div>
-      <div
-        id="test"
-        class="col-span-4 relative aspect-square flex items-center justify-center shrink-0 bg-blue-300"
-        @mouseenter="createNewElement"
-        @mousemove="setChildElement"
-        @mouseleave="removeChildElement"
-      >
-        <span v-show="k">CIAO</span>
-      </div>
-      <div
-        id="test"
-        class="col-span-4 relative aspect-square flex items-center justify-center shrink-0 bg-blue-300"
-        @mouseenter="createNewElement"
-        @mousemove="setChildElement"
-        @mouseleave="removeChildElement"
-      >
-        <span v-show="k">CIAO</span>
-      </div> -->
-      <!--       <StoryblokComponent
-        v-for="singleStory in horizontalSlides"
-        id="horizontal-slide"
-        :key="singleStory"
-        :blok="singleStory.content"
-        class="col-span-6 w-full h-full flex items-center justify-center shrink-0"
-      />
-      <StoryblokComponent
-        v-for="singleStory in horizontalSlides"
-        id="horizontal-slide"
-        :key="singleStory"
-        :blok="singleStory.content"
-        class="col-span-6 aspect-square flex items-center justify-center shrink-0"
-      /> -->
+      <ClientOnly>
+        <LazyMouseShow
+          v-for="{ content, position } in projectCards"
+          :key="content?.id"
+        >
+          <div class="col-span-6 aspect-square bg-white">
+            <StoryblokComponent :blok="content" :position="position" />
+          </div>
+        </LazyMouseShow>
+      </ClientOnly>
     </section>
     <section
       class="col-start-1 col-span-12 bg-white h-screen flex items-center"
