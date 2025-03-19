@@ -141,7 +141,7 @@ export const useAnimation = () => {
         scrollTrigger: {
           trigger: '#vertical-slider-container',
           start: `top top`,
-          end: `bottom+=${slideHeight * 5} bottom`,
+          end: `bottom+=${slideHeight * verticalSlideElements.length} bottom`,
           scrub: true,
           pin: true,
           snap: { snapTo: 1 / verticalSlideElements.length, duration: 2 },
@@ -201,16 +201,40 @@ export const useAnimation = () => {
       'width'
     ) as number;
 
-    $gsap.to('#career', {
-      scrollTrigger: {
-        trigger: '#career',
-        start: 'top top',
-        end: `top+=${experienceSlideWidth * experienceSlides.length * 3.2} bottom`,
-        pin: true,
-        scrub: true,
+    const careerMediaAnimation = $gsap.matchMedia();
+
+    careerMediaAnimation.add(
+      {
+        isMobile: '(max-width: 768px)',
+        isDesktop: '(min-width: 769px)',
       },
-      ease: 'none',
-    });
+      context => {
+        const { isMobile } = context.conditions as Record<string, boolean>;
+        if (isMobile) {
+          $gsap.to('#career', {
+            scrollTrigger: {
+              trigger: '#career',
+              start: 'top top',
+              end: `top+=${experienceSlideWidth * experienceSlides.length * 4} bottom`,
+              pin: true,
+              scrub: true,
+            },
+            ease: 'none',
+          });
+        } else {
+          $gsap.to('#career', {
+            scrollTrigger: {
+              trigger: '#career',
+              start: 'top top',
+              end: `top+=${experienceSlideWidth * experienceSlides.length * 3.25} bottom`,
+              pin: true,
+              scrub: true,
+            },
+            ease: 'none',
+          });
+        }
+      }
+    );
 
     // xPercent = 100vw * (slidesNumber) - slidesGap * (slidesNumber - 1)
     // (sliderNumber - 1) because, example: between 3 slides, gap will be shown only 2 times, not 3
@@ -222,7 +246,6 @@ export const useAnimation = () => {
           start: `top top`,
           end: `bottom+=${experienceSlideWidth * experienceSlides.length * 3} bottom`,
           scrub: true,
-          markers: true,
         },
         ease: 'none',
         scrub: 3,
@@ -258,37 +281,6 @@ export const useAnimation = () => {
       },
       ease: 'none',
     });
-
-    /*     const horizontalSliderTl = $gsap.timeline();
-    const horizontalSlideElements = $gsap.utils.toArray('#horizontal-slide');
-
-    // snap uses horizontalSlideElements.length - 1 because top slide start from top+= i * - 1, a slide behind
-
-    horizontalSliderTl.to('#horizontal-slider', {
-      scrollTrigger: {
-        trigger: '#horizontal-slider',
-        start: 'top top',
-        end: `top+=${window.innerWidth * horizontalSlideElements.length} bottom`,
-        scrub: true,
-        pin: true,
-        snap: 1 / (horizontalSlideElements.length - 1),
-      },
-      x: 15 * -horizontalSlideElements.length,
-    });
-
-    horizontalSlideElements.forEach((el, i) => {
-      horizontalSliderTl.to(el as Element, {
-        scrollTrigger: {
-          trigger: el as Element,
-          start: `top+=${(i - 1) * window.innerWidth} top`,
-          end: `bottom+=${i * window.innerWidth} bottom`,
-          scrub: true,
-        },
-        xPercent: 100 * -i + i * 2.5,
-        y: i * 10,
-        scale: 0.8,
-      });
-    }); */
   };
 
   return { homepageAnimations };
