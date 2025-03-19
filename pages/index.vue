@@ -44,13 +44,11 @@
     )
   );
 
-  const projectCards = computed<StoryblokContent[]>(() =>
-    story.value?.content.body
-      .find((story: ContentType) => story?.id === 'project-cards-container')
-      .contents.map((el: ContentType, index: number) => ({
-        ...el,
-        position: index % 2 === 0 ? 'left' : 'right',
-      }))
+  const projectCards = computed<StoryblokContent[]>(
+    () =>
+      story.value?.content.body.find(
+        (story: ContentType) => story?.id === 'project-cards-container'
+      ).contents
   );
 </script>
 
@@ -84,11 +82,11 @@
 
     <section id="vertical-slider-container" class="col-start-1 col-span-12">
       <div
-        class="absolute z-40 top-6 pl-6 md:top-8 lg:top-6 left-0 py-2 right-0 lg:pl-10 xl:pl-[101.6px] xl:top-8 2xl:top-14 3xl:top-20"
+        class="absolute z-40 top-6 pl-4 md:top-8 md:portrait:top-10 lg:top-6 left-0 right-0 lg:pl-10 xl:pl-[101.6px] xl:top-8 2xl:top-14 3xl:top-20"
       >
         <h2
           id="experience"
-          class="text-4xl 2xl:text-4xl 3xl:text-6xl uppercase opacity-0 md:max-w-[80%] lg:max-w-none"
+          class="font-mont font-medium text-2xl md:text-4xl md:portrait:text-4xl xl:text-4xl 2xl:text-4xl 3xl:text-6xl uppercase opacity-0 md:max-w-[80%] lg:max-w-none"
         />
       </div>
 
@@ -111,18 +109,22 @@
     </section>
 
     <section
-      class="col-start-1 col-span-12 grid grid-cols-12 gap-8 bg-neutral-900 px-10"
+      class="col-start-1 col-span-12 bg-neutral-900 px-6 py-10 md:px-5 md:gap-6 md:gap-y-6 lg:gap-x-10 md:pb-6 lg:px-10 xl:px-[101.6px] md:pt-10 lg:pt-8 xl:pt-10 2xl:pt-16 3xl:pt-[88px]"
     >
-      <ClientOnly>
-        <LazyMouseShow
-          v-for="{ content, position } in projectCards"
-          :key="content?.id"
-        >
-          <div class="col-span-6 aspect-square bg-white">
-            <StoryblokComponent :blok="content" :position="position" />
-          </div>
-        </LazyMouseShow>
-      </ClientOnly>
+      <h2 class="mb-16 text-5xl text-white font-mont uppercase">Progetti</h2>
+      <ul class="grid grid-cols-12 gap-y-5">
+        <ClientOnly>
+          <li
+            v-for="{ content, position } in projectCards"
+            :key="content?.id"
+            class="col-span-12 md:col-start-1 md:col-span-6"
+          >
+            <LazyMouseShow>
+              <StoryblokComponent :blok="content" :position="position" />
+            </LazyMouseShow>
+          </li>
+        </ClientOnly>
+      </ul>
     </section>
     <section
       class="col-start-1 col-span-12 bg-white h-screen flex items-center"

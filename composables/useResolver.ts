@@ -13,7 +13,8 @@ export const useResolver = () => {
               ? {
                   tag: 'span',
                   innerHTML: paragraph.text,
-                  class: 'font-bold mr-1 min-w-[80px] lg:min-w-[80px]',
+                  class:
+                    'font-bold mr-1 min-w-[70px] md:min-w-[120px] md:portrait:min-w-[140px]',
                 }
               : {
                   tag: 'span',
@@ -24,8 +25,10 @@ export const useResolver = () => {
           return h(
             'p',
             {
-              class: 'inline-flex text-xs md:text-sm lg:text-md 3xl:text-xl',
+              class:
+                'inline-flex text-xs md:text-sm md:portrait:text-lg lg:text-md xl:text-lg 3xl:text-xl',
             },
+
             [
               innerHTML?.map(paragraph =>
                 h(paragraph.tag, { ...paragraph, tag: '' })
@@ -55,13 +58,15 @@ export const useResolver = () => {
           'p',
           {
             class:
-              'mb-2 xl:mb-4 2xl:mb-10 text-xs md:text-sm lg:text-md 3xl:text-xl',
+              'mb-2 md:portrait:mb-6 xl:mb-4 2xl:mb-10 text-xs md:text-sm md:portrait:text-lg lg:text-md xl:text-lg 3xl:text-xl',
           },
           [
             node.content?.map(paragraph =>
               h(
                 'span',
-                { class: paragraph?.marks ? 'font-bold' : '' },
+                {
+                  class: paragraph?.marks ? 'font-bold' : '',
+                },
                 paragraph.text
               )
             ),
@@ -89,15 +94,22 @@ export const useResolver = () => {
         return getListResolver(node);
       },
       [BlockTypes.PARAGRAPH]: (node: StoryblokRichTextNode<VNode>) => {
-        return h('p', { class: 'text-xs md:text-sm lg:text-md 3xl:text-xl' }, [
-          node.content?.map(paragraph =>
-            h(
-              'span',
-              { class: paragraph?.marks ? 'font-bold' : '' },
-              paragraph.text
-            )
-          ),
-        ]);
+        return h(
+          'p',
+          {
+            class:
+              'text-xs md:text-sm md:portrait:text-lg lg:text-md xl:text-lg 3xl:text-xl',
+          },
+          [
+            node.content?.map(paragraph =>
+              h(
+                'span',
+                { class: paragraph?.marks ? 'font-bold' : '' },
+                paragraph.text
+              )
+            ),
+          ]
+        );
       },
       [BlockTypes.HEADING]: (node: StoryblokRichTextNode<VNode>) => {
         const currentHeadingClass = `h${node.attrs?.level.toString()}`;
