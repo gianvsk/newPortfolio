@@ -4,8 +4,9 @@ export type SingleCardProps = {
   blok: {
     id: string;
     title: string;
+    subtitle?: string;
+    text?: string;
     image: Image;
     richText: StoryblokRichTextDocumentNode;
   };
-  position?: 'left' | 'right';
 };

@@ -16,5 +16,7 @@ export type VerticalSlideProps = {
     isIconsBlock?: boolean;
     isReverseColumns?: boolean;
     isResolverActive?: boolean;
+    isFirstBlockHidden?: boolean;
+    isSecondBlockHidden?: boolean;
   };
 };
