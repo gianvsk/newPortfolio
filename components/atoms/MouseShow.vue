@@ -1,8 +1,4 @@
 <script setup lang="ts">
-  const props = defineProps<{
-    position?: 'left' | 'right';
-  }>();
-
   const state = ref(false);
   const createChild = () => {
     state.value = true;
@@ -15,25 +11,15 @@
 
     const rect = element.getBoundingClientRect();
     const relativeLeft = x - rect.left;
-    const relativeRight = rect.right - x;
     const relativeY = y - rect.top;
 
-    const childElement = document.getElementById(id);
+    const p = relativeLeft + 50;
+
+    const childElement = document.getElementById(id) as HTMLElement;
 
     if (childElement) {
       requestAnimationFrame(() => {
-        childElement.style =
-          props.position === 'left'
-            ? 'left: ' +
-              (relativeLeft + 50) +
-              'px; top: ' +
-              (relativeY - 15) +
-              'px'
-            : 'right: ' +
-              (relativeRight + 50) +
-              'px; top: ' +
-              (relativeY - 15) +
-              'px';
+        childElement.style = 'left: ' + p + 'px; top: ' + relativeY + 'px';
       });
     }
   };
