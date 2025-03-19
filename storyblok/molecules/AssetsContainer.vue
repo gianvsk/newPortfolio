@@ -31,7 +31,7 @@
     <div class="h-7 flex justify-center">
       <span id="iconText" class="text-lg font-mont font-semibold uppercase" />
     </div>
-    <div class="p-5 flex gap-4 flex-wrap">
+    <div class="p-5 flex gap-4 xl:gap-10 flex-wrap">
       <div
         v-for="asset in blok.frontendIcons"
         :key="asset"
@@ -40,11 +40,11 @@
         @mouseleave="() => setIconText('')"
       >
         <div
-          class="p-2 xl:p-3 relative shadow-lg rounded-full duration-300 group-hover:scale-125"
+          class="p-2 w-10 h-10 xl:p-3 xl:h-16 xl:w-16 relative shadow-lg rounded-full duration-300 group-hover:scale-125"
         >
           <component
             :is="`Icons${asset}`"
-            class="w-6 h-6 xl:h-8 xl:w-8 relative z-[10]"
+            class="w-full h-full relative z-[10]"
             :font-controlled="false"
             filled
           />
@@ -54,17 +54,17 @@
     <span class="text-xl font-mont font-semibold">
       {{ blok.servicesText }}
     </span>
-    <div class="p-5 flex gap-4 flex-wrap">
+    <div class="p-5 flex gap-4 xl:gap-10 flex-wrap">
       <div
         v-for="asset in blok.servicesIcons"
         :key="asset"
-        class="p-2 xl:p-3 shadow-lg rounded-full relative group hover:scale-125"
+        class="p-2 w-10 h-10 xl:p-3 xl:w-16 xl:h-16 shadow-lg rounded-full relative group hover:scale-125"
         @mouseenter="() => setIconText(asset)"
         @mouseleave="() => setIconText('')"
       >
         <component
           :is="`Icons${asset}`"
-          class="w-6 h-6 xl:h-8 xl:w-8 relative z-[10]"
+          class="w-full h-full relative z-[10]"
           :font-controlled="false"
           filled
         />

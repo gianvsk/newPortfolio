@@ -6,8 +6,8 @@
   const { getDefaultResolver, getParagraphOnlyResolver } = useResolver();
 
   const headingStyle = {
-    h3: 'text-lg lg:text-xl xl:text-2xl 3xl:text-4xl font-bold font-mont mb-3 xl:mb-4 2xl:mb-8',
-    h4: 'text-md lg:text-lg xl:text-xl 3xl:text-2xl font-bold font-mont mb-3 xl:mb-4 2xl:mb-8',
+    h3: 'text-lg md:portrait:text-3xl lg:text-xl xl:text-2xl 3xl:text-4xl font-bold font-mont mb-3 md:portrait:mb-6 xl:mb-4 2xl:mb-8',
+    h4: 'text-md md:portrait:text-xl lg:text-lg xl:text-xl 3xl:text-2xl font-bold font-mont mb-3 md:portrait:mb-4 xl:mb-4 2xl:mb-8',
   };
 
   const bgColor: Record<string, string> = {
@@ -34,22 +34,30 @@
     :data-color="dataColor"
   >
     <div
-      class="w-full h-[80dvh] md:h-[82.5%] lg:h-[85%] 2xl:h-4/5 overflow-scroll md:overflow-hidden"
+      class="w-full h-[87.5dvh] md:h-[82.5%] md:portrait:h-[87.5%] lg:h-[85%] 2xl:h-4/5 overflow-hidden"
     >
       <div
-        class="gap-4 px-6 w-full h-full md:flex md:px-5 md:gap-6 md:gap-y-6 lg:gap-x-10 md:pb-6 lg:px-10 xl:px-[101.6px]"
-        :class="{ 'flex-row-reverse': blok.isReverseColumns }"
+        class="gap-4 px-4 w-full h-full md:flex md:portrait:flex-col md:portrait:gap-8 md:px-5 md:gap-6 md:gap-y-6 lg:gap-x-10 md:pb-6 lg:px-10 xl:px-[101.6px]"
+        :class="{
+          'flex-row-reverse md:portrait:flex-col-reverse md:portrait:justify-end':
+            blok.isReverseColumns,
+        }"
       >
         <!-- Over 768px resolution, gsap will apply text color on the children elements, not the class -->
-        <div class="md:flex-1">
+        <div
+          v-if="!blok?.isFirstBlockHidden && blok.mainRichText"
+          class="md:flex-1 md:portrait:flex-none"
+        >
           <StoryblokRichText
-            v-if="blok.mainRichText"
             :doc="blok.mainRichText"
             :resolvers="currentResolver"
           />
         </div>
         <!-- Over 768px resolution, gsap will apply text color on the children elements, not the class -->
-        <div class="md:flex-1">
+        <div
+          v-if="!blok?.isSecondBlockHidden"
+          class="md:flex-1 md:portrait:flex-none"
+        >
           <!-- add :resolvers="resolvers" if need to, it was made to render Storyblok Accordions in this case -->
           <StoryblokRichText
             v-if="

@@ -27,20 +27,20 @@
 
 <template>
   <div
-    class="h-screen flex flex-col items-center relative gap-4 px-6 w-full md:px-5 md:gap-6 md:gap-y-6 lg:gap-x-10 md:pb-6 lg:px-10 xl:px-[101.6px] md:pt-10 lg:pt-8 xl:pt-10 2xl:pt-16 3xl:pt-[88px] overflow-hidden"
+    class="w-full h-screen flex flex-col items-center relative gap-4 px-6 py-10 md:px-5 md:gap-6 md:gap-y-6 lg:gap-x-10 md:pb-6 lg:px-10 xl:px-[101.6px] md:pt-10 lg:pt-8 xl:pt-10 2xl:pt-16 3xl:pt-[88px] overflow-hidden"
     :class="theme.bg"
   >
-    <div class="w-full flex flex-col items-start gap-14">
+    <div class="w-full flex flex-col items-start gap-10 md:portrait:h-full">
       <div class="flex flex-col gap-8">
         <h2
-          class="font-mont font-medium text-4xl 2xl:text-4xl 3xl:text-6xl uppercase md:max-w-[80%] lg:max-w-none"
+          class="font-mont font-medium text-4xl 2xl:text-4xl 3xl:text-6xl uppercase lg:max-w-none"
           :class="theme.title"
         >
           {{ blok.title }}
         </h2>
         <span
           v-if="blok?.subtitle"
-          class="text-lg font-medium xl:text-xl 3xl:text-3xl"
+          class="text-md font-mont font-medium xl:text-xl 3xl:text-3xl"
           :class="theme.description"
         >
           {{ blok?.subtitle }}
@@ -100,22 +100,22 @@
           v-for="blok in blok?.contents"
           id="career-section"
           :key="blok.id"
-          class="shrink-0 h-full w-full flex justify-between items-start gap-8 py-6 translate-x-full"
+          class="shrink-0 h-full w-full flex justify-between items-start gap-8 md:py-6 translate-x-full"
         >
           <article
             v-if="blok.content"
-            class="flex gap-16 3xl:gap-[98px] 3xl:pt-20"
+            class="flex flex-col md:flex-row md:portrait:flex-col md:portrait:gap-8 gap-4 md:gap-16 3xl:gap-[98px] 3xl:pt-20"
           >
             <div class="flex flex-col shrink-0">
               <span
                 id="experience-text"
-                class="text-md font-light text-neutral-500 font-mont xl:text-xl 3xl:text-3xl"
+                class="text-md font-light text-neutral-500 font-mont md:portrait:text-3xl xl:text-xl 3xl:text-3xl"
               >
                 {{ blok.content.subtitle }}
               </span>
               <span
                 id="experience-text"
-                class="text-3xl text-neutral-900 font-semibold font-mont mt-1 whitespace-nowrap 3xl:text-6xl 3xl:mt-4"
+                class="text-3xl text-neutral-900 font-semibold font-mont mt-1 whitespace-nowrap md:portrait:text-5xl 3xl:text-6xl 3xl:mt-4"
                 :class="theme.title"
               >
                 {{ blok.content.title }}
@@ -123,7 +123,7 @@
             </div>
             <p
               id="experience-text"
-              class="text-md text-slate-800 mt-[34px] font-medium xl:text-xl 3xl:text-3xl"
+              class="text-md text-slate-800 mt-0 md:portrait:mt-0 md:portrait:text-2xl font-medium xl:text-xl 3xl:text-3xl"
               :class="theme.description"
             >
               {{ blok.content.description }}
