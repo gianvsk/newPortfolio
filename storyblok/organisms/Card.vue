@@ -43,6 +43,7 @@
         v-if="blok.image?.filename"
         :src="`${blok.image?.filename}/m/600x400`"
         :alt="blok.image?.alt"
+        provider="storyblok"
         class="w-full h-full border overflow-hidden rounded-full object-cover"
         :img-attrs="{
           class:

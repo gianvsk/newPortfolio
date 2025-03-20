@@ -52,6 +52,7 @@
             :src="blok.image.filename"
             :alt="blok.image.alt"
             loading="lazy"
+            provider="storyblok"
             sizes="sm:100vw md:50vw lg:33vw"
             class="animate-child-show-in object-cover object-left-top w-full"
           />
