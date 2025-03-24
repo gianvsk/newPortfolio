@@ -34,7 +34,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="w-screen grid grid-cols-12">
+  <div class="w-screen flex flex-col overflow-hidden">
     <!--     <div class="flex flex-col col-start-1 col-span-12">
       <div
         v-if="story"

@@ -60,11 +60,13 @@
     </div>
     <h1
       id="first-text"
-      class="text-white text-3xl font-bold showing-up-text mt-2"
+      class="text-white text-3xl font-mont font-bold showing-up-text mt-2"
     >
       {{ blok.title }}
     </h1>
-    <h2 class="text-white text-2xl showing-up-text">{{ blok.subtitle }}</h2>
+    <h2 class="text-zinc-400 text-2xl font-mont font-semibold showing-up-text">
+      {{ blok.subtitle }}
+    </h2>
     <div class="mt-6 flex flex-col">
       <h3
         id="hero-description"
