@@ -5,9 +5,10 @@
 
   const { getDefaultResolver, getParagraphOnlyResolver } = useResolver();
 
-  const headingStyle = {
+  const textStyle = {
     h3: 'text-lg md:portrait:text-3xl lg:text-xl xl:text-2xl 3xl:text-4xl font-bold font-mont mb-3 md:portrait:mb-6 xl:mb-4 2xl:mb-8',
     h4: 'text-md md:portrait:text-xl lg:text-lg xl:text-xl 3xl:text-2xl font-bold font-mont mb-3 md:portrait:mb-4 xl:mb-4 2xl:mb-8',
+    p: 'text-xs md:text-sm md:portrait:text-lg lg:text-md xl:text-lg 3xl:text-xl',
   };
 
   const bgColor: Record<string, string> = {
@@ -21,25 +22,26 @@
 
   const currentResolver = computed(() =>
     props.blok.isResolverActive
-      ? getDefaultResolver(headingStyle)
-      : getParagraphOnlyResolver(headingStyle)
+      ? getDefaultResolver(textStyle)
+      : getParagraphOnlyResolver(textStyle)
   );
 </script>
 
 <template>
   <div
+    id="vertical-slide"
     v-editable="blok"
-    class="flex flex-col justify-end py-5 md:py-0"
+    class="flex flex-col justify-end py-5 md:py-0 h-full"
     :class="`${bgColor[props.blok.bgColor]}`"
     :data-color="dataColor"
   >
     <div
-      class="w-full h-[87.5dvh] md:h-[82.5%] md:portrait:h-[87.5%] lg:h-[85%] 2xl:h-4/5 overflow-hidden"
+      class="w-full h-[85dvh] md:h-[82.5dvh] md:portrait:h-[87.5%] lg:h-[85%] 2xl:h-4/5 overflow-hidden"
     >
       <div
         class="gap-4 px-4 w-full h-full md:flex md:portrait:flex-col md:portrait:gap-8 md:px-5 md:gap-6 md:gap-y-6 lg:gap-x-10 md:pb-6 lg:px-10 xl:px-[101.6px]"
         :class="{
-          'flex-row-reverse md:portrait:flex-col-reverse md:portrait:justify-end':
+          'flex-col-reverse md:flex-row-reverse portrait:flex-col-reverse md:portrait:justify-end':
             blok.isReverseColumns,
         }"
       >
@@ -71,7 +73,7 @@
           <NuxtImg
             v-else-if="blok?.isSingleImage && blok?.image"
             :src="blok.image?.filename"
-            class="w-50% h-full object-cover"
+            class="w-1/2 aspect-square object-cover object-bottom"
             provider="storyblok"
           />
           <StoryblokComponent
