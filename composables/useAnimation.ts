@@ -12,7 +12,7 @@ export const useAnimation = () => {
       scrollTrigger: {
         trigger: '#vertical-slider',
         start: 'top top',
-        end: `bottom+=${window.innerHeight} bottom`,
+        end: `bottom+=${window.innerHeight * 0.5} bottom`,
         scrub: true,
         pin: true,
       },
@@ -50,6 +50,7 @@ export const useAnimation = () => {
         $gsap.set('#sphere', { scale: 0, zIndex: -10 });
       },
     });
+
     if (window.innerWidth < 767) {
       const verticalSliderTl = $gsap.timeline();
       const verticalSlideElements: Array<Element> =

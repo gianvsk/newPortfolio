@@ -51,14 +51,13 @@ export const useResolver = () => {
     );
   };
 
-  const getParagraphOnlyResolver = (headingStyle: Record<string, string>) => {
+  const getParagraphOnlyResolver = (textStyle: Record<string, string>) => {
     return {
       [BlockTypes.PARAGRAPH]: (node: StoryblokRichTextNode<VNode>) => {
         return h(
           'p',
           {
-            class:
-              'mb-2 md:portrait:mb-6 xl:mb-4 2xl:mb-10 text-xs md:text-sm md:portrait:text-lg lg:text-md xl:text-lg 3xl:text-xl',
+            class: `mb-2 md:portrait:mb-6 xl:mb-4 2xl:mb-10 ${textStyle.p}`,
           },
           [
             node.content?.map(paragraph =>
@@ -79,8 +78,7 @@ export const useResolver = () => {
         return h(
           `h${node.attrs?.level}`,
           {
-            class:
-              headingStyle[currentHeadingClass as keyof typeof headingStyle],
+            class: textStyle[currentHeadingClass as keyof typeof textStyle],
           },
           node.content?.[0]?.text || ''
         );
@@ -88,7 +86,7 @@ export const useResolver = () => {
     };
   };
 
-  const getDefaultResolver = (headingStyle: Record<string, string>) => {
+  const getDefaultResolver = (textStyle: Record<string, string>) => {
     return {
       [BlockTypes.UL_LIST]: (node: StoryblokRichTextNode<VNode>) => {
         return getListResolver(node);
@@ -97,8 +95,7 @@ export const useResolver = () => {
         return h(
           'p',
           {
-            class:
-              'text-xs md:text-sm md:portrait:text-lg lg:text-md xl:text-lg 3xl:text-xl',
+            class: textStyle.p,
           },
           [
             node.content?.map(paragraph =>
@@ -117,8 +114,7 @@ export const useResolver = () => {
         return h(
           `h${node.attrs?.level}`,
           {
-            class:
-              headingStyle[currentHeadingClass as keyof typeof headingStyle],
+            class: textStyle[currentHeadingClass as keyof typeof textStyle],
           },
           node.content?.[0]?.text || ''
         );

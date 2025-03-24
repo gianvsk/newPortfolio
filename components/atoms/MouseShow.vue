@@ -1,10 +1,12 @@
 <script setup lang="ts">
   const state = ref(false);
   const createChild = () => {
+    if (window.innerWidth < 1024) return;
     state.value = true;
   };
 
   const setChildPosition = (event: MouseEvent, id: string) => {
+    if (!state.value) return;
     const x = event.clientX;
     const y = event.clientY;
     const element = event.currentTarget as HTMLElement;
