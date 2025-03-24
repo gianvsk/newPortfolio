@@ -1,3 +1,6 @@
+import type { SingleCardContentType } from './components/molecules/CardList.props';
+import type { TimelineContentType } from './components/molecules/TimelineSlideList.props';
+
 declare global {
   type StoryblokContent = {
     alternates: any[];
@@ -123,8 +126,11 @@ declare global {
 
   interface BodyItem {
     _uid: string;
-    contents?: Story[];
+    contents?: TimelineContentType[] | SingleCardContentType[] | any[];
     component: string;
+    title?: string;
+    subtitle?: string;
+    theme?: 'dark' | 'dark-neutral' | 'white';
     _editable?: string;
   }
 
