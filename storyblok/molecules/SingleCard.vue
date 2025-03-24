@@ -5,61 +5,57 @@
 </script>
 
 <template>
-  <ClientOnly>
-    <LazyMouseShow
-      v-slot="{ state, createChild, setChildPosition, removeChild }"
+  <LazyMouseShow v-slot="{ state, createChild, setChildPosition, removeChild }">
+    <article
+      class="relative px-5 py-4 h-full md:min-h-[300px] bg-white lg:p-8 hover:bg-black hover:border hover:border-white group duration-500"
+      @mouseenter="createChild"
+      @mousemove="event => setChildPosition(event, blok.id)"
+      @mouseleave="removeChild"
     >
-      <div
-        class="relative px-5 py-4 bg-white lg:p-8 hover:bg-black hover:border hover:border-white group duration-500"
-        @mouseenter="createChild"
-        @mousemove="event => setChildPosition(event, blok.id)"
-        @mouseleave="removeChild"
-      >
-        <div class="flex flex-col gap-8">
-          <NuxtImg
-            :src="blok.image.filename"
-            :alt="blok.image.alt"
-            loading="lazy"
-            sizes="sm:100vw md:50vw lg:33vw"
-            class="md:hidden object-cover object-left-top w-full"
-          />
-          <div class="flex flex-col h-full">
-            <h3
-              class="text-lg md:text-2xl uppercase font-medium font-mont group-hover:text-white"
-            >
-              {{ blok.title }}
-            </h3>
-            <p
-              v-if="blok?.subtitle"
-              class="text-sm text-gray-400 mb-3 font-mont"
-            >
-              {{ blok.subtitle }}
-            </p>
-            <p
-              v-if="blok?.text"
-              class="text-md group-hover:text-white self-end"
-            >
-              {{ blok.text }}
-            </p>
-          </div>
-        </div>
-        <div
-          :id="blok.id"
-          class="flex absolute pointer-events-none bg-neutral-300 z-50 h-[var(--container-height)] w-full animate-show-in"
-          :class="{ hidden: !state }"
-        >
-          <NuxtImg
-            :src="blok.image.filename"
-            :alt="blok.image.alt"
-            loading="lazy"
-            provider="storyblok"
-            sizes="sm:100vw md:50vw lg:33vw"
-            class="animate-child-show-in object-cover object-left-top w-full"
-          />
+      <div class="flex flex-col gap-8 md:h-full">
+        <NuxtImg
+          :src="blok.image.filename"
+          :alt="blok.image.alt"
+          loading="lazy"
+          sizes="sm:100vw md:50vw lg:33vw"
+          class="lg:hidden object-cover object-left-top w-full md:max-h-[400px] lg:max-h-none"
+        />
+        <div class="flex flex-col md:h-full">
+          <h3
+            class="text-lg md:text-2xl lg:text-3xl uppercase font-medium font-mont group-hover:text-white"
+          >
+            {{ blok.title }}
+          </h3>
+          <p
+            v-if="blok?.subtitle"
+            class="text-sm md:text-xl text-gray-400 mb-6 font-mont mt-2"
+          >
+            {{ blok.subtitle }}
+          </p>
+          <p
+            v-if="blok?.text"
+            class="text-md md:text-xl group-hover:text-white font-mont mt-auto"
+          >
+            {{ blok.text }}
+          </p>
         </div>
       </div>
-    </LazyMouseShow>
-  </ClientOnly>
+      <div
+        :id="blok.id"
+        class="flex absolute pointer-events-none bg-neutral-300 z-50 h-full w-full animate-show-in"
+        :class="{ hidden: !state }"
+      >
+        <NuxtImg
+          :src="blok.image.filename"
+          :alt="blok.image.alt"
+          loading="lazy"
+          provider="storyblok"
+          sizes="sm:100vw md:50vw lg:33vw"
+          class="animate-child-show-in object-cover object-left-top w-full"
+        />
+      </div>
+    </article>
+  </LazyMouseShow>
 </template>
 
 <style lang="scss">
@@ -90,6 +86,12 @@
   @screen xl {
     :root {
       --container-height: 450px;
+    }
+  }
+
+  @screen 2xl {
+    :root {
+      --container-height: 350px;
     }
   }
 
@@ -128,7 +130,7 @@
       mix-blend-mode: normal;
     }
     100% {
-      transform: scaleY(--container-height);
+      transform: scaleY(100%);
     }
   }
 
