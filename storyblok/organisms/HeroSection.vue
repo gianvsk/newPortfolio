@@ -1,11 +1,33 @@
 <script setup lang="ts">
   import type { HeroSectionProps } from './HeroSection.props';
 
+  const { $gsap } = useNuxtApp();
+
+  onMounted(() => {
+    $gsap.fromTo(
+      '#hero-section div a',
+      {
+        opacity: 0,
+        y: -20,
+      },
+      {
+        opacity: 1,
+        stagger: 0.5,
+        duration: 1,
+        delay: 5.5,
+        ease: 'back.out',
+        y: 0,
+        clearProps: 'all',
+      }
+    );
+  });
+
   defineProps<HeroSectionProps>();
 </script>
 
 <template>
   <section
+    id="hero-section"
     class="col-start-1 col-span-12 relative flex flex-col items-center justify-center overflow-hidden min-h-screen bg-[url('../bg/test1.jpg')] bg-cover"
   >
     <div class="flex flex-col gap-4 items-center z-[2] md:max-w-[70%]">

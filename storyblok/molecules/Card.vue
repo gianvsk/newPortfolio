@@ -20,14 +20,6 @@
         text: { value: props.blok.description ?? '' },
         ease: 'power1.out',
       });
-      tl.to('#second-text', {
-        duration: 4,
-        text: { value: `Sono uno sviluppatore web` },
-        repeat: -1,
-        repeatDelay: 3,
-        yoyo: true,
-        ease: 'power1.in',
-      });
     }
   });
 </script>
