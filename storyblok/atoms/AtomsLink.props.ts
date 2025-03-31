@@ -2,17 +2,17 @@ export type LinkSchema = {
   blok: Link;
 };
 
-export type Link = {
-  _uid: string;
-  component: string;
+export type Link = ContentType & {
   label: string;
   link: {
     cached_url: string;
     fieldtype: 'multilink';
     id: string;
-    linktype: 'url';
+    linktype: 'url' | 'email';
     url: string;
   };
   icon: string;
-  _editable: string;
-} & { showOnlyIcon?: boolean };
+  hideLabel: boolean;
+  isBlur?: boolean;
+  ariaLabel?: string;
+};

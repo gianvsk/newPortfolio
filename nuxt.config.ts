@@ -9,6 +9,7 @@ export default defineNuxtConfig({
     '@nuxt/fonts',
     'nuxt-svgo',
     '@hypernym/nuxt-gsap',
+    '@formkit/nuxt',
   ],
 
   ssr: true,
@@ -59,7 +60,9 @@ export default defineNuxtConfig({
     experimental: {
       openAPI: true,
     },
-    compressPublicAssets: true,
+    compressPublicAssets: {
+      gzip: true,
+    },
   },
   compatibilityDate: '2025-02-17',
 });

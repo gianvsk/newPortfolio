@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import type { TimelineSlideProps } from './TimelineSlide.props';
+  import type { TimelineSlideProps } from '../molecules/TimelineSlide.props';
 
   defineProps<TimelineSlideProps>();
 </script>
@@ -12,13 +12,13 @@
     <div class="flex flex-col shrink-0">
       <span
         id="experience-text"
-        class="text-md font-light text-neutral-500 font-mont md:portrait:text-3xl lg:text-xl 3xl:text-3xl"
+        class="text-md font-light text-neutral-300 font-mont md:portrait:text-3xl lg:text-xl 3xl:text-3xl"
       >
         {{ blok.subtitle }}
       </span>
       <span
         id="experience-text"
-        class="text-3xl text-neutral-900 font-semibold font-mont mt-1 whitespace-nowrap md:portrait:text-5xl 3xl:text-6xl 3xl:mt-4"
+        class="text-3xl text-stone-900 font-semibold font-mont mt-1 whitespace-nowrap md:portrait:text-5xl 3xl:text-6xl 3xl:mt-4"
         :class="theme.title"
       >
         {{ blok.title }}

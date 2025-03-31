@@ -7,7 +7,7 @@
 <template>
   <LazyMouseShow v-slot="{ state, createChild, setChildPosition, removeChild }">
     <article
-      class="relative px-5 py-4 h-full md:min-h-[300px] bg-white lg:p-8 hover:bg-black hover:border hover:border-white group duration-500"
+      class="relative px-5 py-4 h-full md:min-h-[300px] bg-white lg:p-8 hover:bg-black border border-transparent hover:border-white group duration-500"
       @mouseenter="createChild"
       @mousemove="event => setChildPosition(event, blok.id)"
       @mouseleave="removeChild"
@@ -28,7 +28,7 @@
           </h3>
           <p
             v-if="blok?.subtitle"
-            class="text-sm md:text-xl text-gray-400 mb-6 font-mont mt-2"
+            class="text-sm md:text-xl group-hover:text-white mb-6 font-mont mt-2"
           >
             {{ blok.subtitle }}
           </p>

@@ -1,17 +1,17 @@
 <script setup lang="ts">
-  import type { TimelineSlideListProps } from './TimelineSlideList.props';
+  import type { TimelineSlideListProps } from '../../storyblok/organisms/TimelineSlideList.props';
 
   const props = defineProps<TimelineSlideListProps>();
 
   const timelineSlideStyle = {
     dark: {
-      bg: 'bg-neutral-900',
+      bg: 'bg-stone-900',
       title: 'text-white',
       description: 'text-zinc-200',
     },
     light: {
       bg: 'bg-white',
-      title: 'text-neutral-900',
+      title: 'text-stone-900',
       description: 'text-slate-800',
     },
   };
@@ -45,7 +45,7 @@
         :key="blok.id"
         class="shrink-0 w-full flex justify-between items-start gap-8 translate-x-full"
       >
-        <TimelineSlide :blok="blok.content" :theme="theme" />
+        <StoryblokComponent :blok="blok.content" :theme="theme" />
       </div>
     </div>
   </div>

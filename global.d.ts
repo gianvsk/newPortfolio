@@ -1,5 +1,5 @@
-import type { SingleCardContentType } from './components/molecules/CardList.props';
-import type { TimelineContentType } from './components/molecules/TimelineSlideList.props';
+import type { SingleCardContentType } from './storyblok/organisms/CardList.props';
+import type { TimelineContentType } from './storyblok/organisms/TimelineSlideList.props';
 
 declare global {
   type StoryblokContent = {
