@@ -34,18 +34,18 @@
       <NuxtPicture
         v-if="blok.image?.filename"
         :src="blok.image?.filename"
-        :alt="blok.image?.alt ?? 'Immagine di me a Milano'"
+        :alt="blok.image?.alt"
         provider="storyblok"
-        width="600"
-        height="400"
-        sizes="25vw"
+        width="800"
+        height="800"
+        sizes="100vw md:50vw"
         class="w-full h-full border overflow-hidden rounded-full object-cover"
+        :modifiers="{ quality: 80 }"
         :img-attrs="{
           class:
-            'w-full h-full scale-[3] -translate-y-10 translate-x-4 md:translate-y-0 object-center aspect-square md:translate-x-0 md:scale-100 md:group-hover:scale-[3] md:group-hover:translate-x-4 md:group-hover:-translate-y-10 md:duration-300 z-2',
+            'w-full h-full scale-[4] aspect-square will-change-transform translate-y-[150px] -translate-x-[80px] md:translate-y-0 object-center aspect-square md:translate-x-0 md:scale-100 md:group-hover:scale-[4] md:group-hover:-translate-x-[80px] md:group-hover:translate-y-[150px] md:duration-300 z-2',
         }"
         format="webp"
-        :preload="{ fetchPriority: 'high' }"
       />
       <div
         class="hidden md:block absolute inset-0 border rounded-full border-white zoom-image"
