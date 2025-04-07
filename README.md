@@ -1,6 +1,6 @@
 Modern, performant, and interactive portfolio built with Nuxt 3, Vue 3, GSAP, and Storyblok
 
-🔗 Live Demo: [Live Demo](https://gianvitosc-portfolio.netlify.app/)
+🔗 Live Demo: [https://gianvitosc-portfolio.netlify.app/](https://gianvitosc-portfolio.netlify.app/)
 
 📌 Overview
 This portfolio showcases my professional journey, skills, projects, and experience in an engaging and visually dynamic way. Built with Nuxt 3 for server-side rendering and performance optimization, GSAP for smooth animations, and Storyblok as a headless CMS for easy content management.
@@ -37,11 +37,11 @@ Copy
 This project is licensed under MIT.
 
 📬 Contact
-Portfolio: [[Portfolio URL](https://gianvitosc-portfolio.netlify.app/)]
+Portfolio: [https://gianvitosc-portfolio.netlify.app/](https://gianvitosc-portfolio.netlify.app/)
 
-LinkedIn: [Linkedin Profile](https://www.linkedin.com/in/gianvitoscandurra/)
+LinkedIn: [https://www.linkedin.com/in/gianvitoscandurra/](https://www.linkedin.com/in/gianvitoscandurra/)
 
-Email: [My Email](gianvitoscandurra@gmail.com)
+Email: gianvitoscandurra@gmail.com
 
 🌟 Show Your Support
 If you like this project, give it a ⭐ on GitHub!
