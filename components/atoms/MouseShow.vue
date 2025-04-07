@@ -21,7 +21,7 @@
 
     if (childElement) {
       requestAnimationFrame(() => {
-        childElement.style = 'left: ' + p + 'px; top: ' + relativeY + 'px';
+        childElement.style = 'left: ' + p + 'px; top: ' + relativeY + 'px;';
       });
     }
   };

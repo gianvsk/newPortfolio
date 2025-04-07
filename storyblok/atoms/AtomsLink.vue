@@ -2,8 +2,6 @@
   import type { LinkSchema } from './AtomsLink.props';
   const props = defineProps<LinkSchema>();
 
-  console.log('props', props);
-
   const formatIconName = computed(
     () =>
       `Icons${props.blok.icon.at(0)?.toUpperCase() + props.blok.icon.slice(1)}`
@@ -18,7 +16,7 @@
   const currentClass = computed(() =>
     props.blok.isBlur
       ? 'text-white text-center md:text-lg font-light backdrop-blur-sm backdrop-opacity-90 backdrop-brightness-150 px-2 py-1 md:px-5 md:py-3 duration-300 hover:shadow-[0_0_0_1px_white] hover:bg-stone-900 hover:scale-110'
-      : 'relative box-shadow-sm z-[10] before:absolute before:-z-[1] before:opacity-0 before:inset-0 hover:before:scale-125 before:bg-black before:rounded-full hover:before:opacity-100 before:transition-all before:duration-300'
+      : 'relative z-[10] before:absolute before:z-[11] before:opacity-0 before:inset-0 before:rounded-full before:transition-all before:duration-300'
   );
 </script>
 
@@ -27,7 +25,7 @@
     :to="currentLink ?? '/'"
     :class="[
       currentClass,
-      { 'flex gap-2 justify-between': blok.label && blok.icon },
+      { 'flex gap-2 justify-between items-center': blok.label && blok.icon },
     ]"
     :aria-label="blok.ariaLabel ?? blok.label"
   >
