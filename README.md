@@ -1,75 +1,48 @@
-# Nuxt Minimal Starter
+Modern, performant, and interactive portfolio built with Nuxt 3, Vue 3, GSAP, and Storyblok
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+🔗 Live Demo: [Live Demo](https://gianvitosc-portfolio.netlify.app/)
 
-## Setup
+📌 Overview
+This portfolio showcases my professional journey, skills, projects, and experience in an engaging and visually dynamic way. Built with Nuxt 3 for server-side rendering and performance optimization, GSAP for smooth animations, and Storyblok as a headless CMS for easy content management.
 
-Make sure to install dependencies:
+✨ Key Features
+✅ Responsive & Modern Design – Optimized for all devices
+✅ Smooth Animations – Powered by GSAP for immersive transitions
+✅ Content Management – Dynamic content handled via Storyblok
+✅ Fast & SEO-Friendly – Built with Nuxt 3 for optimal performance
+✅ Interactive Experience – Scroll-triggered animations and dynamic UI
 
-```bash
-# npm
-npm install
+🛠 Technologies Used
+Category	Technologies
+Framework	Nuxt 3 (Vue 3)
+Animation	GSAP (GreenSock) + ScrollTrigger
+CMS	Storyblok (Headless)
+Styling	SCSS / CSS Modules
+Deployment	Netlify
 
-# pnpm
-pnpm install
+📂 Project Structure
+Copy
+📦portfolio/  
+├── assets/           # SCSS, fonts, global styles  
+├── components/       # Vue components  
+├── composables/      # GSAP animations & logic  
+├── content/          # Storyblok content (optional)  
+├── layouts/          # Nuxt layouts  
+├── pages/            # App routes  
+├── public/           # Static assets  
+├── storyblok/        # Storyblok components  
+├── nuxt.config.ts    # Nuxt configuration  
+└── app.vue           # Root component  
+📜 License
+This project is licensed under MIT.
 
-# yarn
-yarn install
+📬 Contact
+Portfolio: [[Portfolio URL](https://gianvitosc-portfolio.netlify.app/)]
 
-# bun
-bun install
-```
+LinkedIn: [Linkedin Profile](https://www.linkedin.com/in/gianvitoscandurra/)
 
-## Development Server
+Email: [My Email](gianvitoscandurra@gmail.com)
 
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+🌟 Show Your Support
+If you like this project, give it a ⭐ on GitHub!
+Thanks!
