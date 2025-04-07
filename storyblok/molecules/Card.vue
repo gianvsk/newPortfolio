@@ -14,11 +14,13 @@
         autoAlpha: 0,
         stagger: 0.5,
         duration: 0.5,
+        delay: 0.5,
       });
       tl.to('#hero-description', {
         duration: 6,
         text: { value: props.blok.description ?? '' },
         ease: 'power1.out',
+        delay: 0.5,
       });
     }
   });
@@ -40,7 +42,6 @@
         height="800"
         sizes="100vw md:50vw"
         class="w-full h-full border overflow-hidden rounded-full object-cover"
-        :modifiers="{ quality: 80 }"
         :img-attrs="{
           class:
             'w-full h-full scale-[4] aspect-square will-change-transform translate-y-[150px] -translate-x-[80px] md:translate-y-0 object-center aspect-square md:translate-x-0 md:scale-100 md:group-hover:scale-[4] md:group-hover:-translate-x-[80px] md:group-hover:translate-y-[150px] md:duration-300 z-2',

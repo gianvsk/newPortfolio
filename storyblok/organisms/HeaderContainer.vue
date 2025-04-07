@@ -29,15 +29,20 @@
 <template>
   <header
     id="navbar"
-    class="hidden md:block w-max h-min border border-transparent box-shadow-light rounded-full px-3 py-8"
+    class="hidden md:block rounded-full h-[46px] overflow-hidden bg-blend-difference border-white shadow-[0_0_0_1px_white]"
   >
-    <ul class="gap-12 hidden md:flex md:flex-col md:items-center md:flex-">
+    <ul
+      class="hidden md:flex md:items-center md:flex-1 h-full md:justify-center"
+    >
       <li
         v-for="link in blok.links"
         :key="link.content.link._uid"
-        class="text-white"
+        class="text-white h-full hover:bg-white group"
       >
-        <StoryblokComponent :blok="{ ...link.content, showOnlyIcon: true }" />
+        <StoryblokComponent
+          :blok="link.content"
+          class="px-6 h-full flex items-center group-hover:text-black duration-500 font-mont font-medium text-lg xl:text-xl"
+        />
       </li>
     </ul>
     <!-- mobile menu hidden at the moment, use flex when edit this -->
@@ -59,7 +64,7 @@
     >
       <div
         id="modal-overlay"
-        class="absolute inset-0 h-full py-6 px-10 w-3/4 bg-black z-[9999999]"
+        class="absolute inset-0 h-full py-6 px-10 w-3/4 bg-black z-[9999]"
       >
         <div class="flex justify-between items-start w-full">
           <div class="flex flex-col gap-8 h-min">

@@ -32,13 +32,13 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="w-screen flex flex-col overflow-hidden">
+  <div class="w-screen flex flex-col overflow-hidden relative">
     <div class="flex flex-col col-start-1 col-span-12">
       <div
         v-if="story"
-        class="flex items-center ml-6 py-4 fixed top-0 left-0 bottom-0 z-[9999] bg-transparent"
+        class="fixed top-6 left-1/2 -translate-x-1/2 z-[100] bg-black rounded-full"
       >
-        <!--         <StoryblokComponent :blok="story.content" /> -->
+        <StoryblokComponent :blok="story.content" />
       </div>
     </div>
     <slot />

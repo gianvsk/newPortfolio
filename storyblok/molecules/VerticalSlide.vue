@@ -20,6 +20,10 @@
     props.blok.bgColor === 'white' ? '#1c1917' : '#FFF'
   );
 
+  const dataColorClass = computed(() =>
+    props.blok.bgColor === 'white' ? 'text-stone-900' : 'text-white'
+  );
+
   const dataBgColor = computed(() =>
     props.blok.bgColor === 'white' ? '#FFF' : '#1c1917'
   );
@@ -36,12 +40,12 @@
     id="vertical-slide"
     v-editable="blok"
     class="flex flex-col justify-end py-5 md:py-0 h-full"
-    :class="`${bgColor[props.blok.bgColor]}`"
+    :class="`${bgColor[props.blok.bgColor]} ${dataColorClass}`"
     :data-color="dataColor"
     :data-bg-color="dataBgColor"
   >
     <div
-      class="w-full h-[80dvh] md:h-[82.5dvh] md:portrait:h-[87.5%] lg:h-[85%] 2xl:h-4/5 overflow-hidden"
+      class="w-full h-[80dvh] md:h-[80dvh] md:portrait:h-[80dvh] 2xl:h-4/5 overflow-hidden"
     >
       <div
         class="gap-4 px-4 w-full h-full md:flex md:portrait:flex-col md:portrait:gap-8 md:px-5 md:gap-6 md:gap-y-6 lg:gap-x-10 md:pb-6 lg:px-10 xl:px-[101.6px]"

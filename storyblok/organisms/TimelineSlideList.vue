@@ -32,8 +32,9 @@
         isMobile: '(max-width: 767px)',
         isDesktop: '(min-width: 768px)',
       },
-      context => {
+      (context: gsap.Context) => {
         if (!context.conditions) return;
+
         const { isMobile } = context.conditions;
 
         const experienceSlides = $gsap.utils.toArray(

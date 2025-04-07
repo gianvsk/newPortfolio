@@ -4,20 +4,34 @@
   const { $gsap } = useNuxtApp();
 
   onMounted(() => {
-    $gsap.fromTo(
-      '#hero-section div a',
+    $gsap.matchMedia().add(
       {
-        opacity: 0,
-        y: -20,
+        isMobile: '(max-width: 767px)',
+        isDesktop: '(min-width: 768px)',
       },
-      {
-        opacity: 1,
-        stagger: 0.5,
-        duration: 1,
-        delay: 5.5,
-        ease: 'back.out',
-        y: 0,
-        clearProps: 'all',
+      (context: gsap.Context) => {
+        if (!context.conditions) return;
+
+        const { isMobile } = context.conditions;
+
+        const delayTime = isMobile ? 0.5 : 5.5;
+
+        $gsap.fromTo(
+          '#hero-section div a',
+          {
+            opacity: 0,
+            y: -20,
+          },
+          {
+            opacity: 1,
+            stagger: 0.5,
+            duration: 1,
+            delay: delayTime,
+            ease: 'back.out',
+            y: 0,
+            clearProps: 'all',
+          }
+        );
       }
     );
   });
@@ -30,7 +44,7 @@
     id="hero-section"
     class="col-start-1 col-span-12 relative flex flex-col items-center justify-center overflow-hidden min-h-screen bg-[url('../bg/test1.jpg')] bg-cover"
   >
-    <div class="flex flex-col gap-4 items-center z-[2] md:max-w-[70%]">
+    <div class="flex flex-col items-center z-[2] md:max-w-[70%]">
       <StoryblokComponent :blok="blok.card[0].content" class="shrink-0" />
       <div
         v-for="blok in blok.contents"
@@ -44,14 +58,13 @@
           class="shrink-0"
         />
       </div>
-      <!--       <PopupContainer /> -->
     </div>
-    <NuxtLink to="/">
+    <NuxtLink to="/" class="absolute top-0 left-0">
       <NuxtImg
         src="/logoWhite.png"
-        height="80"
-        width="180"
-        class="absolute top-0 left-0"
+        width="150"
+        height="90"
+        alt="Logo che rappresenza un simbolo e il nickname dello sviluppatore"
       />
     </NuxtLink>
   </section>

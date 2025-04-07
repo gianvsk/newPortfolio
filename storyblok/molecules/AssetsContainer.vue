@@ -10,7 +10,7 @@
   onMounted(() => {
     animation.from('#iconText', {
       opacity: 0,
-      x: -40,
+      y: -40,
       duration: 0.5,
       ease: 'power1.out',
     });
@@ -28,23 +28,26 @@
     <span class="text-xl font-mont font-semibold">
       {{ blok.frontendText }}
     </span>
-    <div class="h-7 flex justify-center">
-      <span id="iconText" class="text-lg font-mont font-semibold uppercase" />
+    <div class="h-7 flex justify-center mb-4">
+      <span
+        id="iconText"
+        class="text-lg xl:text-2xl 2xl:text-3xl font-mont font-semibold uppercase"
+      />
     </div>
     <div class="p-5 flex gap-4 xl:gap-10 flex-wrap">
       <div
         v-for="asset in blok.frontendIcons"
         :key="asset"
-        class="relative group"
+        class="relative"
         @mouseenter="() => setIconText(asset)"
         @mouseleave="() => setIconText('')"
       >
         <div
-          class="p-2 w-10 h-10 xl:p-3 xl:h-16 xl:w-16 relative shadow-lg rounded-full duration-300 group-hover:scale-125"
+          class="p-2 w-10 h-10 xl:p-3 xl:w-16 xl:h-16 3xl:w-20 3xl:h-20 shadow-lg rounded-full z-50 bg-white hover:bg-black hover:scale-150 relative duration-500 before:duration-1000 before:absolute before:inset-0 hover:before:bg-white hover:before:scale-[0.95] before:rounded-full before:z-[-1]"
         >
           <component
             :is="`Icons${asset}`"
-            class="w-full h-full relative z-[10]"
+            class="w-full h-full relative"
             :font-controlled="false"
             filled
           />
@@ -58,13 +61,13 @@
       <div
         v-for="asset in blok.servicesIcons"
         :key="asset"
-        class="p-2 w-10 h-10 xl:p-3 xl:w-16 xl:h-16 shadow-lg rounded-full relative group hover:scale-125"
+        class="p-2 w-10 h-10 xl:p-3 xl:w-16 xl:h-16 3xl:w-20 3xl:h-20 shadow-lg rounded-full z-50 bg-white hover:bg-black hover:scale-150 relative duration-500 before:duration-1000 before:absolute before:inset-0 hover:before:bg-white hover:before:scale-[0.95] before:rounded-full before:z-[-1]"
         @mouseenter="() => setIconText(asset)"
         @mouseleave="() => setIconText('')"
       >
         <component
           :is="`Icons${asset}`"
-          class="w-full h-full relative z-[10]"
+          class="w-full h-full relative"
           :font-controlled="false"
           filled
         />
@@ -72,8 +75,3 @@
     </div>
   </div>
 </template>
-
-<style scoped lang="scss">
-  .nuxt-icon {
-  }
-</style>

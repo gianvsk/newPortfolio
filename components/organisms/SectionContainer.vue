@@ -50,7 +50,7 @@
     :class="[
       noPadding
         ? 'p-0'
-        : 'px-6 py-10 md:px-10 lg:gap-x-10 md:pb-6 lg:px-10 lg:pt-20 lg:pb-20 xl:px-[101.6px] md:pt-10 xl:pt-10 2xl:pt-16 3xl:pt-[88px]',
+        : 'px-6 py-10 md:px-10 lg:gap-x-10 lg:px-10 md:py-0 md:pt-[10%] xl:px-[101.6px] 3xl:pt-[88px]',
       currentBgColor,
       isJustifyStart ? 'justify-start' : 'justify-center',
     ]"
@@ -59,7 +59,7 @@
       <div class="flex flex-col gap-8">
         <h2
           v-if="containerHeader?.title"
-          class="font-mont font-medium text-3xl xl:text-5xl 3xl:text-6xl uppercase lg:max-w-none"
+          class="font-mont font-medium text-3xl xl:text-4xl 3xl:text-6xl uppercase lg:max-w-none"
           :class="theme.title"
         >
           {{ containerHeader?.title }}
