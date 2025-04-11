@@ -79,7 +79,7 @@
 </script>
 
 <template>
-  <div class="grid grid-cols-12">
+  <div class="grid grid-cols-12 bg-stone-900">
     <HeroSection :blok="heroContent" />
     <SphereContainer id="vertical-slider" />
     <VerticalSlideSection :blok="verticalSlides?.contents" />
@@ -87,7 +87,7 @@
     <SectionContainer
       v-if="timelineSlides"
       id="career"
-      class="overflow-visible h-screen"
+      class="h-screen overflow-hidden"
       :container-header="timelineSlides.containerData"
       is-justify-start
     >
@@ -100,9 +100,33 @@
     <SectionContainer
       v-if="projectCards"
       id="projects"
+      class="overflow-visible"
       :container-header="projectCards.containerData"
     >
       <CardList :contents="projectCards.contents" class="mt-8" />
     </SectionContainer>
+
+    <footer class="flex col-span-12 h-[50vh] bg-stone-900">
+      <div
+        class="flex flex-col items-center justify-center w-full bg-stone-900 text-white"
+      >
+        <p class="text-sm">© 2025 Gianvito Scandurra</p>
+        <p class="text-sm">All rights reserved</p>
+        <p class="text-sm">Made with ❤️ in Italy</p>
+      </div>
+      <div class="w-full flex items-center justify-center">
+        <ul class="flex-col gap-4 bg-stone-900">
+          <li>
+            <a class="text-white">Linkedin</a>
+          </li>
+          <li>
+            <a class="text-white">Github</a>
+          </li>
+          <li>
+            <a class="text-white">Instagram</a>
+          </li>
+        </ul>
+      </div>
+    </footer>
   </div>
 </template>

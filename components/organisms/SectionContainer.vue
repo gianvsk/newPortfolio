@@ -35,7 +35,7 @@
   const currentBgColor = computed(() => {
     if (props.containerHeader?.theme)
       return bgColors[props?.containerHeader?.theme as keyof typeof bgColors];
-    return 'bg-black';
+    return 'bg-stone-900';
   });
 
   defineExpose({
@@ -46,11 +46,11 @@
 
 <template>
   <section
-    class="col-start-1 col-span-12 relative flex flex-col overflow-hidden"
+    class="col-start-1 col-span-12 relative flex flex-col"
     :class="[
       noPadding
         ? 'p-0'
-        : 'px-6 py-10 md:px-10 lg:gap-x-10 lg:px-10 md:py-0 md:pt-[10%] xl:px-[101.6px] 3xl:pt-[88px]',
+        : 'px-6 py-10 md:px-10 lg:gap-x-10 lg:px-10 md:py-0 md:pt-32 xl:px-[101.6px] 3xl:pt-36',
       currentBgColor,
       isJustifyStart ? 'justify-start' : 'justify-center',
     ]"
@@ -59,7 +59,7 @@
       <div class="flex flex-col gap-8">
         <h2
           v-if="containerHeader?.title"
-          class="font-mont font-medium text-3xl xl:text-4xl 3xl:text-6xl uppercase lg:max-w-none"
+          class="font-mont font-medium text-2xl xl:text-4xl 3xl:text-6xl uppercase lg:max-w-none"
           :class="theme.title"
         >
           {{ containerHeader?.title }}

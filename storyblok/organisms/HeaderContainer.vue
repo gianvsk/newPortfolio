@@ -27,9 +27,9 @@
 </script>
 
 <template>
-  <header
+  <nav
     id="navbar"
-    class="hidden md:block rounded-full h-[46px] overflow-hidden bg-blend-difference border-white shadow-[0_0_0_1px_white]"
+    class="hidden xl:block bg-stone-900 rounded-full h-[32px] 3xl:h-[54px] overflow-hidden shadow-[0_0_0_1px_white] hover:border-black hover:border"
   >
     <ul
       class="hidden md:flex md:items-center md:flex-1 h-full md:justify-center"
@@ -41,7 +41,7 @@
       >
         <StoryblokComponent
           :blok="link.content"
-          class="px-6 h-full flex items-center group-hover:text-black duration-500 font-mont font-medium text-lg xl:text-xl"
+          class="px-6 h-full flex items-center group-hover:text-black duration-500 font-mont font-light text-md xl:text-lg 3xl:text-xl"
         />
       </li>
     </ul>
@@ -91,7 +91,7 @@
         class="absolute top-0 left-0 w-screen h-screen z-10 bg-black opacity-50"
       />
     </div>
-  </header>
+  </nav>
 </template>
 
 <style scoped lang="scss">

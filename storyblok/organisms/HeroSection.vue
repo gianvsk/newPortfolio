@@ -59,8 +59,9 @@
         />
       </div>
     </div>
-    <NuxtLink to="/" class="absolute top-0 left-0">
+    <NuxtLink to="/" class="absolute top-0 left-0 3xl:w-[10%]">
       <NuxtImg
+        class="3xl:w-full h-full"
         src="/logoWhite.png"
         width="150"
         height="90"

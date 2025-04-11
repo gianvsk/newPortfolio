@@ -15,7 +15,7 @@
 
   const currentClass = computed(() =>
     props.blok.isBlur
-      ? 'text-white text-center md:text-lg font-light backdrop-blur-sm backdrop-opacity-90 backdrop-brightness-150 px-2 py-1 md:px-5 md:py-3 duration-300 hover:shadow-[0_0_0_1px_white] hover:bg-stone-900 hover:scale-110'
+      ? 'text-white text-center md:text-lg font-light backdrop-blur-sm backdrop-opacity-90 backdrop-brightness-150 px-2 py-1 md:px-4 md:py-2 duration-300 hover:shadow-[0_0_0_1px_white] hover:bg-stone-900 hover:scale-110'
       : 'relative z-[10] before:absolute before:z-[11] before:opacity-0 before:inset-0 before:rounded-full before:transition-all before:duration-300'
   );
 </script>
@@ -29,12 +29,17 @@
     ]"
     :aria-label="blok.ariaLabel ?? blok.label"
   >
-    <span v-if="!blok.hideLabel" class="text-p">{{ blok.label }}</span>
+    <span
+      v-if="!blok.hideLabel"
+      class="text-sm md:text-md xl:text-lg 3xl:text-2xl"
+    >
+      {{ blok.label }}
+    </span>
 
     <component
       :is="formatIconName"
       v-if="blok.icon"
-      class="h-8 w-8"
+      class="h-6 w-6 md:w-7 md:h-7 3xl:w-10 xl:h-10"
       :font-controlled="false"
       filled
       :aria-hidden="blok.hideLabel && true"

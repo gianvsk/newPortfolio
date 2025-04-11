@@ -15,4 +15,5 @@ export type Link = ContentType & {
   hideLabel: boolean;
   isBlur?: boolean;
   ariaLabel?: string;
+  isActive?: boolean;
 };

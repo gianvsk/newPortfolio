@@ -14,7 +14,7 @@ export const useResolver = () => {
                   tag: 'span',
                   innerHTML: paragraph.text,
                   class:
-                    'font-bold mr-1 min-w-[70px] md:min-w-[120px] md:portrait:min-w-[140px]',
+                    'font-bold mr-1 min-w-[70px] md:min-w-[120px] md:portrait:min-w-[140px] text-xs md:text-sm md:portrait:text-lg lg:text-md xl:text-lg 3xl:text-2xl',
                 }
               : {
                   tag: 'span',
@@ -26,7 +26,7 @@ export const useResolver = () => {
             'p',
             {
               class:
-                'inline-flex text-xs md:text-sm md:portrait:text-lg lg:text-md xl:text-lg 3xl:text-xl',
+                'inline-flex text-xs md:text-sm md:portrait:text-lg lg:text-md xl:text-lg 3xl:text-2xl',
             },
 
             [
@@ -57,7 +57,7 @@ export const useResolver = () => {
         return h(
           'p',
           {
-            class: `mb-2 md:portrait:mb-6 xl:mb-4 2xl:mb-10 ${textStyle.p}`,
+            class: `mb-2 md:portrait:mb-6 xl:mb-4 2xl:mb-10 ${textStyle.p ?? ''}`,
           },
           [
             node.content?.map(paragraph =>
