@@ -40,10 +40,6 @@
         const experienceSlides = $gsap.utils.toArray(
           '#career-section'
         ) as HTMLElement[];
-        const experienceSlideWidth = $gsap.getProperty(
-          '#career-section',
-          'width'
-        ) as number;
 
         const multiplier = isMobile ? 4 : 3.25;
 
@@ -51,9 +47,12 @@
           scrollTrigger: {
             trigger: '#career',
             start: 'top top',
-            end: `top+=${experienceSlideWidth * experienceSlides.length * multiplier} bottom`,
+            end: `top+=${window.innerHeight * experienceSlides.length * multiplier} bottom`,
             pin: true,
             scrub: true,
+            onLeave: elem => {
+              elem.animation?.pause();
+            },
           },
           ease: 'none',
         });
@@ -67,7 +66,7 @@
             scrollTrigger: {
               trigger: el,
               start: 'top top',
-              end: `bottom+=${experienceSlideWidth * experienceSlides.length * 3} bottom`,
+              end: `bottom+=${window.innerHeight * experienceSlides.length * 3} bottom`,
               scrub: true,
             },
           });
@@ -96,7 +95,7 @@
           scrollTrigger: {
             trigger: '#career-sections',
             start: `top left`,
-            end: `bottom+=${experienceSlideWidth * experienceSlides.length * 3} bottom`,
+            end: `bottom+=${window.innerHeight * experienceSlides.length * 3} bottom`,
             scrub: 1,
           },
           ease: 'none',

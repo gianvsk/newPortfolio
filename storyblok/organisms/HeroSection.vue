@@ -6,8 +6,8 @@
   onMounted(() => {
     $gsap.matchMedia().add(
       {
-        isMobile: '(max-width: 767px)',
-        isDesktop: '(min-width: 768px)',
+        isMobile: '(max-width: 1023px)',
+        isDesktop: '(min-width: 1024px)',
       },
       (context: gsap.Context) => {
         if (!context.conditions) return;
@@ -19,10 +19,12 @@
         $gsap.fromTo(
           '#hero-section div a',
           {
+            cursor: 'auto',
             opacity: 0,
             y: -20,
           },
           {
+            cursor: 'pointer',
             opacity: 1,
             stagger: 0.5,
             duration: 1,

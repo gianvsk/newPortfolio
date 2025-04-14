@@ -26,30 +26,42 @@
     callback(e, id);
   };
 
-  const removeCursor = (callback: () => void) => {
+  const removeCursor = (callback: () => void, state: boolean) => {
     if (!cursorState.value) return;
     const cursor = document.querySelector<HTMLElement>('.custom-cursor');
     cursor!.style.opacity = '0';
     callback();
+    if (state) {
+      cursorState.value = false;
+    }
   };
 
   onMounted(() => {
+    const cursorDiv = document.querySelector<HTMLElement>('.custom-cursor');
+    if (cursorDiv || window.innerWidth < 1024) return;
     const cursor = document.createElement('div');
     cursor.classList.add('custom-cursor');
     document.body.appendChild(cursor);
   });
+
+  onUnmounted(() => {
+    const cursor = document.querySelector<HTMLElement>('.custom-cursor');
+    if (cursor) {
+      cursor.remove();
+    }
+  });
 </script>
 
 <template>
-  <NuxtLink to="/">
+  <NuxtLink :to="`/projects/${blok.id}`">
     <LazyMouseShow
       v-slot="{ state, createChild, setChildPosition, removeChild }"
     >
       <article
-        class="relative px-5 py-4 h-full md:min-h-[300px] bg-white lg:p-8 hover:bg-black border border-transparent hover:border-white group duration-500 xl:cursor-none"
+        class="relative px-5 py-4 h-full md:min-h-[300px] bg-white lg:p-8 hover:bg-black hover:shadow-[0_0_0_1px_white] xl:hover:scale-[1.05] xl:hover:rounded-xl group duration-500 lg:cursor-none"
         @mouseenter="changeCursor(createChild)"
         @mousemove="updateCursorPosition($event, setChildPosition, blok.id)"
-        @mouseleave="removeCursor(removeChild)"
+        @mouseleave="removeCursor(removeChild, state)"
       >
         <div class="flex flex-col gap-8 md:h-full">
           <NuxtImg
@@ -61,13 +73,13 @@
           />
           <div class="flex flex-col md:h-full">
             <h3
-              class="text-lg md:text-2xl lg:text-3xl uppercase font-medium font-mont group-hover:text-white"
+              class="text-lg md:text-2xl lg:text-3xl uppercase font-semibold font-mont group-hover:text-white"
             >
               {{ blok.title }}
             </h3>
             <p
               v-if="blok?.subtitle"
-              class="text-sm md:text-xl group-hover:text-white mb-6 font-mont mt-2"
+              class="text-sm md:text-xl group-hover:text-white mb-6 font-mont mt-2 lg:mt-4"
             >
               {{ blok.subtitle }}
             </p>
@@ -81,16 +93,16 @@
         </div>
         <div
           :id="blok.id"
-          class="flex absolute pointer-events-none z-50 w-full h-full animate-show-in"
-          :class="{ hidden: !state }"
+          class="absolute pointer-events-none z-50 aspect-video h-full w-full animate-show-in"
+          :class="[state ? 'xl:flex' : 'hidden']"
         >
           <NuxtImg
             :src="blok.image.filename"
             :alt="blok.image.alt"
             loading="lazy"
             provider="storyblok"
-            sizes="sm:100vw md:50vw"
-            class="animate-child-show-in bg-white w-full h-full"
+            sizes="sm:100vw md:100vw"
+            class="animate-child-show-in w-full h-full 3xl:h-[150%]"
           />
         </div>
       </article>
@@ -171,7 +183,7 @@
       background-color: white;
     }
     75% {
-      transform: scaleX(100%);
+      transform: scale(100%);
       height: 20px;
       mix-blend-mode: difference;
       background-color: white;

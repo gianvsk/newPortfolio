@@ -1,6 +1,6 @@
 export type LinksContainerProps = {
-  blok: ContentType & {
-    block: Array<
+  blok: ContentType &
+    Array<
       ContentType & {
         label?: string;
         block: Array<{
@@ -13,5 +13,4 @@ export type LinksContainerProps = {
         }>;
       }
     >;
-  };
 };

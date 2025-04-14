@@ -8,13 +8,14 @@
   onMounted(() => {
     $gsap.matchMedia().add(
       {
-        isDesktop: '(min-width: 768px)',
+        isMobile: '(max-width: 1279px)',
+        isDesktop: '(min-width: 1280px)',
       },
       (context: gsap.Context) => {
         if (!context.conditions) return;
 
-        const { isDesktop } = context.conditions;
-        if (!isDesktop) return;
+        const { isMobile } = context.conditions;
+        if (isMobile) return;
 
         const verticalSlideElements: Array<Element> =
           $gsap.utils.toArray('#vertical-slide');
@@ -24,24 +25,26 @@
           'height'
         ) as number;
 
-        const sliderContainerAnimation = $gsap.from(
-          '#vertical-slider-container',
-          {
-            scrollTrigger: {
-              trigger: '#vertical-slider-container',
-              start: `top top`,
-              end: `bottom+=${slideHeight * verticalSlideElements.length} bottom`,
-              scrub: true,
-              pin: true,
-              snap: { snapTo: 1 / verticalSlideElements.length, duration: 2 },
-            },
-          }
-        );
+        const sliderContainerAnimation = $gsap.from('#about', {
+          scrollTrigger: {
+            trigger: '#about',
+            start: `top top`,
+            end: `bottom+=${slideHeight * verticalSlideElements.length} bottom`,
+            scrub: true,
+            pin: true,
+            /*             onEnter: elem => elem.animation?.restart(),
+            onToggle: elem => elem.isActive && elem.animation?.restart(), */
+            onEnterBack: () => ScrollTrigger.refresh(),
+            /*             onEnter: eleme => eleme.animation?.restart(), */
+            /*             onLeave: elem => elem.animation?.restart(), */
+            snap: { snapTo: 1 / verticalSlideElements.length, duration: 2 },
+          },
+        });
 
-        const slidesAnimation = verticalSlideElements.map((el, i) => {
+        verticalSlideElements.map((el, i) => {
           const nextColor = el.getAttribute('data-color');
 
-          const verticalSlideAnimation = $gsap.fromTo(
+          $gsap.fromTo(
             el as Element,
             {
               yPercent: 100,
@@ -59,7 +62,7 @@
             }
           );
 
-          const experienceAnimation = $gsap.fromTo(
+          $gsap.fromTo(
             '#experience',
             {
               text:
@@ -79,14 +82,10 @@
               opacity: 1,
             }
           );
-          return { verticalSlideAnimation, experienceAnimation };
         });
+
         return () => {
           sliderContainerAnimation.kill();
-          slidesAnimation.forEach(anim => {
-            anim.experienceAnimation.kill();
-            anim.verticalSlideAnimation.kill();
-          });
         };
       }
     );
@@ -94,18 +93,14 @@
 </script>
 
 <template>
-  <SectionContainer
-    id="vertical-slider-container"
-    no-padding
-    class="md:h-screen bg-white relative"
-  >
+  <SectionContainer id="about" no-padding class="xl:h-screen bg-white relative">
     <template #section-header>
       <div
-        class="absolute z-40 top-10 py-3 pl-4 pr-10 md:top-[10%] md:portrait:top-10 lg:top-[10%] left-0 right-0 lg:pl-10 xl:pl-[101.6px] xl:top-8 2xl:top-14 3xl:top-20"
+        class="hidden xl:block absolute z-40 top-10 pl-4 pr-10 left-0 right-0 xl:top-28 3xl:top-36 lg:pl-10 xl:pl-[101.6px]"
       >
         <h2
           id="experience"
-          class="font-mont font-semibold text-3xl md:text-4xl md:portrait:text-4xl xl:text-4xl 2xl:text-4xl 3xl:text-6xl uppercase opacity-0 md:max-w-[80%] lg:max-w-none"
+          class="hidden lg:font-mont lg:font-semibold text-3xl md:text-4xl md:portrait:text-4xl xl:text-4xl 2xl:text-4xl 3xl:text-6xl lg:uppercase lg:block lg:opacity-0 lg:md:max-w-[80%] lg:max-w-none"
         />
       </div>
     </template>
@@ -114,7 +109,7 @@
       v-for="singleStory in blok"
       :key="singleStory.content._uid"
       :blok="singleStory?.content"
-      class="md:absolute md:inset-0"
+      class="xl:absolute xl:inset-0"
     />
   </SectionContainer>
 </template>

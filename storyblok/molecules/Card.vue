@@ -8,7 +8,7 @@
   const tl = $gsap.timeline();
 
   onMounted(() => {
-    if (window.innerWidth >= 768) {
+    if (window.innerWidth >= 1024) {
       tl.from('#hero-description, .showing-up-text', {
         yPercent: -500,
         autoAlpha: 0,
@@ -18,20 +18,24 @@
       });
       tl.to('#hero-description', {
         duration: 6,
-        text: { value: props.blok.description ?? '' },
+        text: { value: (props.blok.description as string) ?? '' },
         ease: 'power1.out',
         delay: 0.5,
       });
     }
   });
+
+  const splitDescriptionText = computed(
+    () => props.blok.description.split('. ') ?? []
+  );
 </script>
 
 <template>
   <div
-    class="py-4 flex flex-col justify-center items-center gap-2 overflow-hidden text-center"
+    class="py-4 px-6 md:px-0 flex flex-col justify-center items-center gap-2 overflow-hidden md:text-center"
   >
     <div
-      class="relative w-32 h-32 border rounded-full flex justify-center items-center group"
+      class="relative w-32 h-32 3xl:w-44 3xl:h-44 border rounded-full flex justify-center items-center group"
     >
       <NuxtPicture
         v-if="blok.image?.filename"
@@ -44,7 +48,7 @@
         class="w-full h-full border overflow-hidden rounded-full object-cover"
         :img-attrs="{
           class:
-            'w-full h-full scale-[4] aspect-square will-change-transform translate-y-[150px] -translate-x-[80px] md:translate-y-0 object-center aspect-square md:translate-x-0 md:scale-100 md:group-hover:scale-[4] md:group-hover:-translate-x-[80px] md:group-hover:translate-y-[150px] md:duration-300 z-2',
+            'w-full h-full scale-[4] aspect-square will-change-transform translate-y-[150px] -translate-x-[80px] md:translate-y-0 object-center aspect-square md:translate-x-0 md:scale-100 md:group-hover:scale-[4] md:group-hover:-translate-x-[80px] md:group-hover:translate-y-[150px] md:duration-300 3xl:group-hover:-translate-x-[120px] 3xl:group-hover:translate-y-[200px] z-2',
         }"
         format="webp"
       />
@@ -52,24 +56,33 @@
         class="hidden md:block absolute inset-0 border rounded-full border-white zoom-image"
       />
     </div>
-    <div class="flex flex-col items-center gap-6">
+    <div class="flex flex-col items-center md:gap-2 lg:gap-4">
       <div>
         <h1
           id="first-text"
-          class="text-white text-2xl 2xl:text-4xl font-mont font-medium showing-up-text mt-2 text-left md:text-center uppercase"
+          class="text-white text-2xl 2xl:text-4xl 3xl:text-6xl font-mont showing-up-text mt-2 text-center font-semibold"
         >
           {{ blok.title }}
         </h1>
         <h2
-          class="text-zinc-300 text-lg 2xl:text-2xl font-mont font-medium showing-up-text text-left md:text-center"
+          class="text-stone-400 text-lg 2xl:text-2xl 3xl:text-4xl md:mt-2 font-mont font-medium showing-up-text text-center"
         >
           {{ blok.subtitle }}
         </h2>
       </div>
       <h3
         id="hero-description"
-        class="text-md text-white font-mont font-bold md:min-h-[150px] lg:min-h-[100px]"
+        class="text-lg text-white font-mont lg:min-h-[100px] hidden lg:block 2xl:text-xl 3xl:text-2xl"
       />
+      <div class="flex flex-col mt-2 gap-2 xl:gap-4 lg:hidden">
+        <p
+          v-for="text in splitDescriptionText"
+          :key="text"
+          class="text-xs text-white font-mont lg:min-h-[100px] text-center"
+        >
+          {{ text }}.
+        </p>
+      </div>
     </div>
   </div>
 </template>

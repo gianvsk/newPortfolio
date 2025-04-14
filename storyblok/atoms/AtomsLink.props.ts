@@ -12,8 +12,8 @@ export type Link = ContentType & {
     url: string;
   };
   icon: string;
+  ariaLabel?: string;
   hideLabel: boolean;
   isBlur?: boolean;
-  ariaLabel?: string;
   isActive?: boolean;
 };
