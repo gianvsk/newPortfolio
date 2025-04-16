@@ -78,10 +78,13 @@
                     '#experience',
                     {
                       x: 500,
+                      wordSpacing: 200,
                     },
                     {
                       x: 0,
-                      duration: 1,
+                      wordSpacing: 1,
+                      duration: 1.5,
+                      ease: 'power2.out',
                     }
                   );
                 },
