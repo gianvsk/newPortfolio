@@ -34,6 +34,10 @@
           'Gianvito Scandurra Portfolio Homepage',
       },
       { property: 'og:image', content: `${path}/logoDev.png` },
+      {
+        name: 'google-site-verification',
+        content: process.env.GOOGLE_SITE_VERIFICATION,
+      },
     ],
     htmlAttrs: {
       lang: 'it',
