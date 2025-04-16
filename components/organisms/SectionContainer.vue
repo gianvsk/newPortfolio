@@ -45,7 +45,6 @@
 
   onMounted(() => {
     if (props.triggerId && window.innerWidth > 1279) {
-      console.log('trigger', props.triggerId);
       const { $gsap } = useNuxtApp();
 
       $gsap.fromTo(
