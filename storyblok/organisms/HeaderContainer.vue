@@ -1,5 +1,6 @@
 <script setup lang="ts">
   import type { HeaderContainerProps } from './HeaderContainer.props';
+
   const modal = ref(false);
 
   const toggleOrCloseModal = (value?: 'toggle') => {
@@ -46,9 +47,8 @@
         id="modal-overlay"
         class="relative bg-neutral-900 backdrop-blur-md transition-all w-4/5 max-w-xs h-full p-6 shadow-2xl flex flex-col justify-between"
         :class="[modal ? 'opacity-100' : 'opacity-0']"
-        @click.self="toggleOrCloseModal"
       >
-        <div class="flex flex-col gap-8 pt-4">
+        <div class="flex flex-col gap-8 pt-4" @click="toggleOrCloseModal()">
           <StoryblokComponent
             v-for="link in blok.links"
             v-show="modal"
@@ -68,7 +68,7 @@
 
       <div
         class="flex-1 bg-neutral-900 opacity-40"
-        @click.self="toggleOrCloseModal"
+        @click.self="toggleOrCloseModal()"
       />
     </div>
   </nav>

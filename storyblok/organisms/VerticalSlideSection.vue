@@ -36,10 +36,10 @@
           },
         });
 
-        verticalSlideElements.map((el, i) => {
+        const verticalSlideAnimations = verticalSlideElements.map((el, i) => {
           const nextColor = el.getAttribute('data-color');
 
-          $gsap.fromTo(
+          const verticalSlideAnimation = $gsap.fromTo(
             el as Element,
             {
               yPercent: 100,
@@ -57,7 +57,7 @@
             }
           );
 
-          $gsap.fromTo(
+          const titleAnimation = $gsap.fromTo(
             '#experience',
             {
               text:
@@ -73,19 +73,34 @@
                 start: `top+=${slideHeight * (i - 1)} top`,
                 end: `bottom+=${slideHeight * i} bottom`,
                 scrub: true,
+                onEnterBack: () => {
+                  $gsap.fromTo(
+                    '#experience',
+                    {
+                      x: 500,
+                    },
+                    {
+                      x: 0,
+                      duration: 1,
+                    }
+                  );
+                },
               },
               color: nextColor ?? '',
               text: props.blok?.[i]?.content.title,
-              opacity: 1,
               wordSpacing: 1,
+              opacity: 1,
               x: 0,
-              toggleActions: 'play none reverse none',
             }
           );
+          return [verticalSlideAnimation, titleAnimation];
         });
 
         return () => {
           sliderContainerAnimation.kill();
+          verticalSlideAnimations.forEach(anim =>
+            anim.forEach(animation => animation.kill())
+          );
         };
       }
     );

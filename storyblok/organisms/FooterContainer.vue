@@ -22,7 +22,7 @@
           <li
             v-for="link in blok.block"
             :key="link.id"
-            class="w-full text-center"
+            class="w-full text-center px-2 py-1 shadow-[0_0_0_1px_black] hover:bg-neutral-900 hover:text-white"
           >
             <StoryblokComponent :blok="link" />
           </li>

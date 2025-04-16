@@ -14,7 +14,7 @@
 
         const { isMobile } = context.conditions;
 
-        const delayTime = isMobile ? 0.5 : 5.5;
+        const delayTime = isMobile ? 0.5 : 6.5;
 
         $gsap.fromTo(
           '#hero-section div a',
@@ -27,7 +27,7 @@
             cursor: 'pointer',
             opacity: 1,
             stagger: 0.5,
-            duration: 1,
+            duration: 0.5,
             delay: delayTime,
             ease: 'back.out',
             y: 0,

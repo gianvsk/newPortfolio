@@ -2,7 +2,7 @@
   const headerStory = await useAsyncStoryblok(
     '/components/header/header-links-container',
     {
-      version: 'draft',
+      version: 'published',
       resolve_relations: 'header-container.links',
     }
   );
@@ -10,7 +10,7 @@
   const footerStory = await useAsyncStoryblok(
     '/components/footer/footer-container',
     {
-      version: 'draft',
+      version: 'published',
       resolve_relations: 'footer-container.contents',
     }
   );
@@ -23,11 +23,17 @@
         v-if="headerStory"
         class="fixed xl:top-[30px] xl:left-1/2 xl:-translate-x-1/2 z-[100] xl:rounded-full"
       >
-        <StoryblokComponent :blok="headerStory.content" />
+        <StoryblokComponent
+          v-if="headerStory?.content"
+          :blok="headerStory.content"
+        />
       </header>
     </div>
     <slot />
-    <StoryblokComponent :blok="footerStory.content" />
+    <StoryblokComponent
+      v-if="footerStory?.content"
+      :blok="footerStory.content"
+    />
   </div>
 </template>
 

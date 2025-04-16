@@ -4,7 +4,7 @@
   import type { SectionContainerHeaderType } from '~/components/organisms/SectionContainer.props';
 
   const story = await useAsyncStoryblok('homepage', {
-    version: 'draft',
+    version: 'published',
     resolve_relations: [
       'hero-section.contents',
       'hero-section.card',
@@ -15,8 +15,11 @@
     ],
   });
 
+  const path = useRoute().fullPath;
+
   useHead({
-    title: story.value.content?.metaTitle ?? 'GS Portfolio Homepage',
+    title:
+      story.value.content?.metaTitle ?? 'Gianvito Scandurra Portfolio Homepage',
     meta: [
       {
         name: 'description',
@@ -24,6 +27,13 @@
           story.value.content?.metaDescription ??
           'This is Gianvito Scandurra new portfolio homepage. You will find all the infos about the author, skills and projects.',
       },
+      {
+        property: 'og:title',
+        content:
+          story.value.content?.metaTitle ??
+          'Gianvito Scandurra Portfolio Homepage',
+      },
+      { property: 'og:image', content: `${path}/logoDev.png` },
     ],
     htmlAttrs: {
       lang: 'it',
@@ -44,19 +54,19 @@
   };
 
   const heroContent = computed(() =>
-    story.value?.content.body.find(
+    story.value?.content?.body?.find(
       (story: ContentType) => story?.id === 'hero-container'
     )
   );
 
   const verticalSlides = computed(() =>
-    story.value?.content.body.find(
+    story.value?.content?.body?.find(
       (story: ContentType) => story?.id === 'vertical-slider-container'
     )
   );
 
   const timelineSlides = computed(() => {
-    const storyContent = story.value?.content.body.find(
+    const storyContent = story.value?.content?.body?.find(
       (story: ContentType) => story?.id === 'timeline-slides-container'
     );
     const { contents, containerData } = transformData(storyContent);
@@ -67,7 +77,7 @@
   });
 
   const projectCards = computed(() => {
-    const storyContent = story.value?.content.body.find(
+    const storyContent = story.value?.content?.body?.find(
       (story: ContentType) => story?.id === 'project-cards-container'
     );
     const { contents, containerData } = transformData(storyContent);
@@ -79,7 +89,7 @@
 </script>
 
 <template>
-  <div class="grid grid-cols-12 bg-stone-900">
+  <div v-if="story?.content" class="grid grid-cols-12 bg-stone-900">
     <HeroSection :blok="heroContent" />
     <SphereContainer id="vertical-slider" />
     <VerticalSlideSection :blok="verticalSlides?.contents" />
@@ -108,4 +118,5 @@
       <CardList :contents="projectCards.contents" class="mt-8" />
     </SectionContainer>
   </div>
+  <div v-else />
 </template>

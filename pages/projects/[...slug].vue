@@ -8,7 +8,7 @@
   const projectId = route.params?.slug[0] as string;
 
   const story = await useAsyncStoryblok(`components/cards/${projectId}`, {
-    version: 'draft',
+    version: 'published',
   });
 
   useHead({

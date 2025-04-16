@@ -55,7 +55,7 @@
             trigger: `#${props.triggerId}`,
             start: 'top center',
             end: 'top bottom-=10%',
-            toggleActions: 'play none reverse none',
+            toggleActions: 'play none none none',
           },
           autoAlpha: 1,
           x: 0,
