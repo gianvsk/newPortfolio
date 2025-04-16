@@ -42,6 +42,31 @@
     theme,
     fillSvgColor,
   });
+
+  onMounted(() => {
+    if (props.triggerId && window.innerWidth > 1279) {
+      console.log('trigger', props.triggerId);
+      const { $gsap } = useNuxtApp();
+
+      $gsap.fromTo(
+        `#${props.triggerId} #section-container-title, #section-container-subtitle`,
+        { autoAlpha: 0, x: -500, wordSpacing: 50 },
+        {
+          scrollTrigger: {
+            trigger: `#${props.triggerId}`,
+            start: 'top center',
+            end: 'top bottom-=10%',
+            toggleActions: 'play none reverse none',
+          },
+          autoAlpha: 1,
+          x: 0,
+          ease: 'power2.inOut',
+          wordSpacing: 1,
+          duration: 1,
+        }
+      );
+    }
+  });
 </script>
 
 <template>
@@ -59,6 +84,7 @@
       <div class="flex flex-col gap-8">
         <h2
           v-if="containerHeader?.title"
+          id="section-container-title"
           class="font-mont font-medium text-2xl xl:text-4xl 3xl:text-6xl uppercase lg:max-w-none"
           :class="theme.title"
         >
@@ -66,6 +92,7 @@
         </h2>
         <span
           v-if="containerHeader?.subtitle"
+          id="section-container-subtitle"
           class="text-md font-mont font-medium text-md xl:text-2xl 3xl:text-3xl"
           :class="theme?.description"
         >
