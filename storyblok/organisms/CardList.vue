@@ -10,7 +10,7 @@
       <li
         v-for="blok in contents"
         :key="blok?.content.id"
-        class="col-span-12 lg:col-start-1 lg:col-span-6"
+        class="col-span-12 xl:col-start-1 xl:col-span-6"
       >
         <StoryblokComponent v-if="blok" :blok="blok.content" />
       </li>

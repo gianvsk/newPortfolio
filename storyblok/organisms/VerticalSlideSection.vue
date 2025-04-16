@@ -32,11 +32,6 @@
             end: `bottom+=${slideHeight * verticalSlideElements.length} bottom`,
             scrub: true,
             pin: true,
-            /*             onEnter: elem => elem.animation?.restart(),
-            onToggle: elem => elem.isActive && elem.animation?.restart(), */
-            onEnterBack: () => ScrollTrigger.refresh(),
-            /*             onEnter: eleme => eleme.animation?.restart(), */
-            /*             onLeave: elem => elem.animation?.restart(), */
             snap: { snapTo: 1 / verticalSlideElements.length, duration: 2 },
           },
         });
@@ -69,6 +64,8 @@
                 i > 0
                   ? props.blok?.[i - 1]?.content.title
                   : props.blok?.[i]?.content.title,
+              wordSpacing: 200,
+              x: 500,
             },
             {
               scrollTrigger: {
@@ -80,6 +77,9 @@
               color: nextColor ?? '',
               text: props.blok?.[i]?.content.title,
               opacity: 1,
+              wordSpacing: 1,
+              x: 0,
+              toggleActions: 'play none reverse none',
             }
           );
         });
@@ -109,7 +109,7 @@
       v-for="singleStory in blok"
       :key="singleStory.content._uid"
       :blok="singleStory?.content"
-      class="xl:absolute xl:inset-0"
+      class="h-screen xl:h-full xl:absolute xl:inset-0"
     />
   </SectionContainer>
 </template>

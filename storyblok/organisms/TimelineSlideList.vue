@@ -29,8 +29,8 @@
   onMounted(() => {
     $gsap.matchMedia().add(
       {
-        isMobile: '(max-width: 767px)',
-        isDesktop: '(min-width: 768px)',
+        isMobile: '(max-width: 1023px)',
+        isDesktop: '(min-width: 1024px)',
       },
       (context: gsap.Context) => {
         if (!context.conditions) return;
@@ -41,18 +41,15 @@
           '#career-section'
         ) as HTMLElement[];
 
-        const multiplier = isMobile ? 4 : 3.25;
+        const multiplier = isMobile ? 3.5 : 3.25;
 
         $gsap.to('#career', {
           scrollTrigger: {
             trigger: '#career',
-            start: 'top top',
+            start: isMobile ? 'top top' : 'top top',
             end: `top+=${window.innerHeight * experienceSlides.length * multiplier} bottom`,
             pin: true,
             scrub: true,
-            onLeave: elem => {
-              elem.animation?.pause();
-            },
           },
           ease: 'none',
         });

@@ -44,7 +44,9 @@
     :data-color="dataColor"
     :data-bg-color="dataBgColor"
   >
-    <div class="w-full h-[90dvh] xl:h-[95%] 2xl:h-full xl:pt-5 overflow-hidden">
+    <div
+      class="w-full h-[90dvh] xl:h-[95%] 2xl:h-full 3xl:h-[80vh] xl:pt-5 overflow-hidden"
+    >
       <div
         class="px-4 w-full h-full flex flex-col justify-start xl:flex-row xl:gap-x-10 w md:portrait:flex-col md:portrait:gap-8 md:px-5 md:pb-6 lg:px-10 xl:px-[101.6px]"
         :class="{
@@ -53,7 +55,7 @@
         }"
       >
         <h2
-          class="font-mont font-semibold text-2xl xl:hidden md:text-4xl md:portrait:text-4xl xl:text-4xl 2xl:text-4xl 3xl:text-6xl uppercase md:max-w-[80%] lg:max-w-none text-black"
+          class="font-mont font-semibold text-2xl mb-3 xl:mb-0 xl:hidden md:text-4xl md:portrait:text-4xl xl:text-4xl 2xl:text-4xl 3xl:text-6xl uppercase md:max-w-[80%] lg:max-w-none text-black"
           :class="dataColorClass"
         >
           {{ blok.title }}

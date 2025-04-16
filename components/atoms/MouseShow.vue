@@ -1,7 +1,7 @@
 <script setup lang="ts">
   const state = ref(false);
   const createChild = () => {
-    if (window.innerWidth < 1024) return;
+    if (window.innerWidth < 1280) return;
     state.value = true;
   };
 

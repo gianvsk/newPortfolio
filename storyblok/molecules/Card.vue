@@ -44,11 +44,11 @@
         provider="storyblok"
         width="800"
         height="800"
-        sizes="100vw md:50vw"
+        sizes="100% md:50vw"
         class="w-full h-full border overflow-hidden rounded-full object-cover"
         :img-attrs="{
           class:
-            'w-full h-full scale-[4] aspect-square will-change-transform translate-y-[150px] -translate-x-[80px] md:translate-y-0 object-center aspect-square md:translate-x-0 md:scale-100 md:group-hover:scale-[4] md:group-hover:-translate-x-[80px] md:group-hover:translate-y-[150px] md:duration-300 3xl:group-hover:-translate-x-[120px] 3xl:group-hover:translate-y-[200px] z-2',
+            'w-full h-full scale-[2.5] aspect-square will-change-transform translate-y-[80px] -translate-x-[50px] md:translate-y-0 object-center aspect-square md:translate-x-0 md:scale-100 md:group-hover:scale-[4] md:group-hover:-translate-x-[80px] md:group-hover:translate-y-[150px] md:duration-300 3xl:group-hover:-translate-x-[120px] 3xl:group-hover:translate-y-[200px] z-2',
         }"
         format="webp"
       />

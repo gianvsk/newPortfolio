@@ -1,38 +1,18 @@
 <script setup lang="ts">
   import type { HeaderContainerProps } from './HeaderContainer.props';
-
   const modal = ref(false);
 
-  const openModal = () => (modal.value = !modal.value);
-
-  const closeModal = () => {
-    const element = document.getElementById('modal') as HTMLElement;
-    if (element) {
-      element.classList.remove('animate-show-up');
-      element.classList.add('animate-show-down');
-      setTimeout(() => {
-        modal.value = !modal.value;
-      }, 300);
-    }
-  };
-
-  const closeModalOnClickOutside = (event: MouseEvent) => {
-    const element = document.querySelector('#modal-overlay');
-    if (!element?.contains(event.target as Node)) {
-      closeModal();
-    }
+  const toggleOrCloseModal = (value?: 'toggle') => {
+    modal.value = value === 'toggle' ? !modal.value : false;
   };
 
   defineProps<HeaderContainerProps>();
 </script>
 
 <template>
-  <nav
-    id="navbar"
-    class="hidden xl:block bg-stone-900 rounded-full h-[32px] 3xl:h-[54px] overflow-hidden shadow-[0_0_0_1px_white] hover:border-black hover:border"
-  >
+  <nav id="navbar">
     <ul
-      class="hidden md:flex md:items-center md:flex-1 h-full md:justify-center"
+      class="hidden xl:flex items-center justify-center h-[32px] 3xl:h-[54px] bg-stone-900 rounded-full shadow-[0_0_0_1px_white] overflow-hidden"
     >
       <li
         v-for="link in blok.links"
@@ -45,58 +25,51 @@
         />
       </li>
     </ul>
-    <!-- mobile menu hidden at the moment, use flex when edit this -->
-    <div class="hidden gap-8 items-center justify-between z-[9999]">
-      <div />
+
+    <div class="fixed right-5 top-6 xl:hidden items-center justify-end">
       <button
-        class="flex relative before:border-2 before:border-white px-[2px] before:rounded-md before:content-[''] before:absolute before:inset-0 before:opacity-0 before:duration-300 hover:before:opacity-100 cursor-pointer"
+        class="z-50"
         aria-label="navigation-menu"
-        @click="openModal"
+        :disabled="modal"
+        @click="toggleOrCloseModal('toggle')"
       >
         <IconsBurgherMenu class="w-8 h-8 text-white" :font-controlled="false" />
       </button>
     </div>
+
     <div
       v-if="modal"
       id="modal"
-      class="fixed inset-0 animate-show-up"
-      @click="closeModalOnClickOutside"
+      class="fixed top-0 left-0 h-screen w-screen z-[9999] flex"
     >
       <div
         id="modal-overlay"
-        class="absolute inset-0 h-full py-6 px-10 w-3/4 bg-black z-[9999]"
+        class="relative bg-neutral-900 backdrop-blur-md transition-all w-4/5 max-w-xs h-full p-6 shadow-2xl flex flex-col justify-between"
+        :class="[modal ? 'opacity-100' : 'opacity-0']"
+        @click.self="toggleOrCloseModal"
       >
-        <div class="flex justify-between items-start w-full">
-          <div class="flex flex-col gap-8 h-min">
-            <StoryblokComponent
-              v-for="link in blok.links"
-              :key="link.content.link._uid"
-              :blok="link.content"
-              class="text-gray-400 font-mont text-3xl w-min hover:text-white hover:scale-125 hover:duration-300 relative before:content-[''] before:bg-amber-300 before:absolute before:bottom-0 before:left-0 before:right-0 before:h-[2px] before:w-0 hover:before:w-full before:duration-300"
-            />
-          </div>
-          <button
-            class="border-2 rounded-full border-gray-400 p-1 hover:border-white hover:animate-small-rotation cursor-pointer"
-            aria-label="close-navigation-menu"
-            @click="closeModal"
-          >
-            <IconsClose
-              class="w-6 h-6 text-gray-400 hover:text-white"
-              :font-controlled="false"
-            />
-          </button>
+        <div class="flex flex-col gap-8 pt-4">
+          <StoryblokComponent
+            v-for="link in blok.links"
+            v-show="modal"
+            :key="link.content.link._uid"
+            :blok="link.content"
+            class="text-white w-min"
+          />
         </div>
+
+        <button
+          class="absolute top-4 right-4 border border-white rounded-full p-2 hover:rotate-90 duration-300"
+          @click.stop="toggleOrCloseModal('toggle')"
+        >
+          <IconsClose class="w-5 h-5 text-white" :font-controlled="false" />
+        </button>
       </div>
+
       <div
-        class="absolute top-0 left-0 w-screen h-screen z-10 bg-black opacity-50"
+        class="flex-1 bg-neutral-900 opacity-40"
+        @click.self="toggleOrCloseModal"
       />
     </div>
   </nav>
 </template>
-
-<style scoped lang="scss">
-  .box-shadow-light {
-    box-shadow: 0 0 3px rgba(255, 255, 255, 1);
-    box-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
-  }
-</style>

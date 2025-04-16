@@ -15,7 +15,7 @@
 
   const currentClass = computed(() =>
     props.blok.isBlur
-      ? 'text-white text-center md:text-lg font-light backdrop-blur-sm backdrop-opacity-90 backdrop-brightness-150 px-2 py-1 md:px-4 md:py-2 duration-300 hover:shadow-[0_0_0_1px_white] hover:bg-stone-900 hover:scale-110'
+      ? 'text-white text-center md:text-lg font-light backdrop-blur-sm backdrop-opacity-90 backdrop-brightness-150 px-2 py-1 md:px-4 md:py-2 duration-300 hover:shadow-[0_0_0_1px_white] hover:bg-stone-900 xl:hover:scale-110'
       : 'relative z-[10] before:absolute before:z-[11] before:opacity-0 before:inset-0 before:rounded-full before:transition-all before:duration-300'
   );
 </script>
@@ -31,7 +31,7 @@
   >
     <span
       v-if="!blok.hideLabel"
-      class="text-sm md:text-md xl:text-lg 3xl:text-2xl"
+      class="text-sm md:text-md xl:text-lg 3xl:text-2xl touch"
     >
       {{ blok.label }}
     </span>
@@ -47,7 +47,7 @@
   </NuxtLink>
 </template>
 
-<style lang="scss" scoped>
+<style scoped lang="scss">
   .box-shadow-sm {
     &:before {
       box-shadow:

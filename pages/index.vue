@@ -87,7 +87,8 @@
     <SectionContainer
       v-if="timelineSlides"
       id="career"
-      class="h-screen overflow-hidden"
+      trigger-id="career"
+      class="h-[100vh] xl:h-screen overflow-hidden"
       :container-header="timelineSlides.containerData"
       is-justify-start
     >
@@ -100,6 +101,7 @@
     <SectionContainer
       v-if="projectCards"
       id="projects"
+      trigger-id="projects"
       class="overflow-visible"
       :container-header="projectCards.containerData"
     >

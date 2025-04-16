@@ -38,7 +38,7 @@
 
   onMounted(() => {
     const cursorDiv = document.querySelector<HTMLElement>('.custom-cursor');
-    if (cursorDiv || window.innerWidth < 1024) return;
+    if (cursorDiv || window.innerWidth < 1280) return;
     const cursor = document.createElement('div');
     cursor.classList.add('custom-cursor');
     document.body.appendChild(cursor);
@@ -69,7 +69,7 @@
             :alt="blok.image.alt"
             loading="lazy"
             sizes="sm:100vw md:50vw lg:33vw"
-            class="lg:hidden object-cover object-left-top w-full md:max-h-[400px] lg:max-h-none"
+            class="xl:hidden object-cover object-left-top w-full md:max-h-[400px] lg:max-h-none"
           />
           <div class="flex flex-col md:h-full">
             <h3
@@ -125,11 +125,7 @@
     pointer-events: none;
   }
 
-  @screen md {
-    :root {
-      --container-height: 250px;
-    }
-
+  @screen xl {
     .animate-show-in {
       animation: show-in 1.5s ease-in-out forwards;
     }
@@ -137,29 +133,9 @@
     .animate-child-show-in {
       animation: child-show-in 1.5s ease-in forwards;
     }
-  }
 
-  @screen lg {
-    :root {
-      --container-height: 350px;
-    }
-  }
-
-  @screen xl {
-    :root {
-      --container-height: 450px;
-    }
-  }
-
-  @screen 2xl {
-    :root {
-      --container-height: 350px;
-    }
-  }
-
-  @screen 3xl {
-    :root {
-      --container-height: 600px;
+    .animate-show-up {
+      animation: show-up 0.5s ease-in-out forwards;
     }
   }
 
@@ -202,6 +178,17 @@
       opacity: 0;
     }
     100% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes show-up {
+    0% {
+      width: 0;
+      opacity: 0;
+    }
+    100% {
+      width: 100%;
       opacity: 1;
     }
   }
