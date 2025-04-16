@@ -23,6 +23,7 @@
     "eslint": "^9.19.0",
     "gsap": "^3.12.7",
     "lenis": "^1.1.20",
+    "netlify-plugin-minify-html": "^0.3.1",
     "nodemailer": "^6.10.0",
     "nuxt": "^3.15.4",
     "nuxt-svgo": "^4.0.14",
@@ -42,4 +43,3 @@
     "typescript": "^5.7.3"
   }
 }
-
