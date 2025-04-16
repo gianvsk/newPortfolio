@@ -32,7 +32,12 @@
             end: `bottom+=${slideHeight * verticalSlideElements.length} bottom`,
             scrub: true,
             pin: true,
-            snap: { snapTo: 1 / verticalSlideElements.length, duration: 2 },
+            // 0.001 has been added to have a more precise snap, in order to trigger
+            // the #experience element animation onEnterBack
+            snap: {
+              snapTo: 1 / verticalSlideElements.length - 0.001,
+              duration: 2,
+            },
           },
         });
 
@@ -65,7 +70,7 @@
                   ? props.blok?.[i - 1]?.content.title
                   : props.blok?.[i]?.content.title,
               wordSpacing: 200,
-              x: 500,
+              x: 400,
             },
             {
               scrollTrigger: {
@@ -73,13 +78,11 @@
                 start: `top+=${slideHeight * (i - 1)} top`,
                 end: `bottom+=${slideHeight * i} bottom`,
                 scrub: true,
+
                 onEnterBack: () => {
                   $gsap.fromTo(
                     '#experience',
-                    {
-                      x: 500,
-                      wordSpacing: 200,
-                    },
+                    { x: 400, wordSpacing: 200 },
                     {
                       x: 0,
                       wordSpacing: 1,
