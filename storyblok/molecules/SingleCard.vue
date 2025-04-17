@@ -53,17 +53,17 @@
 </script>
 
 <template>
-  <NuxtLink :to="`/projects/${blok.id}`">
+  <NuxtLink :to="`/projects/${blok.id}`" class="relative group">
     <LazyMouseShow
       v-slot="{ state, createChild, setChildPosition, removeChild }"
     >
       <article
-        class="relative px-5 py-4 h-full md:min-h-[300px] bg-white lg:p-8 hover:bg-black hover:shadow-[0_0_0_1px_white] xl:hover:scale-[1.05] xl:hover:rounded-xl group duration-500 lg:cursor-none"
+        class="px-5 py-4 h-full md:min-h-[300px] bg-white lg:p-8 hover:bg-black hover:shadow-[0_0_0_1px_white] xl:hover:scale-[1.05] xl:hover:rounded-xl duration-500 xl:cursor-none"
         @mouseenter="changeCursor(createChild)"
         @mousemove="updateCursorPosition($event, setChildPosition, blok.id)"
         @mouseleave="removeCursor(removeChild, state)"
       >
-        <div class="flex flex-col gap-8 md:h-full">
+        <div class="flex flex-col xl:block gap-8 md:h-full">
           <NuxtImg
             :src="blok.image.filename"
             :alt="blok.image.alt"
@@ -91,30 +91,26 @@
             </p>
           </div>
         </div>
-        <div
-          :id="blok.id"
-          class="absolute pointer-events-none z-50 aspect-video h-full w-full animate-show-in"
-          :class="[state ? 'xl:flex' : 'hidden']"
-        >
-          <NuxtImg
-            :src="blok.image.filename"
-            :alt="blok.image.alt"
-            loading="lazy"
-            provider="storyblok"
-            sizes="sm:100vw md:100vw"
-            class="animate-child-show-in w-full h-full 3xl:h-[150%]"
-          />
-        </div>
       </article>
+      <div
+        :id="blok.id"
+        class="absolute pointer-events-none z-50 aspect-video h-full w-full animate-show-in"
+        :class="[state ? 'xl:block' : 'hidden']"
+      >
+        <NuxtImg
+          :src="blok.image.filename"
+          :alt="blok.image.alt"
+          loading="lazy"
+          provider="storyblok"
+          sizes="sm:100vw md:50vw"
+          class="animate-child-show-in w-full h-full 3xl:h-[150%]"
+        />
+      </div>
     </LazyMouseShow>
   </NuxtLink>
 </template>
 
 <style lang="scss">
-  :root {
-    --container-height: 200px;
-  }
-
   .custom-cursor {
     position: fixed;
     width: 15px;
@@ -132,10 +128,6 @@
 
     .animate-child-show-in {
       animation: child-show-in 1.5s ease-in forwards;
-    }
-
-    .animate-show-up {
-      animation: show-up 0.5s ease-in-out forwards;
     }
   }
 
@@ -178,17 +170,6 @@
       opacity: 0;
     }
     100% {
-      opacity: 1;
-    }
-  }
-
-  @keyframes show-up {
-    0% {
-      width: 0;
-      opacity: 0;
-    }
-    100% {
-      width: 100%;
       opacity: 1;
     }
   }
