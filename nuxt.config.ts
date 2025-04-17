@@ -43,7 +43,7 @@ export default defineNuxtConfig({
 
   storyblok: {
     accessToken:
-      process.env.iS_PRODUCTION === 'true'
+      process.env.IS_PRODUCTION === 'true'
         ? process.env.STORYBLOK_ACCESS_TOKEN_PUBLIC
         : process.env.STORYBLOK_ACCESS_TOKEN,
     bridge: true,
