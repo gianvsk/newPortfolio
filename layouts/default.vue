@@ -20,13 +20,10 @@
   <div class="w-screen flex flex-col overflow-hidden relative bg-stone-900">
     <div class="flex flex-col col-start-1 col-span-12">
       <header
-        v-if="headerStory"
+        v-if="headerStory?.content"
         class="fixed xl:top-[30px] xl:left-1/2 xl:-translate-x-1/2 z-[100] xl:rounded-full"
       >
-        <StoryblokComponent
-          v-if="headerStory?.content"
-          :blok="headerStory.content"
-        />
+        <StoryblokComponent :blok="headerStory.content" />
       </header>
     </div>
     <slot />

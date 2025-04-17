@@ -2,6 +2,7 @@
   import type { SingleCardContentType } from '~/storyblok/organisms/CardList.props';
   import type { TimelineContentType } from '~/storyblok/organisms/TimelineSlideList.props';
   import type { SectionContainerHeaderType } from '~/components/organisms/SectionContainer.props';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
   const story = await useAsyncStoryblok('homepage', {
     version: 'published',
@@ -19,18 +20,19 @@
 
   useHead({
     title:
-      story.value.content?.metaTitle ?? 'Gianvito Scandurra Portfolio Homepage',
+      story.value?.content?.metaTitle ??
+      'Gianvito Scandurra Portfolio Homepage',
     meta: [
       {
         name: 'description',
         content:
-          story.value.content?.metaDescription ??
+          story.value?.content?.metaDescription ??
           'This is Gianvito Scandurra new portfolio homepage. You will find all the infos about the author, skills and projects.',
       },
       {
         property: 'og:title',
         content:
-          story.value.content?.metaTitle ??
+          story.value?.content?.metaTitle ??
           'Gianvito Scandurra Portfolio Homepage',
       },
       { property: 'og:image', content: `${path}/logoDev.png` },
@@ -90,6 +92,12 @@
       containerData,
     };
   });
+
+  onUnmounted(() => {
+    ScrollTrigger.getAll().forEach(trigger => {
+      trigger.kill(true);
+    });
+  });
 </script>
 
 <template>
@@ -122,5 +130,4 @@
       <CardList :contents="projectCards.contents" class="mt-8" />
     </SectionContainer>
   </div>
-  <div v-else />
 </template>
