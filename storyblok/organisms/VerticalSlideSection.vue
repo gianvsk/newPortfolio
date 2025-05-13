@@ -126,11 +126,13 @@
       </div>
     </template>
 
-    <StoryblokComponent
-      v-for="singleStory in blok"
-      :key="singleStory.content._uid"
-      :blok="singleStory?.content"
-      class="h-screen xl:h-full xl:absolute xl:inset-0"
-    />
+    <template v-for="singleStory in blok">
+      <StoryblokComponent
+        v-if="singleStory?.content"
+        :key="singleStory.content?._uid"
+        :blok="singleStory.content"
+        class="h-screen xl:h-full xl:absolute xl:inset-0"
+      />
+    </template>
   </SectionContainer>
 </template>

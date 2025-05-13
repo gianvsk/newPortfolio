@@ -29,36 +29,6 @@ html body {
   animation-play-state: running;
 }
 
-:root {
-  --grid-padding: 30px;
-}
-
-@keyframes show-up {
-  0% {
-    transform: rotate(30deg);
-    height: 0;
-  }
-  30% {
-    transform: rotate(90deg);
-    transform: translate(-100px, 0);
-  }
-  100% {
-    height: 100vh;
-  }
-}
-
-@keyframes show-down {
-  0% {
-    height: 100vh;
-  }
-  60% {
-    height: 80vh;
-  }
-  100% {
-    height: 0;
-  }
-}
-
 @keyframes small-rotation {
   0% {
     transform: rotate(0);

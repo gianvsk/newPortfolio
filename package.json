@@ -8,7 +8,8 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "clean": "rm -rf node_modules bun.lockb"
+    "clean": "rm -rf node_modules bun.lockb",
+    "commit": "bun scripts/generate-commit-message.js"
   },
   "dependencies": {
     "@formkit/nuxt": "^1.6.9",
@@ -43,3 +44,4 @@
     "typescript": "^5.7.3"
   }
 }
+

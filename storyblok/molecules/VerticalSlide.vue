@@ -6,8 +6,8 @@
   const { getDefaultResolver, getParagraphOnlyResolver } = useResolver();
 
   const textStyle = {
-    h3: 'text-lg md:my-4 md:portrait:text-3xl lg:text-xl xl:text-2xl 3xl:text-4xl font-bold mb-2 md:portrait:my-6 2xl:my-8',
-    h4: 'text-md  md:portrait:text-xl lg:text-lg xl:text-xl 3xl:text-2xl font-bold mb-2 md:portrait:mb-4 xl:mb-4 2xl:mb-8',
+    h3: 'text-lg my-2 md:my-4 md:portrait:text-3xl lg:text-xl xl:text-2xl 3xl:text-4xl font-bold md:portrait:my-6 2xl:my-8',
+    h4: 'text-md my-2 md:portrait:text-xl lg:text-lg xl:text-xl 3xl:text-2xl font-bold mb-2 md:portrait:mb-4 xl:mt-8 xl:mb-4 2xl:mb-8',
     p: 'text-xs md:text-sm md:portrait:text-lg lg:text-md xl:text-lg 3xl:text-2xl',
   };
 

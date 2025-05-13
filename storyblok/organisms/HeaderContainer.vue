@@ -11,7 +11,10 @@
 </script>
 
 <template>
-  <nav id="navbar">
+  <nav
+    id="navbar"
+    class="relative w-full flex justify-end lg:justify-center px-4 pt-7"
+  >
     <ul
       class="hidden xl:flex items-center justify-center h-[32px] 3xl:h-[54px] bg-stone-900 rounded-full shadow-[0_0_0_1px_white] overflow-hidden"
     >
@@ -27,14 +30,19 @@
       </li>
     </ul>
 
-    <div class="fixed right-5 top-6 xl:hidden items-center justify-end">
+    <div
+      class="xl:hidden flex items-center justify-center rounded-md px-2 backdrop:blur-sm backdrop:brightness-150 bg-slate-700/50"
+    >
       <button
-        class="z-50"
+        class="z-50 shrink-0"
         aria-label="navigation-menu"
         :disabled="modal"
         @click="toggleOrCloseModal('toggle')"
       >
-        <IconsBurgherMenu class="w-8 h-8 text-white" :font-controlled="false" />
+        <IconsBurgherMenu
+          class="w-8 h-8 text-zinc-400"
+          :font-controlled="false"
+        />
       </button>
     </div>
 
